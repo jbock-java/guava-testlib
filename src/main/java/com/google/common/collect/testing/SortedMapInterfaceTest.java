@@ -16,7 +16,6 @@
 
 package com.google.common.collect.testing;
 
-import com.google.common.annotations.GwtCompatible;
 import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.SortedMap;
@@ -28,101 +27,100 @@ import java.util.SortedMap;
  * @author Jared Levy
  */
 // TODO: Use this class to test classes besides ImmutableSortedMap.
-@GwtCompatible
 public abstract class SortedMapInterfaceTest<K, V> extends MapInterfaceTest<K, V> {
 
-  protected SortedMapInterfaceTest(
-      boolean allowsNullKeys,
-      boolean allowsNullValues,
-      boolean supportsPut,
-      boolean supportsRemove,
-      boolean supportsClear) {
-    super(allowsNullKeys, allowsNullValues, supportsPut, supportsRemove, supportsClear);
-  }
+    protected SortedMapInterfaceTest(
+            boolean allowsNullKeys,
+            boolean allowsNullValues,
+            boolean supportsPut,
+            boolean supportsRemove,
+            boolean supportsClear) {
+        super(allowsNullKeys, allowsNullValues, supportsPut, supportsRemove, supportsClear);
+    }
 
-  @Override
-  protected abstract SortedMap<K, V> makeEmptyMap() throws UnsupportedOperationException;
+    @Override
+    protected abstract SortedMap<K, V> makeEmptyMap() throws UnsupportedOperationException;
 
-  @Override
-  protected abstract SortedMap<K, V> makePopulatedMap() throws UnsupportedOperationException;
+    @Override
+    protected abstract SortedMap<K, V> makePopulatedMap() throws UnsupportedOperationException;
 
-  @Override
-  protected SortedMap<K, V> makeEitherMap() {
-    try {
-      return makePopulatedMap();
-    } catch (UnsupportedOperationException e) {
-      return makeEmptyMap();
+    @Override
+    protected SortedMap<K, V> makeEitherMap() {
+        try {
+            return makePopulatedMap();
+        } catch (UnsupportedOperationException e) {
+            return makeEmptyMap();
+        }
     }
-  }
 
-  public void testTailMapWriteThrough() {
-    SortedMap<K, V> map;
-    try {
-      map = makePopulatedMap();
-    } catch (UnsupportedOperationException e) {
-      return;
+    public void testTailMapWriteThrough() {
+        SortedMap<K, V> map;
+        try {
+            map = makePopulatedMap();
+        } catch (UnsupportedOperationException e) {
+            return;
+        }
+        if (map.size() < 2 || !supportsPut) {
+            return;
+        }
+        Iterator<Entry<K, V>> iterator = map.entrySet().iterator();
+        Entry<K, V> firstEntry = iterator.next();
+        Entry<K, V> secondEntry = iterator.next();
+        K key = secondEntry.getKey();
+        SortedMap<K, V> subMap = map.tailMap(key);
+        V value = getValueNotInPopulatedMap();
+        subMap.put(key, value);
+        assertEquals(secondEntry.getValue(), value);
+        assertEquals(map.get(key), value);
+        try {
+            subMap.put(firstEntry.getKey(), value);
+            fail("Expected IllegalArgumentException");
+        } catch (IllegalArgumentException expected) {
+        }
     }
-    if (map.size() < 2 || !supportsPut) {
-      return;
-    }
-    Iterator<Entry<K, V>> iterator = map.entrySet().iterator();
-    Entry<K, V> firstEntry = iterator.next();
-    Entry<K, V> secondEntry = iterator.next();
-    K key = secondEntry.getKey();
-    SortedMap<K, V> subMap = map.tailMap(key);
-    V value = getValueNotInPopulatedMap();
-    subMap.put(key, value);
-    assertEquals(secondEntry.getValue(), value);
-    assertEquals(map.get(key), value);
-    try {
-      subMap.put(firstEntry.getKey(), value);
-      fail("Expected IllegalArgumentException");
-    } catch (IllegalArgumentException expected) {
-    }
-  }
 
-  public void testTailMapRemoveThrough() {
-    SortedMap<K, V> map;
-    try {
-      map = makePopulatedMap();
-    } catch (UnsupportedOperationException e) {
-      return;
+    public void testTailMapRemoveThrough() {
+        SortedMap<K, V> map;
+        try {
+            map = makePopulatedMap();
+        } catch (UnsupportedOperationException e) {
+            return;
+        }
+        int oldSize = map.size();
+        if (map.size() < 2 || !supportsRemove) {
+            return;
+        }
+        Iterator<Entry<K, V>> iterator = map.entrySet().iterator();
+        Entry<K, V> firstEntry = iterator.next();
+        Entry<K, V> secondEntry = iterator.next();
+        K key = secondEntry.getKey();
+        SortedMap<K, V> subMap = map.tailMap(key);
+        subMap.remove(key);
+        assertNull(subMap.remove(firstEntry.getKey()));
+        assertEquals(map.size(), oldSize - 1);
+        assertFalse(map.containsKey(key));
+        assertEquals(subMap.size(), oldSize - 2);
     }
-    int oldSize = map.size();
-    if (map.size() < 2 || !supportsRemove) {
-      return;
-    }
-    Iterator<Entry<K, V>> iterator = map.entrySet().iterator();
-    Entry<K, V> firstEntry = iterator.next();
-    Entry<K, V> secondEntry = iterator.next();
-    K key = secondEntry.getKey();
-    SortedMap<K, V> subMap = map.tailMap(key);
-    subMap.remove(key);
-    assertNull(subMap.remove(firstEntry.getKey()));
-    assertEquals(map.size(), oldSize - 1);
-    assertFalse(map.containsKey(key));
-    assertEquals(subMap.size(), oldSize - 2);
-  }
 
-  public void testTailMapClearThrough() {
-    SortedMap<K, V> map;
-    try {
-      map = makePopulatedMap();
-    } catch (UnsupportedOperationException e) {
-      return;
+    public void testTailMapClearThrough() {
+        SortedMap<K, V> map;
+        try {
+            map = makePopulatedMap();
+        } catch (UnsupportedOperationException e) {
+            return;
+        }
+        int oldSize = map.size();
+        if (map.size() < 2 || !supportsClear) {
+            return;
+        }
+        Iterator<Entry<K, V>> iterator = map.entrySet().iterator();
+        iterator.next(); // advance
+        Entry<K, V> secondEntry = iterator.next();
+        K key = secondEntry.getKey();
+        SortedMap<K, V> subMap = map.tailMap(key);
+        int subMapSize = subMap.size();
+        subMap.clear();
+        assertEquals(map.size(), oldSize - subMapSize);
+        assertTrue(subMap.isEmpty());
     }
-    int oldSize = map.size();
-    if (map.size() < 2 || !supportsClear) {
-      return;
-    }
-    Iterator<Entry<K, V>> iterator = map.entrySet().iterator();
-    iterator.next(); // advance
-    Entry<K, V> secondEntry = iterator.next();
-    K key = secondEntry.getKey();
-    SortedMap<K, V> subMap = map.tailMap(key);
-    int subMapSize = subMap.size();
-    subMap.clear();
-    assertEquals(map.size(), oldSize - subMapSize);
-    assertTrue(subMap.isEmpty());
-  }
 }

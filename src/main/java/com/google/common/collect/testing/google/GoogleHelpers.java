@@ -16,24 +16,23 @@
 
 package com.google.common.collect.testing.google;
 
-import static junit.framework.Assert.fail;
-
-import com.google.common.annotations.GwtCompatible;
 import com.google.common.collect.Multimap;
+
+import static junit.framework.Assert.fail;
 
 /**
  * Helper methods/assertions for use with {@code com.google.common.collect} types.
  *
  * @author Colin Decker
  */
-@GwtCompatible
 final class GoogleHelpers {
 
-  private GoogleHelpers() {}
-
-  static void assertEmpty(Multimap<?, ?> multimap) {
-    if (!multimap.isEmpty()) {
-      fail("Not true that " + multimap + " is empty");
+    private GoogleHelpers() {
     }
-  }
+
+    static void assertEmpty(Multimap<?, ?> multimap) {
+        if (!multimap.isEmpty()) {
+            fail("Not true that " + multimap + " is empty");
+        }
+    }
 }

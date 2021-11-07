@@ -16,7 +16,6 @@
 
 package com.google.common.collect.testing;
 
-import com.google.common.annotations.GwtCompatible;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
@@ -46,40 +45,39 @@ import java.util.Iterator;
  *
  * @author Kevin Bourrillion
  */
-@GwtCompatible
 public final class MinimalIterable<E> implements Iterable<E> {
-  /** Returns an iterable whose iterator returns the given elements in order. */
-  public static <E> MinimalIterable<E> of(E... elements) {
-    // Make sure to get an unmodifiable iterator
-    return new MinimalIterable<>(Arrays.asList(elements).iterator());
-  }
-
-  /**
-   * Returns an iterable whose iterator returns the given elements in order. The elements are copied
-   * out of the source collection at the time this method is called.
-   */
-  @SuppressWarnings("unchecked") // Es come in, Es go out
-  public static <E> MinimalIterable<E> from(Collection<E> elements) {
-    return (MinimalIterable) of(elements.toArray());
-  }
-
-  private Iterator<E> iterator;
-
-  private MinimalIterable(Iterator<E> iterator) {
-    this.iterator = iterator;
-  }
-
-  @Override
-  public Iterator<E> iterator() {
-    if (iterator == null) {
-      // TODO: throw something else? Do we worry that people's code and tests
-      // might be relying on this particular type of exception?
-      throw new IllegalStateException();
+    /** Returns an iterable whose iterator returns the given elements in order. */
+    public static <E> MinimalIterable<E> of(E... elements) {
+        // Make sure to get an unmodifiable iterator
+        return new MinimalIterable<>(Arrays.asList(elements).iterator());
     }
-    try {
-      return iterator;
-    } finally {
-      iterator = null;
+
+    /**
+     * Returns an iterable whose iterator returns the given elements in order. The elements are copied
+     * out of the source collection at the time this method is called.
+     */
+    @SuppressWarnings("unchecked") // Es come in, Es go out
+    public static <E> MinimalIterable<E> from(Collection<E> elements) {
+        return (MinimalIterable) of(elements.toArray());
     }
-  }
+
+    private Iterator<E> iterator;
+
+    private MinimalIterable(Iterator<E> iterator) {
+        this.iterator = iterator;
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        if (iterator == null) {
+            // TODO: throw something else? Do we worry that people's code and tests
+            // might be relying on this particular type of exception?
+            throw new IllegalStateException();
+        }
+        try {
+            return iterator;
+        } finally {
+            iterator = null;
+        }
+    }
 }

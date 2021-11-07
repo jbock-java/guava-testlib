@@ -17,13 +17,13 @@
 package com.google.common.testing;
 
 import com.google.common.annotations.Beta;
-import com.google.common.annotations.GwtCompatible;
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Tests may use this to intercept messages that are logged by the code under test. Example:
@@ -53,37 +53,38 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @since 10.0
  */
 @Beta
-@GwtCompatible
 public class TestLogHandler extends Handler {
-  /** We will keep a private list of all logged records */
-  private final List<LogRecord> list = new ArrayList<>();
+    /** We will keep a private list of all logged records */
+    private final List<LogRecord> list = new ArrayList<>();
 
-  /** Adds the most recently logged record to our list. */
-  @Override
-  public synchronized void publish(@Nullable LogRecord record) {
-    list.add(record);
-  }
+    /** Adds the most recently logged record to our list. */
+    @Override
+    public synchronized void publish(LogRecord record) {
+        list.add(record);
+    }
 
-  @Override
-  public void flush() {}
+    @Override
+    public void flush() {
+    }
 
-  @Override
-  public void close() {}
+    @Override
+    public void close() {
+    }
 
-  public synchronized void clear() {
-    list.clear();
-  }
+    public synchronized void clear() {
+        list.clear();
+    }
 
-  /** Returns a snapshot of the logged records. */
-  /*
-   * TODO(cpovirk): consider higher-level APIs here (say, assertNoRecordsLogged(),
-   * getOnlyRecordLogged(), getAndClearLogRecords()...)
-   *
-   * TODO(cpovirk): consider renaming this method to reflect that it takes a snapshot (and/or return
-   * an ImmutableList)
-   */
-  public synchronized List<LogRecord> getStoredLogRecords() {
-    List<LogRecord> result = new ArrayList<>(list);
-    return Collections.unmodifiableList(result);
-  }
+    /** Returns a snapshot of the logged records. */
+    /*
+     * TODO(cpovirk): consider higher-level APIs here (say, assertNoRecordsLogged(),
+     * getOnlyRecordLogged(), getAndClearLogRecords()...)
+     *
+     * TODO(cpovirk): consider renaming this method to reflect that it takes a snapshot (and/or return
+     * an ImmutableList)
+     */
+    public synchronized List<LogRecord> getStoredLogRecords() {
+        List<LogRecord> result = new ArrayList<>(list);
+        return Collections.unmodifiableList(result);
+    }
 }

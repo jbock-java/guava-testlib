@@ -16,7 +16,6 @@
 
 package com.google.common.collect.testing.testers;
 
-import com.google.common.annotations.GwtCompatible;
 import com.google.common.collect.testing.AbstractCollectionTester;
 import org.junit.Ignore;
 
@@ -26,10 +25,9 @@ import org.junit.Ignore;
  *
  * @author Kevin Bourrillion
  */
-@GwtCompatible
 @Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class CollectionSizeTester<E> extends AbstractCollectionTester<E> {
-  public void testSize() {
-    assertEquals("size():", getNumElements(), collection.size());
-  }
+    public void testSize() {
+        assertEquals("size():", getNumElements(), collection.size());
+    }
 }

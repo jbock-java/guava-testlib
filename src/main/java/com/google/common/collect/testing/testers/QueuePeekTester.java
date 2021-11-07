@@ -16,15 +16,14 @@
 
 package com.google.common.collect.testing.testers;
 
+import com.google.common.collect.testing.features.CollectionFeature;
+import com.google.common.collect.testing.features.CollectionSize;
+import org.junit.Ignore;
+
 import static com.google.common.collect.testing.features.CollectionFeature.KNOWN_ORDER;
 import static com.google.common.collect.testing.features.CollectionSize.ONE;
 import static com.google.common.collect.testing.features.CollectionSize.SEVERAL;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
-
-import com.google.common.annotations.GwtCompatible;
-import com.google.common.collect.testing.features.CollectionFeature;
-import com.google.common.collect.testing.features.CollectionSize;
-import org.junit.Ignore;
 
 /**
  * A generic JUnit test which tests {@code peek()} operations on a queue. Can't be invoked directly;
@@ -32,25 +31,24 @@ import org.junit.Ignore;
  *
  * @author Jared Levy
  */
-@GwtCompatible
 @Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class QueuePeekTester<E> extends AbstractQueueTester<E> {
-  @CollectionSize.Require(ZERO)
-  public void testPeek_empty() {
-    assertNull("emptyQueue.peek() should return null", getQueue().peek());
-    expectUnchanged();
-  }
+    @CollectionSize.Require(ZERO)
+    public void testPeek_empty() {
+        assertNull("emptyQueue.peek() should return null", getQueue().peek());
+        expectUnchanged();
+    }
 
-  @CollectionSize.Require(ONE)
-  public void testPeek_size1() {
-    assertEquals("size1Queue.peek() should return first element", e0(), getQueue().peek());
-    expectUnchanged();
-  }
+    @CollectionSize.Require(ONE)
+    public void testPeek_size1() {
+        assertEquals("size1Queue.peek() should return first element", e0(), getQueue().peek());
+        expectUnchanged();
+    }
 
-  @CollectionFeature.Require(KNOWN_ORDER)
-  @CollectionSize.Require(SEVERAL)
-  public void testPeek_sizeMany() {
-    assertEquals("sizeManyQueue.peek() should return first element", e0(), getQueue().peek());
-    expectUnchanged();
-  }
+    @CollectionFeature.Require(KNOWN_ORDER)
+    @CollectionSize.Require(SEVERAL)
+    public void testPeek_sizeMany() {
+        assertEquals("sizeManyQueue.peek() should return first element", e0(), getQueue().peek());
+        expectUnchanged();
+    }
 }

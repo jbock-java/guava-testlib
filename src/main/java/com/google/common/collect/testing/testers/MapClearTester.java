@@ -16,19 +16,19 @@
 
 package com.google.common.collect.testing.testers;
 
+import com.google.common.collect.testing.AbstractMapTester;
+import com.google.common.collect.testing.features.CollectionSize;
+import com.google.common.collect.testing.features.MapFeature;
+import org.junit.Ignore;
+
+import java.util.ConcurrentModificationException;
+import java.util.Iterator;
+import java.util.Map.Entry;
+
 import static com.google.common.collect.testing.features.CollectionSize.SEVERAL;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
 import static com.google.common.collect.testing.features.MapFeature.FAILS_FAST_ON_CONCURRENT_MODIFICATION;
 import static com.google.common.collect.testing.features.MapFeature.SUPPORTS_REMOVE;
-
-import com.google.common.annotations.GwtCompatible;
-import com.google.common.collect.testing.AbstractMapTester;
-import com.google.common.collect.testing.features.CollectionSize;
-import com.google.common.collect.testing.features.MapFeature;
-import java.util.ConcurrentModificationException;
-import java.util.Iterator;
-import java.util.Map.Entry;
-import org.junit.Ignore;
 
 /**
  * A generic JUnit test which tests {@code clear()} operations on a map. Can't be invoked directly;
@@ -37,76 +37,75 @@ import org.junit.Ignore;
  * @author George van den Driessche
  * @author Chris Povirk
  */
-@GwtCompatible
 @Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class MapClearTester<K, V> extends AbstractMapTester<K, V> {
-  @MapFeature.Require(SUPPORTS_REMOVE)
-  public void testClear() {
-    getMap().clear();
-    assertTrue("After clear(), a map should be empty.", getMap().isEmpty());
-    assertEquals(0, getMap().size());
-    assertFalse(getMap().entrySet().iterator().hasNext());
-  }
-
-  @MapFeature.Require({FAILS_FAST_ON_CONCURRENT_MODIFICATION, SUPPORTS_REMOVE})
-  @CollectionSize.Require(SEVERAL)
-  public void testClearConcurrentWithEntrySetIteration() {
-    try {
-      Iterator<Entry<K, V>> iterator = getMap().entrySet().iterator();
-      getMap().clear();
-      iterator.next();
-      fail("Expected ConcurrentModificationException");
-    } catch (ConcurrentModificationException expected) {
-      // success
+    @MapFeature.Require(SUPPORTS_REMOVE)
+    public void testClear() {
+        getMap().clear();
+        assertTrue("After clear(), a map should be empty.", getMap().isEmpty());
+        assertEquals(0, getMap().size());
+        assertFalse(getMap().entrySet().iterator().hasNext());
     }
-  }
 
-  @MapFeature.Require({FAILS_FAST_ON_CONCURRENT_MODIFICATION, SUPPORTS_REMOVE})
-  @CollectionSize.Require(SEVERAL)
-  public void testClearConcurrentWithKeySetIteration() {
-    try {
-      Iterator<K> iterator = getMap().keySet().iterator();
-      getMap().clear();
-      iterator.next();
-      fail("Expected ConcurrentModificationException");
-    } catch (ConcurrentModificationException expected) {
-      // success
+    @MapFeature.Require({FAILS_FAST_ON_CONCURRENT_MODIFICATION, SUPPORTS_REMOVE})
+    @CollectionSize.Require(SEVERAL)
+    public void testClearConcurrentWithEntrySetIteration() {
+        try {
+            Iterator<Entry<K, V>> iterator = getMap().entrySet().iterator();
+            getMap().clear();
+            iterator.next();
+            fail("Expected ConcurrentModificationException");
+        } catch (ConcurrentModificationException expected) {
+            // success
+        }
     }
-  }
 
-  @MapFeature.Require({FAILS_FAST_ON_CONCURRENT_MODIFICATION, SUPPORTS_REMOVE})
-  @CollectionSize.Require(SEVERAL)
-  public void testClearConcurrentWithValuesIteration() {
-    try {
-      Iterator<V> iterator = getMap().values().iterator();
-      getMap().clear();
-      iterator.next();
-      fail("Expected ConcurrentModificationException");
-    } catch (ConcurrentModificationException expected) {
-      // success
+    @MapFeature.Require({FAILS_FAST_ON_CONCURRENT_MODIFICATION, SUPPORTS_REMOVE})
+    @CollectionSize.Require(SEVERAL)
+    public void testClearConcurrentWithKeySetIteration() {
+        try {
+            Iterator<K> iterator = getMap().keySet().iterator();
+            getMap().clear();
+            iterator.next();
+            fail("Expected ConcurrentModificationException");
+        } catch (ConcurrentModificationException expected) {
+            // success
+        }
     }
-  }
 
-  @MapFeature.Require(absent = SUPPORTS_REMOVE)
-  @CollectionSize.Require(absent = ZERO)
-  public void testClear_unsupported() {
-    try {
-      getMap().clear();
-      fail(
-          "clear() should throw UnsupportedOperation if a map does "
-              + "not support it and is not empty.");
-    } catch (UnsupportedOperationException expected) {
+    @MapFeature.Require({FAILS_FAST_ON_CONCURRENT_MODIFICATION, SUPPORTS_REMOVE})
+    @CollectionSize.Require(SEVERAL)
+    public void testClearConcurrentWithValuesIteration() {
+        try {
+            Iterator<V> iterator = getMap().values().iterator();
+            getMap().clear();
+            iterator.next();
+            fail("Expected ConcurrentModificationException");
+        } catch (ConcurrentModificationException expected) {
+            // success
+        }
     }
-    expectUnchanged();
-  }
 
-  @MapFeature.Require(absent = SUPPORTS_REMOVE)
-  @CollectionSize.Require(ZERO)
-  public void testClear_unsupportedByEmptyCollection() {
-    try {
-      getMap().clear();
-    } catch (UnsupportedOperationException tolerated) {
+    @MapFeature.Require(absent = SUPPORTS_REMOVE)
+    @CollectionSize.Require(absent = ZERO)
+    public void testClear_unsupported() {
+        try {
+            getMap().clear();
+            fail(
+                    "clear() should throw UnsupportedOperation if a map does "
+                            + "not support it and is not empty.");
+        } catch (UnsupportedOperationException expected) {
+        }
+        expectUnchanged();
     }
-    expectUnchanged();
-  }
+
+    @MapFeature.Require(absent = SUPPORTS_REMOVE)
+    @CollectionSize.Require(ZERO)
+    public void testClear_unsupportedByEmptyCollection() {
+        try {
+            getMap().clear();
+        } catch (UnsupportedOperationException tolerated) {
+        }
+        expectUnchanged();
+    }
 }

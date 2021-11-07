@@ -16,7 +16,6 @@
 
 package com.google.common.collect.testing.testers;
 
-import com.google.common.annotations.GwtCompatible;
 import java.util.Locale;
 
 /**
@@ -24,23 +23,23 @@ import java.util.Locale;
  *
  * @author Hayward Chan
  */
-@GwtCompatible
 final class Platform {
 
-  /** Format the template with args, only supports the placeholder {@code %s}. */
-  static String format(String template, Object... args) {
-    return String.format(Locale.ROOT, template, args);
-  }
+    /** Format the template with args, only supports the placeholder {@code %s}. */
+    static String format(String template, Object... args) {
+        return String.format(Locale.ROOT, template, args);
+    }
 
-  /** See {@link ListListIteratorTester} */
-  static int listListIteratorTesterNumIterations() {
-    return 4;
-  }
+    /** See {@link ListListIteratorTester} */
+    static int listListIteratorTesterNumIterations() {
+        return 4;
+    }
 
-  /** See {@link CollectionIteratorTester} */
-  static int collectionIteratorTesterNumIterations() {
-    return 5;
-  }
+    /** See {@link CollectionIteratorTester} */
+    static int collectionIteratorTesterNumIterations() {
+        return 5;
+    }
 
-  private Platform() {}
+    private Platform() {
+    }
 }

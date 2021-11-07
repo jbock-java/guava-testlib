@@ -16,20 +16,21 @@
 
 package com.google.common.collect.testing.google;
 
-import static com.google.common.collect.testing.features.CollectionFeature.KNOWN_ORDER;
-
 import com.google.common.annotations.GwtCompatible;
 import com.google.common.annotations.GwtIncompatible;
 import com.google.common.collect.Multiset.Entry;
 import com.google.common.collect.Multisets;
 import com.google.common.collect.testing.Helpers;
 import com.google.common.collect.testing.features.CollectionFeature;
+import org.junit.Ignore;
+
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import org.junit.Ignore;
+
+import static com.google.common.collect.testing.features.CollectionFeature.KNOWN_ORDER;
 
 /**
  * Tests for {@code Multiset#forEachEntry}.
@@ -39,39 +40,39 @@ import org.junit.Ignore;
 @GwtCompatible(emulated = true)
 @Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class MultisetForEachEntryTester<E> extends AbstractMultisetTester<E> {
-  public void testForEachEntry() {
-    List<Entry<E>> expected = new ArrayList<>(getMultiset().entrySet());
-    List<Entry<E>> actual = new ArrayList<>();
-    getMultiset()
-        .forEachEntry((element, count) -> actual.add(Multisets.immutableEntry(element, count)));
-    Helpers.assertEqualIgnoringOrder(expected, actual);
-  }
+    public void testForEachEntry() {
+        List<Entry<E>> expected = new ArrayList<>(getMultiset().entrySet());
+        List<Entry<E>> actual = new ArrayList<>();
+        getMultiset()
+                .forEachEntry((element, count) -> actual.add(Multisets.immutableEntry(element, count)));
+        Helpers.assertEqualIgnoringOrder(expected, actual);
+    }
 
-  @CollectionFeature.Require(KNOWN_ORDER)
-  public void testForEachEntryOrdered() {
-    List<Entry<E>> expected = new ArrayList<>(getMultiset().entrySet());
-    List<Entry<E>> actual = new ArrayList<>();
-    getMultiset()
-        .forEachEntry((element, count) -> actual.add(Multisets.immutableEntry(element, count)));
-    assertEquals(expected, actual);
-  }
+    @CollectionFeature.Require(KNOWN_ORDER)
+    public void testForEachEntryOrdered() {
+        List<Entry<E>> expected = new ArrayList<>(getMultiset().entrySet());
+        List<Entry<E>> actual = new ArrayList<>();
+        getMultiset()
+                .forEachEntry((element, count) -> actual.add(Multisets.immutableEntry(element, count)));
+        assertEquals(expected, actual);
+    }
 
-  public void testForEachEntryDuplicates() {
-    initThreeCopies();
-    List<Entry<E>> expected = Collections.singletonList(Multisets.immutableEntry(e0(), 3));
-    List<Entry<E>> actual = new ArrayList<>();
-    getMultiset()
-        .forEachEntry((element, count) -> actual.add(Multisets.immutableEntry(element, count)));
-    assertEquals(expected, actual);
-  }
+    public void testForEachEntryDuplicates() {
+        initThreeCopies();
+        List<Entry<E>> expected = Collections.singletonList(Multisets.immutableEntry(e0(), 3));
+        List<Entry<E>> actual = new ArrayList<>();
+        getMultiset()
+                .forEachEntry((element, count) -> actual.add(Multisets.immutableEntry(element, count)));
+        assertEquals(expected, actual);
+    }
 
-  /**
-   * Returns {@link Method} instances for the remove tests that assume multisets support duplicates
-   * so that the test of {@code Multisets.forSet()} can suppress them.
-   */
-  @GwtIncompatible // reflection
-  public static List<Method> getForEachEntryDuplicateInitializingMethods() {
-    return Arrays.asList(
-        Helpers.getMethod(MultisetForEachEntryTester.class, "testForEachEntryDuplicates"));
-  }
+    /**
+     * Returns {@link Method} instances for the remove tests that assume multisets support duplicates
+     * so that the test of {@code Multisets.forSet()} can suppress them.
+     */
+    @GwtIncompatible // reflection
+    public static List<Method> getForEachEntryDuplicateInitializingMethods() {
+        return Arrays.asList(
+                Helpers.getMethod(MultisetForEachEntryTester.class, "testForEachEntryDuplicates"));
+    }
 }

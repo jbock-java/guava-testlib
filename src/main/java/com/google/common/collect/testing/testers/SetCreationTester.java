@@ -16,17 +16,17 @@
 
 package com.google.common.collect.testing.testers;
 
+import com.google.common.collect.testing.features.CollectionFeature;
+import com.google.common.collect.testing.features.CollectionSize;
+import org.junit.Ignore;
+
+import java.util.Arrays;
+import java.util.List;
+
 import static com.google.common.collect.testing.features.CollectionFeature.ALLOWS_NULL_VALUES;
 import static com.google.common.collect.testing.features.CollectionFeature.REJECTS_DUPLICATES_AT_CREATION;
 import static com.google.common.collect.testing.features.CollectionSize.ONE;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
-
-import com.google.common.annotations.GwtCompatible;
-import com.google.common.collect.testing.features.CollectionFeature;
-import com.google.common.collect.testing.features.CollectionSize;
-import java.util.Arrays;
-import java.util.List;
-import org.junit.Ignore;
 
 /**
  * A generic JUnit test which tests creation (typically through a constructor or static factory
@@ -35,52 +35,51 @@ import org.junit.Ignore;
  *
  * @author Chris Povirk
  */
-@GwtCompatible
 @Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class SetCreationTester<E> extends AbstractSetTester<E> {
-  @CollectionFeature.Require(value = ALLOWS_NULL_VALUES, absent = REJECTS_DUPLICATES_AT_CREATION)
-  @CollectionSize.Require(absent = {ZERO, ONE})
-  public void testCreateWithDuplicates_nullDuplicatesNotRejected() {
-    E[] array = createArrayWithNullElement();
-    array[0] = null;
-    collection = getSubjectGenerator().create(array);
+    @CollectionFeature.Require(value = ALLOWS_NULL_VALUES, absent = REJECTS_DUPLICATES_AT_CREATION)
+    @CollectionSize.Require(absent = {ZERO, ONE})
+    public void testCreateWithDuplicates_nullDuplicatesNotRejected() {
+        E[] array = createArrayWithNullElement();
+        array[0] = null;
+        collection = getSubjectGenerator().create(array);
 
-    List<E> expectedWithDuplicateRemoved = Arrays.asList(array).subList(1, getNumElements());
-    expectContents(expectedWithDuplicateRemoved);
-  }
-
-  @CollectionFeature.Require(absent = REJECTS_DUPLICATES_AT_CREATION)
-  @CollectionSize.Require(absent = {ZERO, ONE})
-  public void testCreateWithDuplicates_nonNullDuplicatesNotRejected() {
-    E[] array = createSamplesArray();
-    array[1] = e0();
-    collection = getSubjectGenerator().create(array);
-
-    List<E> expectedWithDuplicateRemoved = Arrays.asList(array).subList(1, getNumElements());
-    expectContents(expectedWithDuplicateRemoved);
-  }
-
-  @CollectionFeature.Require({ALLOWS_NULL_VALUES, REJECTS_DUPLICATES_AT_CREATION})
-  @CollectionSize.Require(absent = {ZERO, ONE})
-  public void testCreateWithDuplicates_nullDuplicatesRejected() {
-    E[] array = createArrayWithNullElement();
-    array[0] = null;
-    try {
-      collection = getSubjectGenerator().create(array);
-      fail("Should reject duplicate null elements at creation");
-    } catch (IllegalArgumentException expected) {
+        List<E> expectedWithDuplicateRemoved = Arrays.asList(array).subList(1, getNumElements());
+        expectContents(expectedWithDuplicateRemoved);
     }
-  }
 
-  @CollectionFeature.Require(REJECTS_DUPLICATES_AT_CREATION)
-  @CollectionSize.Require(absent = {ZERO, ONE})
-  public void testCreateWithDuplicates_nonNullDuplicatesRejected() {
-    E[] array = createSamplesArray();
-    array[1] = e0();
-    try {
-      collection = getSubjectGenerator().create(array);
-      fail("Should reject duplicate non-null elements at creation");
-    } catch (IllegalArgumentException expected) {
+    @CollectionFeature.Require(absent = REJECTS_DUPLICATES_AT_CREATION)
+    @CollectionSize.Require(absent = {ZERO, ONE})
+    public void testCreateWithDuplicates_nonNullDuplicatesNotRejected() {
+        E[] array = createSamplesArray();
+        array[1] = e0();
+        collection = getSubjectGenerator().create(array);
+
+        List<E> expectedWithDuplicateRemoved = Arrays.asList(array).subList(1, getNumElements());
+        expectContents(expectedWithDuplicateRemoved);
     }
-  }
+
+    @CollectionFeature.Require({ALLOWS_NULL_VALUES, REJECTS_DUPLICATES_AT_CREATION})
+    @CollectionSize.Require(absent = {ZERO, ONE})
+    public void testCreateWithDuplicates_nullDuplicatesRejected() {
+        E[] array = createArrayWithNullElement();
+        array[0] = null;
+        try {
+            collection = getSubjectGenerator().create(array);
+            fail("Should reject duplicate null elements at creation");
+        } catch (IllegalArgumentException expected) {
+        }
+    }
+
+    @CollectionFeature.Require(REJECTS_DUPLICATES_AT_CREATION)
+    @CollectionSize.Require(absent = {ZERO, ONE})
+    public void testCreateWithDuplicates_nonNullDuplicatesRejected() {
+        E[] array = createSamplesArray();
+        array[1] = e0();
+        try {
+            collection = getSubjectGenerator().create(array);
+            fail("Should reject duplicate non-null elements at creation");
+        } catch (IllegalArgumentException expected) {
+        }
+    }
 }

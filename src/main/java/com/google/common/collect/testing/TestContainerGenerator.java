@@ -16,7 +16,6 @@
 
 package com.google.common.collect.testing;
 
-import com.google.common.annotations.GwtCompatible;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -28,33 +27,32 @@ import java.util.Map;
  *
  * @author George van den Driessche
  */
-@GwtCompatible
 public interface TestContainerGenerator<T, E> {
-  /** Returns the sample elements that this generate populates its container with. */
-  SampleElements<E> samples();
+    /** Returns the sample elements that this generate populates its container with. */
+    SampleElements<E> samples();
 
-  /**
-   * Creates a new container containing the given elements. TODO: would be nice to figure out how to
-   * use E... or E[] as a parameter type, but this doesn't seem to work because Java creates an
-   * array of the erased type.
-   */
-  T create(Object... elements);
+    /**
+     * Creates a new container containing the given elements. TODO: would be nice to figure out how to
+     * use E... or E[] as a parameter type, but this doesn't seem to work because Java creates an
+     * array of the erased type.
+     */
+    T create(Object... elements);
 
-  /**
-   * Helper method to create an array of the appropriate type used by this generator. The returned
-   * array will contain only nulls.
-   */
-  E[] createArray(int length);
+    /**
+     * Helper method to create an array of the appropriate type used by this generator. The returned
+     * array will contain only nulls.
+     */
+    E[] createArray(int length);
 
-  /**
-   * Returns the iteration ordering of elements, given the order in which they were added to the
-   * container. This method may return the original list unchanged, the original list modified in
-   * place, or a different list.
-   *
-   * <p>If the order is non-deterministic, as with {@link java.util.HashSet}, this method can return
-   * its input unmodified. Provided that the test suite is built without {@link
-   * com.google.common.collect.testing.features.CollectionFeature#KNOWN_ORDER}, the tests will look
-   * only at the returned contents without regard for order.
-   */
-  Iterable<E> order(List<E> insertionOrder);
+    /**
+     * Returns the iteration ordering of elements, given the order in which they were added to the
+     * container. This method may return the original list unchanged, the original list modified in
+     * place, or a different list.
+     *
+     * <p>If the order is non-deterministic, as with {@link java.util.HashSet}, this method can return
+     * its input unmodified. Provided that the test suite is built without {@link
+     * com.google.common.collect.testing.features.CollectionFeature#KNOWN_ORDER}, the tests will look
+     * only at the returned contents without regard for order.
+     */
+    Iterable<E> order(List<E> insertionOrder);
 }

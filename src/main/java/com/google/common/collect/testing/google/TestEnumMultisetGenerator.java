@@ -16,11 +16,11 @@
 
 package com.google.common.collect.testing.google;
 
-import com.google.common.annotations.GwtCompatible;
 import com.google.common.collect.Multiset;
 import com.google.common.collect.testing.AnEnum;
 import com.google.common.collect.testing.SampleElements;
 import com.google.common.collect.testing.SampleElements.Enums;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -29,34 +29,33 @@ import java.util.List;
  *
  * @author Jared Levy
  */
-@GwtCompatible
 public abstract class TestEnumMultisetGenerator implements TestMultisetGenerator<AnEnum> {
-  @Override
-  public SampleElements<AnEnum> samples() {
-    return new Enums();
-  }
-
-  @Override
-  public Multiset<AnEnum> create(Object... elements) {
-    AnEnum[] array = new AnEnum[elements.length];
-    int i = 0;
-    for (Object e : elements) {
-      array[i++] = (AnEnum) e;
+    @Override
+    public SampleElements<AnEnum> samples() {
+        return new Enums();
     }
-    return create(array);
-  }
 
-  protected abstract Multiset<AnEnum> create(AnEnum[] elements);
+    @Override
+    public Multiset<AnEnum> create(Object... elements) {
+        AnEnum[] array = new AnEnum[elements.length];
+        int i = 0;
+        for (Object e : elements) {
+            array[i++] = (AnEnum) e;
+        }
+        return create(array);
+    }
 
-  @Override
-  public AnEnum[] createArray(int length) {
-    return new AnEnum[length];
-  }
+    protected abstract Multiset<AnEnum> create(AnEnum[] elements);
 
-  /** Sorts the enums according to their natural ordering. */
-  @Override
-  public List<AnEnum> order(List<AnEnum> insertionOrder) {
-    Collections.sort(insertionOrder);
-    return insertionOrder;
-  }
+    @Override
+    public AnEnum[] createArray(int length) {
+        return new AnEnum[length];
+    }
+
+    /** Sorts the enums according to their natural ordering. */
+    @Override
+    public List<AnEnum> order(List<AnEnum> insertionOrder) {
+        Collections.sort(insertionOrder);
+        return insertionOrder;
+    }
 }

@@ -16,14 +16,14 @@
 
 package com.google.common.collect.testing;
 
-import static java.util.Collections.disjoint;
-import static java.util.logging.Level.FINER;
-
-import com.google.common.annotations.GwtIncompatible;
 import com.google.common.collect.testing.features.ConflictingRequirementsException;
 import com.google.common.collect.testing.features.Feature;
 import com.google.common.collect.testing.features.FeatureUtil;
 import com.google.common.collect.testing.features.TesterRequirements;
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
+
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,9 +35,9 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+
+import static java.util.Collections.disjoint;
+import static java.util.logging.Level.FINER;
 
 /**
  * Creates, based on your criteria, a JUnit test suite that exhaustively tests the object generated
@@ -51,262 +51,261 @@ import junit.framework.TestSuite;
  *     information required to parameterize the test.
  * @author George van den Driessche
  */
-@GwtIncompatible
 public abstract class FeatureSpecificTestSuiteBuilder<
-    B extends FeatureSpecificTestSuiteBuilder<B, G>, G> {
-  @SuppressWarnings("unchecked")
-  protected B self() {
-    return (B) this;
-  }
-
-  // Test Data
-
-  private G subjectGenerator;
-  // Gets run before every test.
-  private Runnable setUp;
-  // Gets run at the conclusion of every test.
-  private Runnable tearDown;
-
-  protected B usingGenerator(G subjectGenerator) {
-    this.subjectGenerator = subjectGenerator;
-    return self();
-  }
-
-  public G getSubjectGenerator() {
-    return subjectGenerator;
-  }
-
-  public B withSetUp(Runnable setUp) {
-    this.setUp = setUp;
-    return self();
-  }
-
-  public Runnable getSetUp() {
-    return setUp;
-  }
-
-  public B withTearDown(Runnable tearDown) {
-    this.tearDown = tearDown;
-    return self();
-  }
-
-  public Runnable getTearDown() {
-    return tearDown;
-  }
-
-  // Features
-
-  private final Set<Feature<?>> features = new LinkedHashSet<>();
-
-  /**
-   * Configures this builder to produce tests appropriate for the given features. This method may be
-   * called more than once to add features in multiple groups.
-   */
-  public B withFeatures(Feature<?>... features) {
-    return withFeatures(Arrays.asList(features));
-  }
-
-  public B withFeatures(Iterable<? extends Feature<?>> features) {
-    for (Feature<?> feature : features) {
-      this.features.add(feature);
+        B extends FeatureSpecificTestSuiteBuilder<B, G>, G> {
+    @SuppressWarnings("unchecked")
+    protected B self() {
+        return (B) this;
     }
-    return self();
-  }
 
-  public Set<Feature<?>> getFeatures() {
-    return Collections.unmodifiableSet(features);
-  }
+    // Test Data
 
-  // Name
+    private G subjectGenerator;
+    // Gets run before every test.
+    private Runnable setUp;
+    // Gets run at the conclusion of every test.
+    private Runnable tearDown;
 
-  private String name;
-
-  /** Configures this builder produce a TestSuite with the given name. */
-  public B named(String name) {
-    if (name.contains("(")) {
-      throw new IllegalArgumentException(
-          "Eclipse hides all characters after "
-              + "'('; please use '[]' or other characters instead of parentheses");
+    protected B usingGenerator(G subjectGenerator) {
+        this.subjectGenerator = subjectGenerator;
+        return self();
     }
-    this.name = name;
-    return self();
-  }
 
-  public String getName() {
-    return name;
-  }
+    public G getSubjectGenerator() {
+        return subjectGenerator;
+    }
 
-  // Test suppression
+    public B withSetUp(Runnable setUp) {
+        this.setUp = setUp;
+        return self();
+    }
 
-  private final Set<Method> suppressedTests = new HashSet<>();
+    public Runnable getSetUp() {
+        return setUp;
+    }
 
-  /**
-   * Prevents the given methods from being run as part of the test suite.
-   *
-   * <p><em>Note:</em> in principle this should never need to be used, but it might be useful if the
-   * semantics of an implementation disagree in unforeseen ways with the semantics expected by a
-   * test, or to keep dependent builds clean in spite of an erroneous test.
-   */
-  public B suppressing(Method... methods) {
-    return suppressing(Arrays.asList(methods));
-  }
+    public B withTearDown(Runnable tearDown) {
+        this.tearDown = tearDown;
+        return self();
+    }
 
-  public B suppressing(Collection<Method> methods) {
-    suppressedTests.addAll(methods);
-    return self();
-  }
+    public Runnable getTearDown() {
+        return tearDown;
+    }
 
-  public Set<Method> getSuppressedTests() {
-    return suppressedTests;
-  }
+    // Features
 
-  private static final Logger logger =
-      Logger.getLogger(FeatureSpecificTestSuiteBuilder.class.getName());
+    private final Set<Feature<?>> features = new LinkedHashSet<>();
 
-  /** Creates a runnable JUnit test suite based on the criteria already given. */
-  /*
-   * Class parameters must be raw. This annotation should go on testerClass in
-   * the for loop, but the 1.5 javac crashes on annotations in for loops:
-   * <http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6294589>
-   */
-  @SuppressWarnings("unchecked")
-  public TestSuite createTestSuite() {
-    checkCanCreate();
+    /**
+     * Configures this builder to produce tests appropriate for the given features. This method may be
+     * called more than once to add features in multiple groups.
+     */
+    public B withFeatures(Feature<?>... features) {
+        return withFeatures(Arrays.asList(features));
+    }
 
-    logger.fine(" Testing: " + name);
-    logger.fine("Features: " + formatFeatureSet(features));
+    public B withFeatures(Iterable<? extends Feature<?>> features) {
+        for (Feature<?> feature : features) {
+            this.features.add(feature);
+        }
+        return self();
+    }
 
-    FeatureUtil.addImpliedFeatures(features);
+    public Set<Feature<?>> getFeatures() {
+        return Collections.unmodifiableSet(features);
+    }
 
-    logger.fine("Expanded: " + formatFeatureSet(features));
+    // Name
+
+    private String name;
+
+    /** Configures this builder produce a TestSuite with the given name. */
+    public B named(String name) {
+        if (name.contains("(")) {
+            throw new IllegalArgumentException(
+                    "Eclipse hides all characters after "
+                            + "'('; please use '[]' or other characters instead of parentheses");
+        }
+        this.name = name;
+        return self();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    // Test suppression
+
+    private final Set<Method> suppressedTests = new HashSet<>();
+
+    /**
+     * Prevents the given methods from being run as part of the test suite.
+     *
+     * <p><em>Note:</em> in principle this should never need to be used, but it might be useful if the
+     * semantics of an implementation disagree in unforeseen ways with the semantics expected by a
+     * test, or to keep dependent builds clean in spite of an erroneous test.
+     */
+    public B suppressing(Method... methods) {
+        return suppressing(Arrays.asList(methods));
+    }
+
+    public B suppressing(Collection<Method> methods) {
+        suppressedTests.addAll(methods);
+        return self();
+    }
+
+    public Set<Method> getSuppressedTests() {
+        return suppressedTests;
+    }
+
+    private static final Logger logger =
+            Logger.getLogger(FeatureSpecificTestSuiteBuilder.class.getName());
+
+    /** Creates a runnable JUnit test suite based on the criteria already given. */
+    /*
+     * Class parameters must be raw. This annotation should go on testerClass in
+     * the for loop, but the 1.5 javac crashes on annotations in for loops:
+     * <http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6294589>
+     */
+    @SuppressWarnings("unchecked")
+    public TestSuite createTestSuite() {
+        checkCanCreate();
+
+        logger.fine(" Testing: " + name);
+        logger.fine("Features: " + formatFeatureSet(features));
+
+        FeatureUtil.addImpliedFeatures(features);
+
+        logger.fine("Expanded: " + formatFeatureSet(features));
+
+        // Class parameters must be raw.
+        List<Class<? extends AbstractTester>> testers = getTesters();
+
+        TestSuite suite = new TestSuite(name);
+        for (Class<? extends AbstractTester> testerClass : testers) {
+            TestSuite testerSuite =
+                    makeSuiteForTesterClass((Class<? extends AbstractTester<?>>) testerClass);
+            if (testerSuite.countTestCases() > 0) {
+                suite.addTest(testerSuite);
+            }
+        }
+        return suite;
+    }
+
+    /** Throw {@link IllegalStateException} if {@link #createTestSuite()} can't be called yet. */
+    protected void checkCanCreate() {
+        if (subjectGenerator == null) {
+            throw new IllegalStateException("Call using() before createTestSuite().");
+        }
+        if (name == null) {
+            throw new IllegalStateException("Call named() before createTestSuite().");
+        }
+        if (features == null) {
+            throw new IllegalStateException("Call withFeatures() before createTestSuite().");
+        }
+    }
 
     // Class parameters must be raw.
-    List<Class<? extends AbstractTester>> testers = getTesters();
+    protected abstract List<Class<? extends AbstractTester>> getTesters();
 
-    TestSuite suite = new TestSuite(name);
-    for (Class<? extends AbstractTester> testerClass : testers) {
-      TestSuite testerSuite =
-          makeSuiteForTesterClass((Class<? extends AbstractTester<?>>) testerClass);
-      if (testerSuite.countTestCases() > 0) {
-        suite.addTest(testerSuite);
-      }
-    }
-    return suite;
-  }
-
-  /** Throw {@link IllegalStateException} if {@link #createTestSuite()} can't be called yet. */
-  protected void checkCanCreate() {
-    if (subjectGenerator == null) {
-      throw new IllegalStateException("Call using() before createTestSuite().");
-    }
-    if (name == null) {
-      throw new IllegalStateException("Call named() before createTestSuite().");
-    }
-    if (features == null) {
-      throw new IllegalStateException("Call withFeatures() before createTestSuite().");
-    }
-  }
-
-  // Class parameters must be raw.
-  protected abstract List<Class<? extends AbstractTester>> getTesters();
-
-  private boolean matches(Test test) {
-    Method method;
-    try {
-      method = extractMethod(test);
-    } catch (IllegalArgumentException e) {
-      logger.finer(Platform.format("%s: including by default: %s", test, e.getMessage()));
-      return true;
-    }
-    if (suppressedTests.contains(method)) {
-      logger.finer(Platform.format("%s: excluding because it was explicitly suppressed.", test));
-      return false;
-    }
-    TesterRequirements requirements;
-    try {
-      requirements = FeatureUtil.getTesterRequirements(method);
-    } catch (ConflictingRequirementsException e) {
-      throw new RuntimeException(e);
-    }
-    if (!features.containsAll(requirements.getPresentFeatures())) {
-      if (logger.isLoggable(FINER)) {
-        Set<Feature<?>> missingFeatures = Helpers.copyToSet(requirements.getPresentFeatures());
-        missingFeatures.removeAll(features);
-        logger.finer(
-            Platform.format(
-                "%s: skipping because these features are absent: %s", method, missingFeatures));
-      }
-      return false;
-    }
-    if (intersect(features, requirements.getAbsentFeatures())) {
-      if (logger.isLoggable(FINER)) {
-        Set<Feature<?>> unwantedFeatures = Helpers.copyToSet(requirements.getAbsentFeatures());
-        unwantedFeatures.retainAll(features);
-        logger.finer(
-            Platform.format(
-                "%s: skipping because these features are present: %s", method, unwantedFeatures));
-      }
-      return false;
-    }
-    return true;
-  }
-
-  private static boolean intersect(Set<?> a, Set<?> b) {
-    return !disjoint(a, b);
-  }
-
-  private static Method extractMethod(Test test) {
-    if (test instanceof AbstractTester) {
-      AbstractTester<?> tester = (AbstractTester<?>) test;
-      return Helpers.getMethod(tester.getClass(), tester.getTestMethodName());
-    } else if (test instanceof TestCase) {
-      TestCase testCase = (TestCase) test;
-      return Helpers.getMethod(testCase.getClass(), testCase.getName());
-    } else {
-      throw new IllegalArgumentException("unable to extract method from test: not a TestCase.");
-    }
-  }
-
-  protected TestSuite makeSuiteForTesterClass(Class<? extends AbstractTester<?>> testerClass) {
-    TestSuite candidateTests = new TestSuite(testerClass);
-    TestSuite suite = filterSuite(candidateTests);
-
-    Enumeration<?> allTests = suite.tests();
-    while (allTests.hasMoreElements()) {
-      Object test = allTests.nextElement();
-      if (test instanceof AbstractTester) {
-        @SuppressWarnings("unchecked")
-        AbstractTester<? super G> tester = (AbstractTester<? super G>) test;
-        tester.init(subjectGenerator, name, setUp, tearDown);
-      }
+    private boolean matches(Test test) {
+        Method method;
+        try {
+            method = extractMethod(test);
+        } catch (IllegalArgumentException e) {
+            logger.finer(Platform.format("%s: including by default: %s", test, e.getMessage()));
+            return true;
+        }
+        if (suppressedTests.contains(method)) {
+            logger.finer(Platform.format("%s: excluding because it was explicitly suppressed.", test));
+            return false;
+        }
+        TesterRequirements requirements;
+        try {
+            requirements = FeatureUtil.getTesterRequirements(method);
+        } catch (ConflictingRequirementsException e) {
+            throw new RuntimeException(e);
+        }
+        if (!features.containsAll(requirements.getPresentFeatures())) {
+            if (logger.isLoggable(FINER)) {
+                Set<Feature<?>> missingFeatures = Helpers.copyToSet(requirements.getPresentFeatures());
+                missingFeatures.removeAll(features);
+                logger.finer(
+                        Platform.format(
+                                "%s: skipping because these features are absent: %s", method, missingFeatures));
+            }
+            return false;
+        }
+        if (intersect(features, requirements.getAbsentFeatures())) {
+            if (logger.isLoggable(FINER)) {
+                Set<Feature<?>> unwantedFeatures = Helpers.copyToSet(requirements.getAbsentFeatures());
+                unwantedFeatures.retainAll(features);
+                logger.finer(
+                        Platform.format(
+                                "%s: skipping because these features are present: %s", method, unwantedFeatures));
+            }
+            return false;
+        }
+        return true;
     }
 
-    return suite;
-  }
-
-  private TestSuite filterSuite(TestSuite suite) {
-    TestSuite filtered = new TestSuite(suite.getName());
-    Enumeration<?> tests = suite.tests();
-    while (tests.hasMoreElements()) {
-      Test test = (Test) tests.nextElement();
-      if (matches(test)) {
-        filtered.addTest(test);
-      }
+    private static boolean intersect(Set<?> a, Set<?> b) {
+        return !disjoint(a, b);
     }
-    return filtered;
-  }
 
-  protected static String formatFeatureSet(Set<? extends Feature<?>> features) {
-    List<String> temp = new ArrayList<>();
-    for (Feature<?> feature : features) {
-      Object featureAsObject = feature; // to work around bogus JDK warning
-      if (featureAsObject instanceof Enum) {
-        Enum<?> f = (Enum<?>) featureAsObject;
-        temp.add(f.getDeclaringClass().getSimpleName() + "." + feature);
-      } else {
-        temp.add(feature.toString());
-      }
+    private static Method extractMethod(Test test) {
+        if (test instanceof AbstractTester) {
+            AbstractTester<?> tester = (AbstractTester<?>) test;
+            return Helpers.getMethod(tester.getClass(), tester.getTestMethodName());
+        } else if (test instanceof TestCase) {
+            TestCase testCase = (TestCase) test;
+            return Helpers.getMethod(testCase.getClass(), testCase.getName());
+        } else {
+            throw new IllegalArgumentException("unable to extract method from test: not a TestCase.");
+        }
     }
-    return temp.toString();
-  }
+
+    protected TestSuite makeSuiteForTesterClass(Class<? extends AbstractTester<?>> testerClass) {
+        TestSuite candidateTests = new TestSuite(testerClass);
+        TestSuite suite = filterSuite(candidateTests);
+
+        Enumeration<?> allTests = suite.tests();
+        while (allTests.hasMoreElements()) {
+            Object test = allTests.nextElement();
+            if (test instanceof AbstractTester) {
+                @SuppressWarnings("unchecked")
+                AbstractTester<? super G> tester = (AbstractTester<? super G>) test;
+                tester.init(subjectGenerator, name, setUp, tearDown);
+            }
+        }
+
+        return suite;
+    }
+
+    private TestSuite filterSuite(TestSuite suite) {
+        TestSuite filtered = new TestSuite(suite.getName());
+        Enumeration<?> tests = suite.tests();
+        while (tests.hasMoreElements()) {
+            Test test = (Test) tests.nextElement();
+            if (matches(test)) {
+                filtered.addTest(test);
+            }
+        }
+        return filtered;
+    }
+
+    protected static String formatFeatureSet(Set<? extends Feature<?>> features) {
+        List<String> temp = new ArrayList<>();
+        for (Feature<?> feature : features) {
+            Object featureAsObject = feature; // to work around bogus JDK warning
+            if (featureAsObject instanceof Enum) {
+                Enum<?> f = (Enum<?>) featureAsObject;
+                temp.add(f.getDeclaringClass().getSimpleName() + "." + feature);
+            } else {
+                temp.add(feature.toString());
+            }
+        }
+        return temp.toString();
+    }
 }
