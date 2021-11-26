@@ -16,8 +16,6 @@
 
 package com.google.common.testing;
 
-import com.google.common.annotations.GwtCompatible;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -31,7 +29,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
  *
  * @author Chris Povirk
  */
-@GwtCompatible(emulated = true)
 final class Platform {
     /** Serializes and deserializes the specified object. */
     @SuppressWarnings("unchecked")

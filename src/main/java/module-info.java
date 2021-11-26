@@ -2,6 +2,7 @@ module com.google.common.testing {
     requires junit;
     requires com.google.common;
     requires java.logging;
+    requires org.junit.jupiter.api;
 
     exports com.google.common.testing;
     exports com.google.common.collect.testing;

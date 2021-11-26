@@ -18,8 +18,8 @@ package com.google.common.testing;
 
 import com.google.common.annotations.Beta;
 import com.google.common.annotations.GwtCompatible;
-import junit.framework.Assert;
 import junit.framework.AssertionFailedError;
+import org.junit.jupiter.api.Assertions;
 
 /**
  * Tests serialization and deserialization of an object, optionally asserting that the resulting
@@ -53,7 +53,6 @@ public final class SerializableTester {
      * @throws RuntimeException if the specified object was not successfully serialized or
      *     deserialized
      */
-    @SuppressWarnings("unchecked")
     public static <T> T reserialize(T object) {
         return Platform.reserialize(object);
     }
@@ -88,7 +87,7 @@ public final class SerializableTester {
     public static <T> T reserializeAndAssert(T object) {
         T copy = reserialize(object);
         new EqualsTester().addEqualityGroup(object, copy).testEquals();
-        Assert.assertEquals(object.getClass(), copy.getClass());
+        Assertions.assertEquals(object.getClass(), copy.getClass());
         return copy;
     }
 }

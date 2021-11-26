@@ -25,8 +25,8 @@ import com.google.common.collect.Lists;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Tester for equals() and hashCode() methods of a class.
@@ -117,19 +117,19 @@ public final class EqualsTester {
 
     private void testItems() {
         for (Object item : Iterables.concat(equalityGroups)) {
-            assertTrue(item + " must not be Object#equals to null", !item.equals(null));
+            assertTrue(!item.equals(null), item + " must not be Object#equals to null");
             assertTrue(
-                    item + " must not be Object#equals to an arbitrary object of another class",
-                    !item.equals(NotAnInstance.EQUAL_TO_NOTHING));
-            assertEquals(item + " must be Object#equals to itself", item, item);
+                    !item.equals(NotAnInstance.EQUAL_TO_NOTHING),
+                    item + " must not be Object#equals to an arbitrary object of another class");
+            assertEquals(item, item, item + " must be Object#equals to itself");
             assertEquals(
-                    "the Object#hashCode of " + item + " must be consistent",
                     item.hashCode(),
-                    item.hashCode());
+                    item.hashCode(),
+                    "the Object#hashCode of " + item + " must be consistent");
             if (!(item instanceof String)) {
                 assertTrue(
-                        item + " must not be Object#equals to its Object#toString representation",
-                        !item.equals(item.toString()));
+                        !item.equals(item.toString()),
+                        item + " must not be Object#equals to its Object#toString representation");
             }
         }
     }
