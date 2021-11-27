@@ -22,6 +22,7 @@ import com.google.common.base.Throwables;
 import com.google.common.collect.Lists;
 import com.google.common.reflect.AbstractInvocationHandler;
 import com.google.common.reflect.Reflection;
+import org.junit.jupiter.api.Assertions;
 
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.InvocationTargetException;
@@ -33,8 +34,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Throwables.throwIfUnchecked;
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Tester to ensure forwarding wrapper works by delegating calls to the corresponding method with
@@ -166,10 +166,10 @@ public final class ForwardingWrapperTester {
     private static <T> void testToString(
             Class<T> interfaceType, Function<? super T, ? extends T> wrapperFunction) {
         T proxy = new FreshValueGenerator().newFreshProxy(interfaceType);
-        assertEquals(
-                "toString() isn't properly forwarded",
+        Assertions.assertEquals(
                 proxy.toString(),
-                wrapperFunction.apply(proxy).toString());
+                wrapperFunction.apply(proxy).toString(),
+                "toString() isn't properly forwarded");
     }
 
     private static Object[] getParameterValues(Method method) {
@@ -200,11 +200,16 @@ public final class ForwardingWrapperTester {
         @Override
         protected Object handleInvocation(Object p, Method calledMethod, Object[] args)
                 throws Throwable {
-            assertEquals(method, calledMethod);
-            assertEquals(method + " invoked more than once.", 0, called.get());
+            Assertions.assertEquals(method, calledMethod);
+            Assertions.assertEquals(
+                    0,
+                    called.get(),
+                    method + " invoked more than once.");
             for (int i = 0; i < passedArgs.length; i++) {
-                assertEquals(
-                        "Parameter #" + i + " of " + method + " not forwarded", passedArgs[i], args[i]);
+                Assertions.assertEquals(
+                        passedArgs[i],
+                        args[i],
+                        "Parameter #" + i + " of " + method + " not forwarded");
             }
             called.getAndIncrement();
             return returnValue;
@@ -219,15 +224,20 @@ public final class ForwardingWrapperTester {
                 // If we think this might be a 'chaining' call then we allow the return value to either
                 // be the wrapper or the returnValue.
                 if (!isPossibleChainingCall || wrapper != actualReturnValue) {
-                    assertEquals(
-                            "Return value of " + method + " not forwarded", returnValue, actualReturnValue);
+                    Assertions.assertEquals(
+                            returnValue,
+                            actualReturnValue,
+                            "Return value of " + method + " not forwarded");
                 }
             } catch (IllegalAccessException e) {
                 throw new RuntimeException(e);
             } catch (InvocationTargetException e) {
                 throw Throwables.propagate(e.getCause());
             }
-            assertEquals("Failed to forward to " + method, 1, called.get());
+            Assertions.assertEquals(
+                    1,
+                    called.get(),
+                    "Failed to forward to " + method);
         }
 
         @Override
