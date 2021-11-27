@@ -17,7 +17,6 @@
 package com.google.common.testing;
 
 import com.google.common.annotations.Beta;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,7 +49,7 @@ import static junit.framework.Assert.assertTrue;
 public final class CollectorTester<T, A, R> {
     /**
      * Creates a {@code CollectorTester} for the specified {@code Collector}. The result of the {@code
-     * Collector} will be compared to the expected value using {@link Object.equals}.
+     * Collector} will be compared to the expected value using {@link Object#equals}.
      */
     public static <T, A, R> CollectorTester<T, A, R> of(Collector<T, A, R> collector) {
         return of(collector, Objects::equals);

@@ -17,7 +17,6 @@
 package com.google.common.testing;
 
 import com.google.common.annotations.Beta;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collections;

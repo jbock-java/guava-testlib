@@ -31,7 +31,7 @@ import static java.lang.annotation.RetentionPolicy.CLASS;
  * Google-internal Android suite generators. Note that those generators also suppress any test
  * annotated with MediumTest or LargeTest.
  *
- * <p>For more discussion, see {@linkplain com.google.common.base.AndroidIncompatible the
+ * <p>For more discussion, see {@code com.google.common.base.AndroidIncompatible the
  * documentation on another copy of this annotation}.
  */
 @Retention(CLASS)

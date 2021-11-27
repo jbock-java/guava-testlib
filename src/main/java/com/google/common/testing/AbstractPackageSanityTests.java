@@ -29,7 +29,6 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 import com.google.common.reflect.ClassPath;
 import com.google.common.testing.NullPointerTester.Visibility;
-import com.google.j2objc.annotations.J2ObjCIncompatible;
 import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
 import org.junit.Test;

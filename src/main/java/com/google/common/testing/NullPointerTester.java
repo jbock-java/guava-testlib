@@ -31,7 +31,6 @@ import com.google.common.reflect.Reflection;
 import com.google.common.reflect.TypeToken;
 import junit.framework.Assert;
 import junit.framework.AssertionFailedError;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedType;
