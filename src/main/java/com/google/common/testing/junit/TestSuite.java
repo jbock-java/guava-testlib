@@ -135,7 +135,7 @@ public class TestSuite implements Test {
 
         Class<?> superClass = theClass;
         List<String> names = new ArrayList<String>();
-        while (junit.framework.Test.class.isAssignableFrom(superClass)) {
+        while (Test.class.isAssignableFrom(superClass)) {
             for (Method each : MethodSorter.getDeclaredMethods(superClass)) {
                 addTestMethod(each, names, theClass);
             }
@@ -151,7 +151,7 @@ public class TestSuite implements Test {
      *
      * @see TestSuite#TestSuite(Class)
      */
-    public TestSuite(Class<? extends junit.framework.TestCase> theClass, String name) {
+    public TestSuite(Class<? extends TestCase> theClass, String name) {
         this(theClass);
         setName(name);
     }
@@ -187,7 +187,7 @@ public class TestSuite implements Test {
      *
      * @see TestSuite#TestSuite(Class[])
      */
-    public TestSuite(Class<? extends junit.framework.TestCase>[] classes, String name) {
+    public TestSuite(Class<? extends TestCase>[] classes, String name) {
         this(classes);
         setName(name);
     }
