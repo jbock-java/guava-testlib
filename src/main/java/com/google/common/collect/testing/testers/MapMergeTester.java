@@ -188,7 +188,7 @@ public class MapMergeTester<K, V> extends AbstractMapTester<K, V> {
     }
 
     /**
-     * Returns the {@link Method} instance for {@link #testMergeNullValue()} so that tests of {@link
+     * Returns the {@link Method} instance for {@link #testMergeNullValue()} so that tests of {@code
      * Hashtable} can suppress it with {@code FeatureSpecificTestSuiteBuilder.suppressing()}.
      */
     @GwtIncompatible // reflection
