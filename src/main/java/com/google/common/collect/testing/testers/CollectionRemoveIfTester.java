@@ -31,6 +31,9 @@ import static com.google.common.collect.testing.features.CollectionFeature.SUPPO
 import static com.google.common.collect.testing.features.CollectionFeature.SUPPORTS_REMOVE;
 import static com.google.common.collect.testing.features.CollectionSize.SEVERAL;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * A generic JUnit test which tests {@link Collection#removeIf}. Can't be invoked directly; please
@@ -43,7 +46,9 @@ import static com.google.common.collect.testing.features.CollectionSize.ZERO;
 public class CollectionRemoveIfTester<E> extends AbstractCollectionTester<E> {
     @CollectionFeature.Require(SUPPORTS_ITERATOR_REMOVE)
     public void testRemoveIf_alwaysFalse() {
-        assertFalse("removeIf(x -> false) should return false", collection.removeIf(x -> false));
+        assertFalse(
+                collection.removeIf(x -> false),
+                "removeIf(x -> false) should return false");
         expectUnchanged();
     }
 
@@ -51,15 +56,17 @@ public class CollectionRemoveIfTester<E> extends AbstractCollectionTester<E> {
     @CollectionSize.Require(absent = ZERO)
     public void testRemoveIf_sometimesTrue() {
         assertTrue(
-                "removeIf(isEqual(present)) should return true",
-                collection.removeIf(Predicate.isEqual(samples.e0())));
+                collection.removeIf(Predicate.isEqual(samples.e0())),
+                "removeIf(isEqual(present)) should return true");
         expectMissing(samples.e0());
     }
 
     @CollectionFeature.Require(SUPPORTS_ITERATOR_REMOVE)
     @CollectionSize.Require(absent = ZERO)
     public void testRemoveIf_allPresent() {
-        assertTrue("removeIf(x -> true) should return true", collection.removeIf(x -> true));
+        assertTrue(
+                collection.removeIf(x -> true),
+                "removeIf(x -> true) should return true");
         expectContents();
     }
 
@@ -81,11 +88,11 @@ public class CollectionRemoveIfTester<E> extends AbstractCollectionTester<E> {
     public void testRemoveIf_unsupportedEmptyCollection() {
         try {
             assertFalse(
-                    "removeIf(Predicate) should return false or throw " + "UnsupportedOperationException",
                     collection.removeIf(
                             x -> {
                                 throw new AssertionError("predicate should never be called");
-                            }));
+                            }),
+                    "removeIf(Predicate) should return false or throw " + "UnsupportedOperationException");
         } catch (UnsupportedOperationException tolerated) {
         }
         expectUnchanged();

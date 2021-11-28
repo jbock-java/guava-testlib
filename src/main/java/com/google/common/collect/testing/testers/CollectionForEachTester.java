@@ -26,6 +26,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.google.common.collect.testing.features.CollectionFeature.KNOWN_ORDER;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * A generic JUnit test which tests {@code forEach} operations on a collection. Can't be invoked
@@ -47,6 +48,9 @@ public class CollectionForEachTester<E> extends AbstractCollectionTester<E> {
         List<E> elements = new ArrayList<>();
         collection.forEach(elements::add);
         List<E> expected = Helpers.copyToList(getOrderedElements());
-        assertEquals("Different ordered iteration", expected, elements);
+        assertEquals(
+                expected,
+                elements,
+                "Different ordered iteration");
     }
 }

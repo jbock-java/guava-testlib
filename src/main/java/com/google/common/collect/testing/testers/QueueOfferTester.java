@@ -21,6 +21,8 @@ import org.junit.Ignore;
 
 import static com.google.common.collect.testing.features.CollectionFeature.ALLOWS_NULL_VALUES;
 import static com.google.common.collect.testing.features.CollectionFeature.SUPPORTS_ADD;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * A generic JUnit test which tests offer operations on a queue. Can't be invoked directly; please
@@ -33,13 +35,17 @@ import static com.google.common.collect.testing.features.CollectionFeature.SUPPO
 public class QueueOfferTester<E> extends AbstractQueueTester<E> {
     @CollectionFeature.Require(SUPPORTS_ADD)
     public void testOffer_supportedNotPresent() {
-        assertTrue("offer(notPresent) should return true", getQueue().offer(e3()));
+        assertTrue(
+                getQueue().offer(e3()),
+                "offer(notPresent) should return true");
         expectAdded(e3());
     }
 
     @CollectionFeature.Require({SUPPORTS_ADD, ALLOWS_NULL_VALUES})
     public void testOffer_nullSupported() {
-        assertTrue("offer(null) should return true", getQueue().offer(null));
+        assertTrue(
+                getQueue().offer(null),
+                "offer(null) should return true");
         expectAdded((E) null);
     }
 

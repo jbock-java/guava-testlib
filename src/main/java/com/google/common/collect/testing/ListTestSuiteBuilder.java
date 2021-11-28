@@ -39,7 +39,7 @@ import com.google.common.collect.testing.testers.ListSetTester;
 import com.google.common.collect.testing.testers.ListSubListTester;
 import com.google.common.collect.testing.testers.ListToArrayTester;
 import com.google.common.testing.SerializableTester;
-import junit.framework.TestSuite;
+import com.google.common.testing.junit.TestSuite;
 
 import java.util.ArrayList;
 import java.util.Collection;

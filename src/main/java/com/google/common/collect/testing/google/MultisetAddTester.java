@@ -23,6 +23,10 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import static com.google.common.collect.testing.features.CollectionFeature.SUPPORTS_ADD;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Tests for {@code Multiset.add}.
@@ -50,15 +54,24 @@ public class MultisetAddTester<E> extends AbstractMultisetTester<E> {
     @CollectionFeature.Require(SUPPORTS_ADD)
     public void testAddOccurrencesZero() {
         int originalCount = getMultiset().count(e0());
-        assertEquals("old count", originalCount, getMultiset().add(e0(), 0));
+        assertEquals(
+                originalCount,
+                getMultiset().add(e0(), 0),
+                "old count");
         expectUnchanged();
     }
 
     @CollectionFeature.Require(SUPPORTS_ADD)
     public void testAddOccurrences() {
         int originalCount = getMultiset().count(e0());
-        assertEquals("old count", originalCount, getMultiset().add(e0(), 2));
-        assertEquals("old count", originalCount + 2, getMultiset().count(e0()));
+        assertEquals(
+                originalCount,
+                getMultiset().add(e0(), 2),
+                "old count");
+        assertEquals(
+                originalCount + 2,
+                getMultiset().count(e0()),
+                "old count");
     }
 
     @CollectionFeature.Require(SUPPORTS_ADD)

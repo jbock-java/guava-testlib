@@ -23,6 +23,7 @@ import java.util.List;
 
 import static com.google.common.collect.testing.Helpers.copyToList;
 import static com.google.common.collect.testing.features.MapFeature.SUPPORTS_PUT;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Testers for {@link ListMultimap#putAll(Object, Iterable)}.

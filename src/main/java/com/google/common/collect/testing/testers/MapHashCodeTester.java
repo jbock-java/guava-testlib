@@ -26,6 +26,7 @@ import java.util.Map.Entry;
 
 import static com.google.common.collect.testing.features.MapFeature.ALLOWS_NULL_KEYS;
 import static com.google.common.collect.testing.features.MapFeature.ALLOWS_NULL_VALUES;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Tests {@link java.util.Map#hashCode}.
@@ -41,9 +42,9 @@ public class MapHashCodeTester<K, V> extends AbstractMapTester<K, V> {
             expectedHashCode += hash(entry);
         }
         assertEquals(
-                "A Map's hashCode() should be the sum of those of its entries.",
                 expectedHashCode,
-                getMap().hashCode());
+                getMap().hashCode(),
+                "A Map's hashCode() should be the sum of those of its entries.");
     }
 
     @CollectionSize.Require(absent = CollectionSize.ZERO)
@@ -72,10 +73,10 @@ public class MapHashCodeTester<K, V> extends AbstractMapTester<K, V> {
 
         resetContainer(getSubjectGenerator().create(entries.toArray()));
         assertEquals(
-                "A Map's hashCode() should be the sum of those of its entries (where "
-                        + "a null element in an entry counts as having a hash of zero).",
                 expectedHashCode,
-                getMap().hashCode());
+                getMap().hashCode(),
+                "A Map's hashCode() should be the sum of those of its entries (where "
+                        + "a null element in an entry counts as having a hash of zero).");
     }
 
     private static int hash(Entry<?, ?> e) {

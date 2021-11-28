@@ -28,6 +28,7 @@ import java.lang.reflect.Method;
 
 import static com.google.common.collect.testing.features.CollectionFeature.ALLOWS_NULL_VALUES;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * A generic JUnit test which tests creation (typically through a constructor or static factory

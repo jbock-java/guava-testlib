@@ -18,6 +18,8 @@ package com.google.common.collect.testing.google;
 
 import org.junit.Ignore;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 /**
  * A generic JUnit test which tests unconditional {@code setCount()} operations on a multiset. Can't
  * be invoked directly; please see {@link MultisetTestSuiteBuilder}.
@@ -29,9 +31,9 @@ public class MultisetSetCountUnconditionallyTester<E> extends AbstractMultisetSe
     @Override
     void setCountCheckReturnValue(E element, int count) {
         assertEquals(
-                "multiset.setCount() should return the old count",
                 getMultiset().count(element),
-                setCount(element, count));
+                setCount(element, count),
+                "multiset.setCount() should return the old count");
     }
 
     @Override

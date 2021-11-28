@@ -31,6 +31,10 @@ import static com.google.common.collect.testing.features.CollectionFeature.FAILS
 import static com.google.common.collect.testing.features.CollectionFeature.SUPPORTS_REMOVE;
 import static com.google.common.collect.testing.features.CollectionSize.SEVERAL;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * A generic JUnit test which tests {@code remove} operations on a collection. Can't be invoked
@@ -45,11 +49,13 @@ public class CollectionRemoveTester<E> extends AbstractCollectionTester<E> {
     @CollectionSize.Require(absent = ZERO)
     public void testRemove_present() {
         int initialSize = collection.size();
-        assertTrue("remove(present) should return true", collection.remove(e0()));
+        assertTrue(
+                collection.remove(e0()),
+                "remove(present) should return true");
         assertEquals(
-                "remove(present) should decrease a collection's size by one.",
                 initialSize - 1,
-                collection.size());
+                collection.size(),
+                "remove(present) should decrease a collection's size by one.");
         expectMissing(e0());
     }
 
@@ -68,7 +74,9 @@ public class CollectionRemoveTester<E> extends AbstractCollectionTester<E> {
 
     @CollectionFeature.Require(SUPPORTS_REMOVE)
     public void testRemove_notPresent() {
-        assertFalse("remove(notPresent) should return false", collection.remove(e3()));
+        assertFalse(
+                collection.remove(e3()),
+                "remove(notPresent) should return false");
         expectUnchanged();
     }
 
@@ -78,11 +86,13 @@ public class CollectionRemoveTester<E> extends AbstractCollectionTester<E> {
         collection = getSubjectGenerator().create(createArrayWithNullElement());
 
         int initialSize = collection.size();
-        assertTrue("remove(null) should return true", collection.remove(null));
+        assertTrue(
+                collection.remove(null),
+                "remove(null) should return true");
         assertEquals(
-                "remove(present) should decrease a collection's size by one.",
                 initialSize - 1,
-                collection.size());
+                collection.size(),
+                "remove(present) should decrease a collection's size by one.");
         expectMissing((E) null);
     }
 
@@ -95,15 +105,17 @@ public class CollectionRemoveTester<E> extends AbstractCollectionTester<E> {
         } catch (UnsupportedOperationException expected) {
         }
         expectUnchanged();
-        assertTrue("remove(present) should not remove the element", collection.contains(e0()));
+        assertTrue(
+                collection.contains(e0()),
+                "remove(present) should not remove the element");
     }
 
     @CollectionFeature.Require(absent = SUPPORTS_REMOVE)
     public void testRemove_unsupportedNotPresent() {
         try {
             assertFalse(
-                    "remove(notPresent) should return false or throw UnsupportedOperationException",
-                    collection.remove(e3()));
+                    collection.remove(e3()),
+                    "remove(notPresent) should return false or throw UnsupportedOperationException");
         } catch (UnsupportedOperationException tolerated) {
         }
         expectUnchanged();
@@ -114,8 +126,8 @@ public class CollectionRemoveTester<E> extends AbstractCollectionTester<E> {
     public void testRemove_nullNotSupported() {
         try {
             assertFalse(
-                    "remove(null) should return false or throw NullPointerException",
-                    collection.remove(null));
+                    collection.remove(null),
+                    "remove(null) should return false or throw NullPointerException");
         } catch (NullPointerException tolerated) {
         }
         expectUnchanged();
@@ -123,7 +135,9 @@ public class CollectionRemoveTester<E> extends AbstractCollectionTester<E> {
 
     @CollectionFeature.Require({SUPPORTS_REMOVE, ALLOWS_NULL_QUERIES})
     public void testRemove_nullAllowed() {
-        assertFalse("remove(null) should return false", collection.remove(null));
+        assertFalse(
+                collection.remove(null),
+                "remove(null) should return false");
         expectUnchanged();
     }
 

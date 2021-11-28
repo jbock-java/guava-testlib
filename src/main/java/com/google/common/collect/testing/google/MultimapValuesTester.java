@@ -29,6 +29,7 @@ import static com.google.common.collect.testing.Helpers.assertEqualInOrder;
 import static com.google.common.collect.testing.features.CollectionFeature.KNOWN_ORDER;
 import static com.google.common.collect.testing.features.CollectionFeature.SUPPORTS_ITERATOR_REMOVE;
 import static com.google.common.collect.testing.features.CollectionSize.ONE;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Tester for {@code Multimap.values}.

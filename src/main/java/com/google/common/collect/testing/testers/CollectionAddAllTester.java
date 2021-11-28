@@ -36,6 +36,9 @@ import static com.google.common.collect.testing.features.CollectionFeature.RESTR
 import static com.google.common.collect.testing.features.CollectionFeature.SUPPORTS_ADD;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
 import static java.util.Collections.singletonList;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * A generic JUnit test which tests addAll operations on a collection. Can't be invoked directly;
@@ -50,7 +53,9 @@ import static java.util.Collections.singletonList;
 public class CollectionAddAllTester<E> extends AbstractCollectionTester<E> {
     @CollectionFeature.Require(SUPPORTS_ADD)
     public void testAddAll_supportedNothing() {
-        assertFalse("addAll(nothing) should return false", collection.addAll(emptyCollection()));
+        assertFalse(
+                collection.addAll(emptyCollection()),
+                "addAll(nothing) should return false");
         expectUnchanged();
     }
 
@@ -58,7 +63,8 @@ public class CollectionAddAllTester<E> extends AbstractCollectionTester<E> {
     public void testAddAll_unsupportedNothing() {
         try {
             assertFalse(
-                    "addAll(nothing) should return false or throw", collection.addAll(emptyCollection()));
+                    collection.addAll(emptyCollection()),
+                    "addAll(nothing) should return false or throw");
         } catch (UnsupportedOperationException tolerated) {
         }
         expectUnchanged();
@@ -67,7 +73,8 @@ public class CollectionAddAllTester<E> extends AbstractCollectionTester<E> {
     @CollectionFeature.Require(SUPPORTS_ADD)
     public void testAddAll_supportedNonePresent() {
         assertTrue(
-                "addAll(nonePresent) should return true", collection.addAll(createDisjointCollection()));
+                collection.addAll(createDisjointCollection()),
+                "addAll(nonePresent) should return true");
         expectAdded(e3(), e4());
     }
 
@@ -86,10 +93,14 @@ public class CollectionAddAllTester<E> extends AbstractCollectionTester<E> {
     @CollectionSize.Require(absent = ZERO)
     public void testAddAll_supportedSomePresent() {
         assertTrue(
-                "addAll(somePresent) should return true",
-                collection.addAll(MinimalCollection.of(e3(), e0())));
-        assertTrue("should contain " + e3(), collection.contains(e3()));
-        assertTrue("should contain " + e0(), collection.contains(e0()));
+                collection.addAll(MinimalCollection.of(e3(), e0())),
+                "addAll(somePresent) should return true");
+        assertTrue(
+                collection.contains(e3()),
+                "should contain " + e3());
+        assertTrue(
+                collection.contains(e0()),
+                "should contain " + e0());
     }
 
     @CollectionFeature.Require(absent = SUPPORTS_ADD)
@@ -121,8 +132,8 @@ public class CollectionAddAllTester<E> extends AbstractCollectionTester<E> {
     public void testAddAll_unsupportedAllPresent() {
         try {
             assertFalse(
-                    "addAll(allPresent) should return false or throw",
-                    collection.addAll(MinimalCollection.of(e0())));
+                    collection.addAll(MinimalCollection.of(e0())),
+                    "addAll(allPresent) should return false or throw");
         } catch (UnsupportedOperationException tolerated) {
         }
         expectUnchanged();
@@ -133,7 +144,9 @@ public class CollectionAddAllTester<E> extends AbstractCollectionTester<E> {
             absent = RESTRICTS_ELEMENTS)
     public void testAddAll_nullSupported() {
         List<E> containsNull = singletonList(null);
-        assertTrue("addAll(containsNull) should return true", collection.addAll(containsNull));
+        assertTrue(
+                collection.addAll(containsNull),
+                "addAll(containsNull) should return true");
         /*
          * We need (E) to force interpretation of null as the single element of a
          * varargs array, not the array itself

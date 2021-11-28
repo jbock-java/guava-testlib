@@ -23,6 +23,9 @@ import org.junit.Ignore;
 import static com.google.common.collect.testing.features.CollectionFeature.SUPPORTS_REMOVE;
 import static com.google.common.collect.testing.features.CollectionSize.ONE;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * A generic JUnit test which tests {@code remove(Object)} operations on a list. Can't be invoked
@@ -41,17 +44,19 @@ public class ListRemoveTester<E> extends AbstractListTester<E> {
 
         int firstIndex = getList().indexOf(duplicate);
         int initialSize = getList().size();
-        assertTrue("remove(present) should return true", getList().remove(duplicate));
         assertTrue(
-                "After remove(duplicate), a list should still contain the duplicate element",
-                getList().contains(duplicate));
+                getList().remove(duplicate),
+                "remove(present) should return true");
+        assertTrue(
+                getList().contains(duplicate),
+                "After remove(duplicate), a list should still contain the duplicate element");
         assertFalse(
+                firstIndex == getList().indexOf(duplicate),
                 "remove(duplicate) should remove the first instance of the "
-                        + "duplicate element in the list",
-                firstIndex == getList().indexOf(duplicate));
+                        + "duplicate element in the list");
         assertEquals(
-                "remove(present) should decrease the size of a list by one.",
                 initialSize - 1,
-                getList().size());
+                getList().size(),
+                "remove(present) should decrease the size of a list by one.");
     }
 }

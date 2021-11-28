@@ -33,6 +33,9 @@ import static com.google.common.collect.testing.features.CollectionFeature.FAILS
 import static com.google.common.collect.testing.features.CollectionFeature.SUPPORTS_REMOVE;
 import static com.google.common.collect.testing.features.CollectionSize.SEVERAL;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * A generic JUnit test which tests {@code removeAll} operations on a collection. Can't be invoked
@@ -47,16 +50,16 @@ public class CollectionRemoveAllTester<E> extends AbstractCollectionTester<E> {
     @CollectionFeature.Require(SUPPORTS_REMOVE)
     public void testRemoveAll_emptyCollection() {
         assertFalse(
-                "removeAll(emptyCollection) should return false",
-                collection.removeAll(MinimalCollection.of()));
+                collection.removeAll(MinimalCollection.of()),
+                "removeAll(emptyCollection) should return false");
         expectUnchanged();
     }
 
     @CollectionFeature.Require(SUPPORTS_REMOVE)
     public void testRemoveAll_nonePresent() {
         assertFalse(
-                "removeAll(disjointCollection) should return false",
-                collection.removeAll(MinimalCollection.of(e3())));
+                collection.removeAll(MinimalCollection.of(e3())),
+                "removeAll(disjointCollection) should return false");
         expectUnchanged();
     }
 
@@ -64,8 +67,8 @@ public class CollectionRemoveAllTester<E> extends AbstractCollectionTester<E> {
     @CollectionSize.Require(absent = ZERO)
     public void testRemoveAll_allPresent() {
         assertTrue(
-                "removeAll(intersectingCollection) should return true",
-                collection.removeAll(MinimalCollection.of(e0())));
+                collection.removeAll(MinimalCollection.of(e0())),
+                "removeAll(intersectingCollection) should return true");
         expectMissing(e0());
     }
 
@@ -73,8 +76,8 @@ public class CollectionRemoveAllTester<E> extends AbstractCollectionTester<E> {
     @CollectionSize.Require(absent = ZERO)
     public void testRemoveAll_somePresent() {
         assertTrue(
-                "removeAll(intersectingCollection) should return true",
-                collection.removeAll(MinimalCollection.of(e0(), e3())));
+                collection.removeAll(MinimalCollection.of(e0(), e3())),
+                "removeAll(intersectingCollection) should return true");
         expectMissing(e0());
     }
 
@@ -91,13 +94,13 @@ public class CollectionRemoveAllTester<E> extends AbstractCollectionTester<E> {
         }
     }
 
-    /** Trigger the {@code other.size() >= this.size()} case in {@link AbstractSet#removeAll()}. */
+    /** Trigger the {@code other.size() >= this.size()} case in {@link java.util.Collection#removeAll(java.util.Collection)}. */
     @CollectionFeature.Require(SUPPORTS_REMOVE)
     @CollectionSize.Require(absent = ZERO)
     public void testRemoveAll_somePresentLargeCollectionToRemove() {
         assertTrue(
-                "removeAll(largeIntersectingCollection) should return true",
-                collection.removeAll(MinimalCollection.of(e0(), e0(), e0(), e3(), e3(), e3())));
+                collection.removeAll(MinimalCollection.of(e0(), e0(), e0(), e3(), e3(), e3())),
+                "removeAll(largeIntersectingCollection) should return true");
         expectMissing(e0());
     }
 
@@ -105,9 +108,9 @@ public class CollectionRemoveAllTester<E> extends AbstractCollectionTester<E> {
     public void testRemoveAll_unsupportedEmptyCollection() {
         try {
             assertFalse(
+                    collection.removeAll(MinimalCollection.of()),
                     "removeAll(emptyCollection) should return false or throw "
-                            + "UnsupportedOperationException",
-                    collection.removeAll(MinimalCollection.of()));
+                            + "UnsupportedOperationException");
         } catch (UnsupportedOperationException tolerated) {
         }
         expectUnchanged();
@@ -117,9 +120,9 @@ public class CollectionRemoveAllTester<E> extends AbstractCollectionTester<E> {
     public void testRemoveAll_unsupportedNonePresent() {
         try {
             assertFalse(
+                    collection.removeAll(MinimalCollection.of(e3())),
                     "removeAll(disjointCollection) should return false or throw "
-                            + "UnsupportedOperationException",
-                    collection.removeAll(MinimalCollection.of(e3())));
+                            + "UnsupportedOperationException");
         } catch (UnsupportedOperationException tolerated) {
         }
         expectUnchanged();
@@ -169,8 +172,8 @@ public class CollectionRemoveAllTester<E> extends AbstractCollectionTester<E> {
         MinimalCollection<?> containsNull = MinimalCollection.of((Object) null);
         try {
             assertFalse(
-                    "removeAll(containsNull) should return false or throw",
-                    collection.removeAll(containsNull));
+                    collection.removeAll(containsNull),
+                    "removeAll(containsNull) should return false or throw");
         } catch (NullPointerException tolerated) {
         }
         expectUnchanged();
@@ -179,7 +182,9 @@ public class CollectionRemoveAllTester<E> extends AbstractCollectionTester<E> {
     @CollectionFeature.Require({SUPPORTS_REMOVE, ALLOWS_NULL_QUERIES})
     public void testRemoveAll_containsNullNoButAllowed() {
         MinimalCollection<?> containsNull = MinimalCollection.of((Object) null);
-        assertFalse("removeAll(containsNull) should return false", collection.removeAll(containsNull));
+        assertFalse(
+                collection.removeAll(containsNull),
+                "removeAll(containsNull) should return false");
         expectUnchanged();
     }
 
@@ -188,8 +193,8 @@ public class CollectionRemoveAllTester<E> extends AbstractCollectionTester<E> {
     public void testRemoveAll_containsNullYes() {
         initCollectionWithNullElement();
         assertTrue(
-                "removeAll(containsNull) should return true",
-                collection.removeAll(Collections.singleton(null)));
+                collection.removeAll(Collections.singleton(null)),
+                "removeAll(containsNull) should return true");
         // TODO: make this work with MinimalCollection
     }
 
@@ -197,8 +202,8 @@ public class CollectionRemoveAllTester<E> extends AbstractCollectionTester<E> {
     public void testRemoveAll_containsWrongType() {
         try {
             assertFalse(
-                    "removeAll(containsWrongType) should return false or throw",
-                    collection.removeAll(MinimalCollection.of(WrongType.VALUE)));
+                    collection.removeAll(MinimalCollection.of(WrongType.VALUE)),
+                    "removeAll(containsW1rongType) should return false or throw");
         } catch (ClassCastException tolerated) {
         }
         expectUnchanged();

@@ -22,6 +22,7 @@ import org.junit.Ignore;
 
 import static com.google.common.collect.testing.features.CollectionFeature.SUPPORTS_REMOVE;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 /**
  * A generic JUnit test which tests remove operations on a set. Can't be invoked directly; please
@@ -36,7 +37,7 @@ public class SetRemoveTester<E> extends AbstractSetTester<E> {
     public void testRemove_present() {
         getSet().remove(e0());
         assertFalse(
-                "After remove(present) a set should not contain the removed element.",
-                getSet().contains(e0()));
+                getSet().contains(e0()),
+                "After remove(present) a set should not contain the removed element.");
     }
 }

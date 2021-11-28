@@ -23,6 +23,7 @@ import org.junit.Ignore;
 
 import static com.google.common.collect.testing.features.CollectionFeature.ALLOWS_NULL_VALUES;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Common parent class for {@link ListIndexOfTester} and {@link ListLastIndexOfTester}.
@@ -40,22 +41,33 @@ public abstract class AbstractListIndexOfTester<E> extends AbstractListTester<E>
     @CollectionSize.Require(absent = ZERO)
     public void testFind_yes() {
         assertEquals(
-                getMethodName() + "(firstElement) should return 0", 0, find(getOrderedElements().get(0)));
+                0,
+                find(getOrderedElements().get(0)),
+                getMethodName() + "(firstElement) should return 0");
     }
 
     public void testFind_no() {
-        assertEquals(getMethodName() + "(notPresent) should return -1", -1, find(e3()));
+        assertEquals(
+                -1,
+                find(e3()),
+                getMethodName() + "(notPresent) should return -1");
     }
 
     @CollectionFeature.Require(ALLOWS_NULL_VALUES)
     public void testFind_nullNotContainedButSupported() {
-        assertEquals(getMethodName() + "(nullNotPresent) should return -1", -1, find(null));
+        assertEquals(
+                -1,
+                find(null),
+                getMethodName() + "(nullNotPresent) should return -1");
     }
 
     @CollectionFeature.Require(absent = ALLOWS_NULL_VALUES)
     public void testFind_nullNotContainedAndUnsupported() {
         try {
-            assertEquals(getMethodName() + "(nullNotPresent) should return -1 or throw", -1, find(null));
+            assertEquals(
+                    -1,
+                    find(null),
+                    getMethodName() + "(nullNotPresent) should return -1 or throw");
         } catch (NullPointerException tolerated) {
         }
     }
@@ -64,7 +76,10 @@ public abstract class AbstractListIndexOfTester<E> extends AbstractListTester<E>
     @CollectionSize.Require(absent = ZERO)
     public void testFind_nonNullWhenNullContained() {
         initCollectionWithNullElement();
-        assertEquals(getMethodName() + "(notPresent) should return -1", -1, find(e3()));
+        assertEquals(
+                -1,
+                find(e3()),
+                getMethodName() + "(notPresent) should return -1");
     }
 
     @CollectionFeature.Require(ALLOWS_NULL_VALUES)
@@ -72,15 +87,17 @@ public abstract class AbstractListIndexOfTester<E> extends AbstractListTester<E>
     public void testFind_nullContained() {
         initCollectionWithNullElement();
         assertEquals(
-                getMethodName() + "(null) should return " + getNullLocation(),
                 getNullLocation(),
-                find(null));
+                find(null),
+                getMethodName() + "(null) should return " + getNullLocation());
     }
 
     public void testFind_wrongType() {
         try {
             assertEquals(
-                    getMethodName() + "(wrongType) should return -1 or throw", -1, find(WrongType.VALUE));
+                    -1,
+                    find(WrongType.VALUE),
+                    getMethodName() + "(wrongType) should return -1 or throw");
         } catch (ClassCastException tolerated) {
         }
     }

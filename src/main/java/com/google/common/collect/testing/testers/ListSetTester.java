@@ -29,6 +29,8 @@ import java.lang.reflect.Method;
 import static com.google.common.collect.testing.features.CollectionFeature.ALLOWS_NULL_VALUES;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
 import static com.google.common.collect.testing.features.ListFeature.SUPPORTS_SET;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * A generic JUnit test which tests {@code set()} operations on a list. Can't be invoked directly;
@@ -68,11 +70,17 @@ public class ListSetTester<E> extends AbstractListTester<E> {
         int index = aValidIndex();
         E initialValue = getList().get(index);
         assertEquals(
-                "set(i, x) should return the old element at position i.",
                 initialValue,
-                getList().set(index, newValue));
-        assertEquals("After set(i, x), get(i) should return x", newValue, getList().get(index));
-        assertEquals("set() should not change the size of a list.", getNumElements(), getList().size());
+                getList().set(index, newValue),
+                "set(i, x) should return the old element at position i.");
+        assertEquals(
+                newValue,
+                getList().get(index),
+                "After set(i, x), get(i) should return x");
+        assertEquals(
+                getNumElements(),
+                getList().size(),
+                "set() should not change the size of a list.");
     }
 
     @ListFeature.Require(SUPPORTS_SET)

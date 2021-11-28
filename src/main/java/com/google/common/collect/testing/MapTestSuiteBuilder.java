@@ -49,7 +49,7 @@ import com.google.common.collect.testing.testers.MapSerializationTester;
 import com.google.common.collect.testing.testers.MapSizeTester;
 import com.google.common.collect.testing.testers.MapToStringTester;
 import com.google.common.testing.SerializableTester;
-import junit.framework.TestSuite;
+import com.google.common.testing.junit.TestSuite;
 
 import java.util.Arrays;
 import java.util.HashSet;

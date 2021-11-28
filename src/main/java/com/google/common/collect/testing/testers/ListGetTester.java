@@ -18,6 +18,8 @@ package com.google.common.collect.testing.testers;
 
 import org.junit.Ignore;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 /**
  * A generic JUnit test which tests {@code get()} operations on a list. Can't be invoked directly;
  * please see {@link com.google.common.collect.testing.ListTestSuiteBuilder}.

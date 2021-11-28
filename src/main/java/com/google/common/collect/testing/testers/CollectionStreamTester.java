@@ -24,6 +24,7 @@ import org.junit.Ignore;
 import java.util.Arrays;
 
 import static com.google.common.collect.testing.features.CollectionFeature.KNOWN_ORDER;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * A generic JUnit test which tests {@code stream} operations on a collection. Can't be invoked

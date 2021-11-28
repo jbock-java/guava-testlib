@@ -27,6 +27,8 @@ import static com.google.common.collect.testing.features.CollectionFeature.SUPPO
 import static com.google.common.collect.testing.features.CollectionSize.ONE;
 import static com.google.common.collect.testing.features.CollectionSize.SEVERAL;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * A generic JUnit test which tests {@code remove()} operations on a queue. Can't be invoked
@@ -51,14 +53,20 @@ public class QueueRemoveTester<E> extends AbstractQueueTester<E> {
     @CollectionFeature.Require(SUPPORTS_REMOVE)
     @CollectionSize.Require(ONE)
     public void testRemove_size1() {
-        assertEquals("size1Queue.remove() should return first element", e0(), getQueue().remove());
+        assertEquals(
+                e0(),
+                getQueue().remove(),
+                "size1Queue.remove() should return first element");
         expectMissing(e0());
     }
 
     @CollectionFeature.Require({KNOWN_ORDER, SUPPORTS_REMOVE})
     @CollectionSize.Require(SEVERAL)
     public void testRemove_sizeMany() {
-        assertEquals("sizeManyQueue.remove() should return first element", e0(), getQueue().remove());
+        assertEquals(
+                e0(),
+                getQueue().remove(),
+                "sizeManyQueue.remove() should return first element");
         expectMissing(e0());
     }
 }

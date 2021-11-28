@@ -38,7 +38,7 @@ import com.google.common.collect.testing.features.Feature;
 import com.google.common.collect.testing.features.ListFeature;
 import com.google.common.collect.testing.features.MapFeature;
 import com.google.common.testing.SerializableTester;
-import junit.framework.TestSuite;
+import com.google.common.testing.junit.TestSuite;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -30,7 +30,7 @@ import com.google.common.collect.testing.google.DerivedGoogleCollectionGenerator
 import com.google.common.collect.testing.google.DerivedGoogleCollectionGenerators.InverseBiMapGenerator;
 import com.google.common.collect.testing.google.DerivedGoogleCollectionGenerators.MapGenerator;
 import com.google.common.collect.testing.testers.SetCreationTester;
-import junit.framework.TestSuite;
+import com.google.common.testing.junit.TestSuite;
 
 import java.util.ArrayList;
 import java.util.Collections;

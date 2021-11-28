@@ -28,6 +28,8 @@ import java.util.Collection;
 import static com.google.common.collect.testing.features.CollectionFeature.ALLOWS_NULL_QUERIES;
 import static com.google.common.collect.testing.features.CollectionFeature.ALLOWS_NULL_VALUES;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * A generic JUnit test which tests {@code containsAll()} operations on a collection. Can't be
@@ -42,37 +44,40 @@ import static com.google.common.collect.testing.features.CollectionSize.ZERO;
 public class CollectionContainsAllTester<E> extends AbstractCollectionTester<E> {
     public void testContainsAll_empty() {
         assertTrue(
-                "containsAll(empty) should return true", collection.containsAll(MinimalCollection.of()));
+                collection.containsAll(MinimalCollection.of()),
+                "containsAll(empty) should return true");
     }
 
     @CollectionSize.Require(absent = ZERO)
     public void testContainsAll_subset() {
         assertTrue(
-                "containsAll(subset) should return true",
-                collection.containsAll(MinimalCollection.of(e0())));
+                collection.containsAll(MinimalCollection.of(e0())),
+                "containsAll(subset) should return true");
     }
 
     public void testContainsAll_sameElements() {
         assertTrue(
-                "containsAll(sameElements) should return true",
-                collection.containsAll(MinimalCollection.of(createSamplesArray())));
+                collection.containsAll(MinimalCollection.of(createSamplesArray())),
+                "containsAll(sameElements) should return true");
     }
 
     @SuppressWarnings("ModifyingCollectionWithItself")
     public void testContainsAll_self() {
-        assertTrue("containsAll(this) should return true", collection.containsAll(collection));
+        assertTrue(
+                collection.containsAll(collection),
+                "containsAll(this) should return true");
     }
 
     public void testContainsAll_partialOverlap() {
         assertFalse(
-                "containsAll(partialOverlap) should return false",
-                collection.containsAll(MinimalCollection.of(e0(), e3())));
+                collection.containsAll(MinimalCollection.of(e0(), e3())),
+                "containsAll(partialOverlap) should return false");
     }
 
     public void testContainsAll_disjoint() {
         assertFalse(
-                "containsAll(disjoint) should return false",
-                collection.containsAll(MinimalCollection.of(e3())));
+                collection.containsAll(MinimalCollection.of(e3())),
+                "containsAll(disjoint) should return false");
     }
 
     @CollectionFeature.Require(absent = ALLOWS_NULL_QUERIES)
@@ -99,7 +104,8 @@ public class CollectionContainsAllTester<E> extends AbstractCollectionTester<E> 
         Collection<WrongType> wrong = MinimalCollection.of(WrongType.VALUE);
         try {
             assertFalse(
-                    "containsAll(wrongType) should return false or throw", collection.containsAll(wrong));
+                    collection.containsAll(wrong),
+                    "containsAll(wrongType) should return false or throw");
         } catch (ClassCastException tolerated) {
         }
     }

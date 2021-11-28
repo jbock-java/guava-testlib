@@ -17,8 +17,8 @@
 package com.google.common.util.concurrent.testing;
 
 import com.google.common.annotations.Beta;
+import com.google.common.testing.junit.TestCase;
 import com.google.common.util.concurrent.ListenableFuture;
-import junit.framework.TestCase;
 
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.CountDownLatch;
@@ -28,6 +28,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Abstract test case parent for anything implementing {@link ListenableFuture}. Tests the two get

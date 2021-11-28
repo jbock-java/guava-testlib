@@ -30,6 +30,8 @@ import static com.google.common.collect.testing.features.CollectionSize.ONE;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
 import static com.google.common.collect.testing.features.MapFeature.ALLOWS_NULL_KEYS;
 import static com.google.common.collect.testing.features.MapFeature.ALLOWS_NULL_VALUES;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * A generic JUnit test which tests {@code toString()} operations on a map. Can't be invoked
@@ -41,19 +43,27 @@ import static com.google.common.collect.testing.features.MapFeature.ALLOWS_NULL_
 @Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class MapToStringTester<K, V> extends AbstractMapTester<K, V> {
     public void testToString_minimal() {
-        assertNotNull("toString() should not return null", getMap().toString());
+        assertNotNull(
+                getMap().toString(),
+                "toString() should not return null");
     }
 
     @CollectionSize.Require(ZERO)
     @CollectionFeature.Require(absent = NON_STANDARD_TOSTRING)
     public void testToString_size0() {
-        assertEquals("emptyMap.toString should return {}", "{}", getMap().toString());
+        assertEquals(
+                "{}",
+                getMap().toString(),
+                "emptyMap.toString should return {}");
     }
 
     @CollectionSize.Require(ONE)
     @CollectionFeature.Require(absent = NON_STANDARD_TOSTRING)
     public void testToString_size1() {
-        assertEquals("size1Map.toString should return {entry}", "{" + e0() + "}", getMap().toString());
+        assertEquals(
+                "{" + e0() + "}",
+                getMap().toString(),
+                "size1Map.toString should return {entry}");
     }
 
     @CollectionSize.Require(absent = ZERO)
@@ -75,7 +85,9 @@ public class MapToStringTester<K, V> extends AbstractMapTester<K, V> {
     @CollectionFeature.Require(absent = NON_STANDARD_TOSTRING)
     public void testToString_formatting() {
         assertEquals(
-                "map.toString() incorrect", expectedToString(getMap().entrySet()), getMap().toString());
+                expectedToString(getMap().entrySet()),
+                getMap().toString(),
+                "map.toString() incorrect");
     }
 
     private String expectedToString(Set<Entry<K, V>> entries) {

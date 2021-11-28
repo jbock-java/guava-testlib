@@ -18,6 +18,7 @@ package com.google.common.collect.testing.testers;
 
 import com.google.common.collect.testing.AbstractCollectionTester;
 import org.junit.Ignore;
+import org.junit.jupiter.api.Assertions;
 
 /**
  * A generic JUnit test which tests {@code size()} operations on a collection. Can't be invoked
@@ -28,6 +29,9 @@ import org.junit.Ignore;
 @Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class CollectionSizeTester<E> extends AbstractCollectionTester<E> {
     public void testSize() {
-        assertEquals("size():", getNumElements(), collection.size());
+        Assertions.assertEquals(
+                getNumElements(),
+                collection.size(),
+                "size():");
     }
 }

@@ -21,6 +21,8 @@ import com.google.common.collect.testing.features.CollectionSize;
 import org.junit.Ignore;
 
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * A generic JUnit test which tests {@code isEmpty()} operations on a collection. Can't be invoked
@@ -32,11 +34,15 @@ import static com.google.common.collect.testing.features.CollectionSize.ZERO;
 public class CollectionIsEmptyTester<E> extends AbstractCollectionTester<E> {
     @CollectionSize.Require(ZERO)
     public void testIsEmpty_yes() {
-        assertTrue("isEmpty() should return true", collection.isEmpty());
+        assertTrue(
+                collection.isEmpty(),
+                "isEmpty() should return true");
     }
 
     @CollectionSize.Require(absent = ZERO)
     public void testIsEmpty_no() {
-        assertFalse("isEmpty() should return false", collection.isEmpty());
+        assertFalse(
+                collection.isEmpty(),
+                "isEmpty() should return false");
     }
 }

@@ -37,6 +37,10 @@ import static com.google.common.collect.testing.features.MapFeature.ALLOWS_NULL_
 import static com.google.common.collect.testing.features.MapFeature.ALLOWS_NULL_VALUES;
 import static com.google.common.collect.testing.features.MapFeature.ALLOWS_NULL_VALUE_QUERIES;
 import static com.google.common.collect.testing.features.MapFeature.SUPPORTS_PUT;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Tests {@link java.util.Map#entrySet}.
@@ -107,7 +111,10 @@ public class MapEntrySetTester<K, V> extends AbstractMapTester<K, V> {
     public void testSetValue() {
         for (Entry<K, V> entry : getMap().entrySet()) {
             if (entry.getKey().equals(k0())) {
-                assertEquals("entry.setValue() should return the old value", v0(), entry.setValue(v3()));
+                assertEquals(
+                        v0(),
+                        entry.setValue(v3()),
+                        "entry.setValue() should return the old value");
                 break;
             }
         }
@@ -119,7 +126,10 @@ public class MapEntrySetTester<K, V> extends AbstractMapTester<K, V> {
     public void testSetValueWithNullValuesPresent() {
         for (Entry<K, V> entry : getMap().entrySet()) {
             if (entry.getKey().equals(k0())) {
-                assertEquals("entry.setValue() should return the old value", v0(), entry.setValue(null));
+                assertEquals(
+                        v0(),
+                        entry.setValue(null),
+                        "entry.setValue() should return the old value");
                 break;
             }
         }

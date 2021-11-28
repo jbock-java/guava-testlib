@@ -25,6 +25,8 @@ import org.junit.Ignore;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
 import static com.google.common.collect.testing.features.MapFeature.ALLOWS_NULL_KEYS;
 import static com.google.common.collect.testing.features.MapFeature.ALLOWS_NULL_KEY_QUERIES;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * A generic JUnit test which tests {@code get} operations on a map. Can't be invoked directly;
@@ -37,22 +39,31 @@ import static com.google.common.collect.testing.features.MapFeature.ALLOWS_NULL_
 public class MapGetTester<K, V> extends AbstractMapTester<K, V> {
     @CollectionSize.Require(absent = ZERO)
     public void testGet_yes() {
-        assertEquals("get(present) should return the associated value", v0(), get(k0()));
+        assertEquals(
+                v0(),
+                get(k0()),
+                "get(present) should return the associated value");
     }
 
     public void testGet_no() {
-        assertNull("get(notPresent) should return null", get(k3()));
+        assertNull(
+                get(k3()),
+                "get(notPresent) should return null");
     }
 
     @MapFeature.Require(ALLOWS_NULL_KEY_QUERIES)
     public void testGet_nullNotContainedButAllowed() {
-        assertNull("get(null) should return null", get(null));
+        assertNull(
+                get(null),
+                "get(null) should return null");
     }
 
     @MapFeature.Require(absent = ALLOWS_NULL_KEY_QUERIES)
     public void testGet_nullNotContainedAndUnsupported() {
         try {
-            assertNull("get(null) should return null or throw", get(null));
+            assertNull(
+                    get(null),
+                    "get(null) should return null or throw");
         } catch (NullPointerException tolerated) {
         }
     }
@@ -61,19 +72,26 @@ public class MapGetTester<K, V> extends AbstractMapTester<K, V> {
     @CollectionSize.Require(absent = ZERO)
     public void testGet_nonNullWhenNullContained() {
         initMapWithNullKey();
-        assertNull("get(notPresent) should return null", get(k3()));
+        assertNull(
+                get(k3()),
+                "get(notPresent) should return null");
     }
 
     @MapFeature.Require(ALLOWS_NULL_KEYS)
     @CollectionSize.Require(absent = ZERO)
     public void testGet_nullContained() {
         initMapWithNullKey();
-        assertEquals("get(null) should return the associated value", getValueForNullKey(), get(null));
+        assertEquals(
+                getValueForNullKey(),
+                get(null),
+                "get(null) should return the associated value");
     }
 
     public void testGet_wrongType() {
         try {
-            assertNull("get(wrongType) should return null or throw", getMap().get(WrongType.VALUE));
+            assertNull(
+                    getMap().get(WrongType.VALUE),
+                    "get(wrongType) should return null or throw");
         } catch (ClassCastException tolerated) {
         }
     }

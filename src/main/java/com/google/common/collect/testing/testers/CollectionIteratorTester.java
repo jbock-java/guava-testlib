@@ -41,6 +41,10 @@ import static com.google.common.collect.testing.features.CollectionFeature.KNOWN
 import static com.google.common.collect.testing.features.CollectionFeature.SUPPORTS_ITERATOR_REMOVE;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
 import static java.util.Arrays.asList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * A generic JUnit test which tests {@code iterator} operations on a collection. Can't be invoked
@@ -66,7 +70,10 @@ public class CollectionIteratorTester<E> extends AbstractCollectionTester<E> {
             iteratorElements.add(element);
         }
         List<E> expected = Helpers.copyToList(getOrderedElements());
-        assertEquals("Different ordered iteration", expected, iteratorElements);
+        assertEquals(
+                expected,
+                iteratorElements,
+                "Different ordered iteration");
     }
 
     @CollectionFeature.Require(ALLOWS_NULL_VALUES)

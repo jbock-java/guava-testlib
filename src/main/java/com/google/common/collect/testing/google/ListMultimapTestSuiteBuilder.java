@@ -27,7 +27,7 @@ import com.google.common.collect.testing.features.CollectionFeature;
 import com.google.common.collect.testing.features.CollectionSize;
 import com.google.common.collect.testing.features.Feature;
 import com.google.common.collect.testing.features.ListFeature;
-import junit.framework.TestSuite;
+import com.google.common.testing.junit.TestSuite;
 
 import java.util.Collections;
 import java.util.EnumSet;

@@ -30,6 +30,8 @@ import static com.google.common.collect.testing.features.CollectionFeature.FAILS
 import static com.google.common.collect.testing.features.CollectionSize.ONE;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
 import static com.google.common.collect.testing.features.ListFeature.SUPPORTS_REMOVE_WITH_INDEX;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * A generic JUnit test which tests {@code remove(int)} operations on a list. Can't be invoked
@@ -104,9 +106,9 @@ public class ListRemoveAtIndexTester<E> extends AbstractListTester<E> {
 
     private void runRemoveTest(int index) {
         assertEquals(
-                Platform.format("remove(%d) should return the element at index %d", index, index),
                 getList().get(index),
-                getList().remove(index));
+                getList().remove(index),
+                Platform.format("remove(%d) should return the element at index %d", index, index));
         List<E> expected = Helpers.copyToList(createSamplesArray());
         expected.remove(index);
         expectContents(expected);

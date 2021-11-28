@@ -23,6 +23,7 @@ import org.junit.Ignore;
 import static com.google.common.collect.testing.features.CollectionFeature.REJECTS_DUPLICATES_AT_CREATION;
 import static com.google.common.collect.testing.features.CollectionSize.ONE;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * A generic JUnit test which tests {@code indexOf()} operations on a list. Can't be invoked
@@ -49,6 +50,8 @@ public class ListIndexOfTester<E> extends AbstractListIndexOfTester<E> {
         array[getNumElements() / 2] = e0();
         collection = getSubjectGenerator().create(array);
         assertEquals(
-                "indexOf(duplicate) should return index of first occurrence", 0, getList().indexOf(e0()));
+                0,
+                getList().indexOf(e0()),
+                "indexOf(duplicate) should return index of first occurrence");
     }
 }

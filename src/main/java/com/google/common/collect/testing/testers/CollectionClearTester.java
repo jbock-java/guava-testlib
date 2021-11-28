@@ -28,6 +28,10 @@ import static com.google.common.collect.testing.features.CollectionFeature.FAILS
 import static com.google.common.collect.testing.features.CollectionFeature.SUPPORTS_REMOVE;
 import static com.google.common.collect.testing.features.CollectionSize.SEVERAL;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * A generic JUnit test which tests {@code clear()} operations on a collection. Can't be invoked
@@ -40,7 +44,9 @@ public class CollectionClearTester<E> extends AbstractCollectionTester<E> {
     @CollectionFeature.Require(SUPPORTS_REMOVE)
     public void testClear() {
         collection.clear();
-        assertTrue("After clear(), a collection should be empty.", collection.isEmpty());
+        assertTrue(
+                collection.isEmpty(),
+                "After clear(), a collection should be empty.");
         assertEquals(0, collection.size());
         assertFalse(collection.iterator().hasNext());
     }

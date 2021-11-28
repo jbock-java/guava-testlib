@@ -25,6 +25,7 @@ import static com.google.common.collect.testing.features.CollectionSize.ONE;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
 import static com.google.common.collect.testing.features.MapFeature.ALLOWS_NULL_KEYS;
 import static com.google.common.collect.testing.features.MapFeature.ALLOWS_NULL_VALUES;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Tester for {@code Multimap.toString()}.
@@ -36,13 +37,17 @@ public class MultimapToStringTester<K, V> extends AbstractMultimapTester<K, V, M
     @CollectionSize.Require(ZERO)
     @CollectionFeature.Require(absent = NON_STANDARD_TOSTRING)
     public void testToStringEmpty() {
-        assertEquals("{}", multimap().toString());
+        assertEquals(
+                "{}",
+                multimap().toString());
     }
 
     @CollectionSize.Require(ONE)
     @CollectionFeature.Require(absent = NON_STANDARD_TOSTRING)
     public void testToStringSingleton() {
-        assertEquals("{" + k0() + "=[" + v0() + "]}", multimap().toString());
+        assertEquals(
+                "{" + k0() + "=[" + v0() + "]}",
+                multimap().toString());
     }
 
     @CollectionSize.Require(absent = ZERO)
@@ -63,6 +68,8 @@ public class MultimapToStringTester<K, V> extends AbstractMultimapTester<K, V, M
 
     @CollectionFeature.Require(absent = NON_STANDARD_TOSTRING)
     public void testToStringMatchesAsMap() {
-        assertEquals(multimap().asMap().toString(), multimap().toString());
+        assertEquals(
+                multimap().asMap().toString(),
+                multimap().toString());
     }
 }

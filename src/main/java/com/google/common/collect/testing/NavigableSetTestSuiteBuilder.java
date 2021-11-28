@@ -20,7 +20,7 @@ import com.google.common.collect.testing.DerivedCollectionGenerators.Bound;
 import com.google.common.collect.testing.DerivedCollectionGenerators.SortedSetSubsetTestSetGenerator;
 import com.google.common.collect.testing.features.Feature;
 import com.google.common.collect.testing.testers.NavigableSetNavigationTester;
-import junit.framework.TestSuite;
+import com.google.common.testing.junit.TestSuite;
 
 import java.util.ArrayList;
 import java.util.Collection;

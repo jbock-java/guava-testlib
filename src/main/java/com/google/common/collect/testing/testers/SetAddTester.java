@@ -28,6 +28,7 @@ import java.lang.reflect.Method;
 import static com.google.common.collect.testing.features.CollectionFeature.ALLOWS_NULL_VALUES;
 import static com.google.common.collect.testing.features.CollectionFeature.SUPPORTS_ADD;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 /**
  * A generic JUnit test which tests add operations on a set. Can't be invoked directly; please see
@@ -41,7 +42,9 @@ public class SetAddTester<E> extends AbstractSetTester<E> {
     @CollectionFeature.Require(SUPPORTS_ADD)
     @CollectionSize.Require(absent = ZERO)
     public void testAdd_supportedPresent() {
-        assertFalse("add(present) should return false", getSet().add(e0()));
+        assertFalse(
+                getSet().add(e0()),
+                "add(present) should return false");
         expectUnchanged();
     }
 
@@ -50,7 +53,9 @@ public class SetAddTester<E> extends AbstractSetTester<E> {
     public void testAdd_supportedNullPresent() {
         E[] array = createArrayWithNullElement();
         collection = getSubjectGenerator().create(array);
-        assertFalse("add(nullPresent) should return false", getSet().add(null));
+        assertFalse(
+                getSet().add(null),
+                "add(nullPresent) should return false");
         expectContents(array);
     }
 

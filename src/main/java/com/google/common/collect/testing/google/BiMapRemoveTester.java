@@ -26,6 +26,7 @@ import java.util.Iterator;
 import static com.google.common.collect.testing.features.CollectionFeature.SUPPORTS_ITERATOR_REMOVE;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
 import static com.google.common.collect.testing.features.MapFeature.SUPPORTS_REMOVE;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Tester for {@code BiMap.remove}.

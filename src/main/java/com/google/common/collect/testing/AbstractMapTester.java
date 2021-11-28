@@ -25,6 +25,9 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 /**
  * Base class for map testers.
  *
@@ -58,13 +61,17 @@ public abstract class AbstractMapTester<K, V>
 
     protected void expectMissingKeys(K... elements) {
         for (K element : elements) {
-            assertFalse("Should not contain key " + element, getMap().containsKey(element));
+            assertFalse(
+                    getMap().containsKey(element),
+                    "Should not contain key " + element);
         }
     }
 
     protected void expectMissingValues(V... elements) {
         for (V element : elements) {
-            assertFalse("Should not contain value " + element, getMap().containsValue(element));
+            assertFalse(
+                    getMap().containsValue(element),
+                    "Should not contain value " + element);
         }
     }
 
@@ -118,7 +125,9 @@ public abstract class AbstractMapTester<K, V>
      */
     protected void expectNullKeyMissingWhenNullKeysUnsupported(String message) {
         try {
-            assertFalse(message, getMap().containsKey(null));
+            assertFalse(
+                    getMap().containsKey(null),
+                    message);
         } catch (NullPointerException tolerated) {
             // Tolerated
         }
@@ -132,7 +141,9 @@ public abstract class AbstractMapTester<K, V>
      */
     protected void expectNullValueMissingWhenNullValuesUnsupported(String message) {
         try {
-            assertFalse(message, getMap().containsValue(null));
+            assertFalse(
+                    getMap().containsValue(null),
+                    message);
         } catch (NullPointerException tolerated) {
             // Tolerated
         }
@@ -159,10 +170,12 @@ public abstract class AbstractMapTester<K, V>
     @Override
     protected void expectMissing(Entry<K, V>... entries) {
         for (Entry<K, V> entry : entries) {
-            assertFalse("Should not contain entry " + entry, actualContents().contains(entry));
             assertFalse(
-                    "Should not contain key " + entry.getKey() + " mapped to value " + entry.getValue(),
-                    equal(getMap().get(entry.getKey()), entry.getValue()));
+                    actualContents().contains(entry),
+                    "Should not contain entry " + entry);
+            assertFalse(
+                    equal(getMap().get(entry.getKey()), entry.getValue()),
+                    "Should not contain key " + entry.getKey() + " mapped to value " + entry.getValue());
         }
     }
 
@@ -181,7 +194,9 @@ public abstract class AbstractMapTester<K, V>
         super.expectContents(expected);
         for (Entry<K, V> entry : expected) {
             assertEquals(
-                    "Wrong value for key " + entry.getKey(), entry.getValue(), getMap().get(entry.getKey()));
+                    entry.getValue(),
+                    getMap().get(entry.getKey()),
+                    "Wrong value for key " + entry.getKey());
         }
     }
 

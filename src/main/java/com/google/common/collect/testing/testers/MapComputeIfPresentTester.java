@@ -29,6 +29,9 @@ import static com.google.common.collect.testing.features.CollectionSize.ZERO;
 import static com.google.common.collect.testing.features.MapFeature.ALLOWS_NULL_KEYS;
 import static com.google.common.collect.testing.features.MapFeature.ALLOWS_NULL_VALUES;
 import static com.google.common.collect.testing.features.MapFeature.SUPPORTS_PUT;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * A generic JUnit test which tests {@link Map#computeIfPresent}. Can't be invoked directly; please
@@ -42,13 +45,13 @@ public class MapComputeIfPresentTester<K, V> extends AbstractMapTester<K, V> {
     @MapFeature.Require(SUPPORTS_PUT)
     public void testComputeIfPresent_supportedAbsent() {
         assertNull(
-                "computeIfPresent(notPresent, function) should return null",
                 getMap()
                         .computeIfPresent(
                                 k3(),
                                 (k, v) -> {
                                     throw new AssertionFailedError();
-                                }));
+                                }),
+                "computeIfPresent(notPresent, function) should return null");
         expectUnchanged();
     }
 
@@ -56,7 +59,6 @@ public class MapComputeIfPresentTester<K, V> extends AbstractMapTester<K, V> {
     @CollectionSize.Require(absent = ZERO)
     public void testComputeIfPresent_supportedPresent() {
         assertEquals(
-                "computeIfPresent(present, function) should return new value",
                 v3(),
                 getMap()
                         .computeIfPresent(
@@ -65,7 +67,8 @@ public class MapComputeIfPresentTester<K, V> extends AbstractMapTester<K, V> {
                                     assertEquals(k0(), k);
                                     assertEquals(v0(), v);
                                     return v3();
-                                }));
+                                }),
+                "computeIfPresent(present, function) should return new value");
         expectReplacement(entry(k0(), v3()));
     }
 
@@ -73,7 +76,6 @@ public class MapComputeIfPresentTester<K, V> extends AbstractMapTester<K, V> {
     @CollectionSize.Require(absent = ZERO)
     public void testComputeIfPresent_functionReturnsNull() {
         assertNull(
-                "computeIfPresent(present, returnsNull) should return null",
                 getMap()
                         .computeIfPresent(
                                 k0(),
@@ -81,7 +83,8 @@ public class MapComputeIfPresentTester<K, V> extends AbstractMapTester<K, V> {
                                     assertEquals(k0(), k);
                                     assertEquals(v0(), v);
                                     return null;
-                                }));
+                                }),
+                "computeIfPresent(present, returnsNull) should return null");
         expectMissing(e0());
     }
 
@@ -90,13 +93,13 @@ public class MapComputeIfPresentTester<K, V> extends AbstractMapTester<K, V> {
     public void testComputeIfPresent_nullTreatedAsAbsent() {
         initMapWithNullValue();
         assertNull(
-                "computeIfPresent(presentAssignedToNull, function) should return null",
                 getMap()
                         .computeIfPresent(
                                 getKeyForNullValue(),
                                 (k, v) -> {
-                                    throw new AssertionFailedError();
-                                }));
+                                    throw new AssertionError();
+                                }),
+                "computeIfPresent(presentAssignedToNull, function) should return null");
         expectReplacement(entry(getKeyForNullValue(), null));
     }
 
@@ -126,7 +129,6 @@ public class MapComputeIfPresentTester<K, V> extends AbstractMapTester<K, V> {
     public void testComputeIfPresent_nullKeySupportedPresent() {
         initMapWithNullKey();
         assertEquals(
-                "computeIfPresent(null, function) should return new value",
                 v3(),
                 getMap()
                         .computeIfPresent(
@@ -135,7 +137,8 @@ public class MapComputeIfPresentTester<K, V> extends AbstractMapTester<K, V> {
                                     assertNull(k);
                                     assertEquals(getValueForNullKey(), v);
                                     return v3();
-                                }));
+                                }),
+                "computeIfPresent(null, function) should return new value");
 
         Entry<K, V>[] expected = createArrayWithNullKey();
         expected[getNullLocation()] = entry(null, v3());
@@ -145,13 +148,13 @@ public class MapComputeIfPresentTester<K, V> extends AbstractMapTester<K, V> {
     @MapFeature.Require({SUPPORTS_PUT, ALLOWS_NULL_KEYS})
     public void testComputeIfPresent_nullKeySupportedAbsent() {
         assertNull(
-                "computeIfPresent(null, function) should return null",
                 getMap()
                         .computeIfPresent(
                                 null,
                                 (k, v) -> {
                                     throw new AssertionFailedError();
-                                }));
+                                }),
+                "computeIfPresent(null, function) should return null");
         expectUnchanged();
     }
 

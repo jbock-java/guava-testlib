@@ -20,6 +20,7 @@ import org.junit.Ignore;
 import java.util.Arrays;
 
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Tests for {@code Multiset.containsAll} not already addressed by {@code CollectionContainsTester}.

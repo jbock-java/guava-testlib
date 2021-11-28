@@ -28,6 +28,8 @@ import static com.google.common.collect.testing.features.CollectionFeature.SUPPO
 import static com.google.common.collect.testing.features.CollectionSize.ONE;
 import static com.google.common.collect.testing.features.CollectionSize.SEVERAL;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * A generic JUnit test which tests {@code retainAll} operations on a list. Can't be invoked
@@ -44,8 +46,8 @@ public class ListRetainAllTester<E> extends AbstractListTester<E> {
         array[1] = e0();
         collection = getSubjectGenerator().create(array);
         assertFalse(
-                "containsDuplicates.retainAll(superset) should return false",
-                collection.retainAll(MinimalCollection.of(createSamplesArray())));
+                collection.retainAll(MinimalCollection.of(createSamplesArray())),
+                "containsDuplicates.retainAll(superset) should return false");
         expectContents(array);
     }
 
@@ -57,8 +59,8 @@ public class ListRetainAllTester<E> extends AbstractListTester<E> {
         array[1] = e0();
         collection = getSubjectGenerator().create(array);
         assertTrue(
-                "containsDuplicates.retainAll(subset) should return true",
-                collection.retainAll(MinimalCollection.of(e2())));
+                collection.retainAll(MinimalCollection.of(e2())),
+                "containsDuplicates.retainAll(subset) should return true");
         expectContents(e2());
     }
 

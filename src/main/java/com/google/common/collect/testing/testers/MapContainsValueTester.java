@@ -25,6 +25,8 @@ import org.junit.Ignore;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
 import static com.google.common.collect.testing.features.MapFeature.ALLOWS_NULL_VALUES;
 import static com.google.common.collect.testing.features.MapFeature.ALLOWS_NULL_VALUE_QUERIES;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * A generic JUnit test which tests {@code containsValue()} operations on a map. Can't be invoked
@@ -37,16 +39,22 @@ import static com.google.common.collect.testing.features.MapFeature.ALLOWS_NULL_
 public class MapContainsValueTester<K, V> extends AbstractMapTester<K, V> {
     @CollectionSize.Require(absent = ZERO)
     public void testContains_yes() {
-        assertTrue("containsValue(present) should return true", getMap().containsValue(v0()));
+        assertTrue(
+                getMap().containsValue(v0()),
+                "containsValue(present) should return true");
     }
 
     public void testContains_no() {
-        assertFalse("containsValue(notPresent) should return false", getMap().containsValue(v3()));
+        assertFalse(
+                getMap().containsValue(v3()),
+                "containsValue(notPresent) should return false");
     }
 
     @MapFeature.Require(ALLOWS_NULL_VALUE_QUERIES)
     public void testContains_nullNotContainedButAllowed() {
-        assertFalse("containsValue(null) should return false", getMap().containsValue(null));
+        assertFalse(
+                getMap().containsValue(null),
+                "containsValue(null) should return false");
     }
 
     @MapFeature.Require(absent = ALLOWS_NULL_VALUE_QUERIES)
@@ -59,22 +67,26 @@ public class MapContainsValueTester<K, V> extends AbstractMapTester<K, V> {
     @CollectionSize.Require(absent = ZERO)
     public void testContains_nonNullWhenNullContained() {
         initMapWithNullValue();
-        assertFalse("containsValue(notPresent) should return false", getMap().containsValue(v3()));
+        assertFalse(
+                getMap().containsValue(v3()),
+                "containsValue(notPresent) should return false");
     }
 
     @MapFeature.Require(ALLOWS_NULL_VALUES)
     @CollectionSize.Require(absent = ZERO)
     public void testContains_nullContained() {
         initMapWithNullValue();
-        assertTrue("containsValue(null) should return true", getMap().containsValue(null));
+        assertTrue(
+                getMap().containsValue(null),
+                "containsValue(null) should return true");
     }
 
     public void testContains_wrongType() {
         try {
             // noinspection SuspiciousMethodCalls
             assertFalse(
-                    "containsValue(wrongType) should return false or throw",
-                    getMap().containsValue(WrongType.VALUE));
+                    getMap().containsValue(WrongType.VALUE),
+                    "containsValue(wrongType) should return false or throw");
         } catch (ClassCastException tolerated) {
         }
     }

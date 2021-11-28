@@ -31,6 +31,9 @@ import static com.google.common.collect.testing.features.CollectionFeature.ALLOW
 import static com.google.common.collect.testing.features.CollectionFeature.SUPPORTS_REMOVE;
 import static com.google.common.collect.testing.features.CollectionSize.ONE;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * A generic JUnit test which tests {@code retainAll} operations on a collection. Can't be invoked
@@ -300,12 +303,16 @@ public class CollectionRetainAllTester<E> extends AbstractCollectionTester<E> {
 
     private void expectReturnsTrue(Target target) {
         String message = Platform.format("retainAll(%s) should return true", target);
-        assertTrue(message, collection.retainAll(target.toRetain));
+        assertTrue(
+                collection.retainAll(target.toRetain),
+                message);
     }
 
     private void expectReturnsFalse(Target target) {
         String message = Platform.format("retainAll(%s) should return false", target);
-        assertFalse(message, collection.retainAll(target.toRetain));
+        assertFalse(
+                collection.retainAll(target.toRetain),
+                message);
     }
 
     private void expectThrows(Target target) {
@@ -320,7 +327,9 @@ public class CollectionRetainAllTester<E> extends AbstractCollectionTester<E> {
     private void expectReturnsFalseOrThrows(Target target) {
         String message = Platform.format("retainAll(%s) should return false or throw", target);
         try {
-            assertFalse(message, collection.retainAll(target.toRetain));
+            assertFalse(
+                    collection.retainAll(target.toRetain),
+                    message);
         } catch (UnsupportedOperationException tolerated) {
         }
     }

@@ -38,6 +38,7 @@ import static com.google.common.collect.testing.features.ListFeature.SUPPORTS_AD
 import static com.google.common.collect.testing.features.ListFeature.SUPPORTS_SET;
 import static com.google.common.collect.testing.testers.Platform.listListIteratorTesterNumIterations;
 import static java.util.Collections.singleton;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * A generic JUnit test which tests {@code listIterator} operations on a list. Can't be invoked

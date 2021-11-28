@@ -26,6 +26,10 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map.Entry;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 /** Skeleton for a tester of a {@code BiMap}. */
 @Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public abstract class AbstractBiMapTester<K, V> extends AbstractMapTester<K, V> {
@@ -50,9 +54,9 @@ public abstract class AbstractBiMapTester<K, V> extends AbstractMapTester<K, V> 
 
         for (Entry<K, V> entry : expected) {
             assertEquals(
-                    "Wrong key for value " + entry.getValue(),
                     entry.getKey(),
-                    getMap().inverse().get(entry.getValue()));
+                    getMap().inverse().get(entry.getValue()),
+                    "Wrong key for value " + entry.getValue());
         }
     }
 
@@ -63,20 +67,21 @@ public abstract class AbstractBiMapTester<K, V> extends AbstractMapTester<K, V> 
             Entry<V, K> reversed = reverseEntry(entry);
             BiMap<V, K> inv = getMap().inverse();
             assertFalse(
-                    "Inverse should not contain entry " + reversed, inv.entrySet().contains(reversed));
+                    inv.entrySet().contains(reversed),
+                    "Inverse should not contain entry " + reversed);
             assertFalse(
-                    "Inverse should not contain key " + reversed.getKey(),
-                    inv.containsKey(reversed.getKey()));
+                    inv.containsKey(reversed.getKey()),
+                    "Inverse should not contain key " + reversed.getKey());
             assertFalse(
-                    "Inverse should not contain value " + reversed.getValue(),
-                    inv.containsValue(reversed.getValue()));
+                    inv.containsValue(reversed.getValue()),
+                    "Inverse should not contain value " + reversed.getValue());
             /*
              * TODO(cpovirk): This is a bit stronger than super.expectMissing(), which permits a <key,
              * someOtherValue> pair.
              */
             assertNull(
-                    "Inverse should not return a mapping for key " + reversed.getKey(),
-                    inv.get(reversed.getKey()));
+                    inv.get(reversed.getKey()),
+                    "Inverse should not return a mapping for key " + reversed.getKey());
         }
     }
 }

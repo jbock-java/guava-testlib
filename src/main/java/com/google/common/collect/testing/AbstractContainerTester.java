@@ -17,12 +17,15 @@
 package com.google.common.collect.testing;
 
 import org.junit.Ignore;
+import org.junit.jupiter.api.Assertions;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 /**
  * Base class for testers of classes (including {@link Collection} and {@link java.util.Map Map})
@@ -152,7 +155,7 @@ public abstract class AbstractContainerTester<C, E>
      */
     protected void expectMissing(E... elements) {
         for (E element : elements) {
-            assertFalse("Should not contain " + element, actualContents().contains(element));
+            assertFalse(actualContents().contains(element), "Should not contain " + element);
         }
     }
 

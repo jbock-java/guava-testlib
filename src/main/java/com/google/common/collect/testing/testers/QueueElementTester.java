@@ -26,6 +26,8 @@ import static com.google.common.collect.testing.features.CollectionFeature.KNOWN
 import static com.google.common.collect.testing.features.CollectionSize.ONE;
 import static com.google.common.collect.testing.features.CollectionSize.SEVERAL;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * A generic JUnit test which tests {@code element()} operations on a queue. Can't be invoked
@@ -47,14 +49,20 @@ public class QueueElementTester<E> extends AbstractQueueTester<E> {
 
     @CollectionSize.Require(ONE)
     public void testElement_size1() {
-        assertEquals("size1Queue.element() should return first element", e0(), getQueue().element());
+        assertEquals(
+                e0(),
+                getQueue().element(),
+                "size1Queue.element() should return first element");
         expectUnchanged();
     }
 
     @CollectionFeature.Require(KNOWN_ORDER)
     @CollectionSize.Require(SEVERAL)
     public void testElement_sizeMany() {
-        assertEquals("sizeManyQueue.element() should return first element", e0(), getQueue().element());
+        assertEquals(
+                e0(),
+                getQueue().element(),
+                "sizeManyQueue.element() should return first element");
         expectUnchanged();
     }
 }

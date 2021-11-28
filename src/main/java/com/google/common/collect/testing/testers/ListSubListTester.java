@@ -39,6 +39,10 @@ import static com.google.common.collect.testing.features.ListFeature.SUPPORTS_AD
 import static com.google.common.collect.testing.features.ListFeature.SUPPORTS_REMOVE_WITH_INDEX;
 import static com.google.common.collect.testing.features.ListFeature.SUPPORTS_SET;
 import static java.util.Collections.emptyList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * A generic JUnit test which tests {@code subList()} operations on a list. Can't be invoked
@@ -82,14 +86,17 @@ public class ListSubListTester<E> extends AbstractListTester<E> {
     }
 
     public void testSubList_empty() {
-        assertEquals("subList(0, 0) should be empty", emptyList(), getList().subList(0, 0));
+        assertEquals(
+                emptyList(),
+                getList().subList(0, 0),
+                "subList(0, 0) should be empty");
     }
 
     public void testSubList_entireList() {
         assertEquals(
-                "subList(0, size) should be equal to the original list",
                 getList(),
-                getList().subList(0, getNumElements()));
+                getList().subList(0, getNumElements()),
+                "subList(0, size) should be equal to the original list");
     }
 
     @ListFeature.Require(SUPPORTS_REMOVE_WITH_INDEX)
@@ -133,10 +140,10 @@ public class ListSubListTester<E> extends AbstractListTester<E> {
         List<E> subList = getList().subList(0, 1);
         getList().set(0, e3());
         assertEquals(
-                "A set() call to a list after a sublist has been created "
-                        + "should be reflected in the sublist",
                 Collections.singletonList(e3()),
-                subList);
+                subList,
+                "A set() call to a list after a sublist has been created "
+                        + "should be reflected in the sublist");
     }
 
     @ListFeature.Require(SUPPORTS_REMOVE_WITH_INDEX)
@@ -173,25 +180,28 @@ public class ListSubListTester<E> extends AbstractListTester<E> {
         List<E> subList = getList().subList(1, 3);
         getList().set(1, e3());
         assertEquals(
-                "A set() call to a list after a sublist has been created "
-                        + "should be reflected in the sublist",
                 Arrays.asList(e3(), e2()),
-                subList);
+                subList,
+                "A set() call to a list after a sublist has been created "
+                        + "should be reflected in the sublist");
     }
 
     public void testSubList_ofSubListEmpty() {
         List<E> subList = getList().subList(0, 0).subList(0, 0);
-        assertEquals("subList(0, 0).subList(0, 0) should be an empty list", emptyList(), subList);
+        assertEquals(
+                emptyList(),
+                subList,
+                "subList(0, 0).subList(0, 0) should be an empty list");
     }
 
     @CollectionSize.Require(absent = {ZERO, ONE})
     public void testSubList_ofSubListNonEmpty() {
         List<E> subList = getList().subList(0, 2).subList(1, 2);
         assertEquals(
-                "subList(0, 2).subList(1, 2) "
-                        + "should be a single-element list of the element at index 1",
                 Collections.singletonList(getOrderedElements().get(1)),
-                subList);
+                subList,
+                "subList(0, 2).subList(1, 2) "
+                        + "should be a single-element list of the element at index 1");
     }
 
     @CollectionSize.Require(absent = {ZERO})

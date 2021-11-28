@@ -24,6 +24,9 @@ import static com.google.common.collect.testing.features.CollectionFeature.SUPPO
 import static com.google.common.collect.testing.features.CollectionSize.SEVERAL;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
 import static java.util.Collections.nCopies;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * A generic JUnit test which tests conditional {@code setCount()} operations on a multiset. Can't
@@ -36,8 +39,8 @@ public class MultisetSetCountConditionallyTester<E> extends AbstractMultisetSetC
     @Override
     void setCountCheckReturnValue(E element, int count) {
         assertTrue(
-                "setCount() with the correct expected present count should return true",
-                setCount(element, count));
+                setCount(element, count),
+                "setCount() with the correct expected present count should return true");
     }
 
     @Override
@@ -77,8 +80,8 @@ public class MultisetSetCountConditionallyTester<E> extends AbstractMultisetSetC
     @CollectionFeature.Require(SUPPORTS_ADD)
     public void testSetCountConditional_oldCountTooLarge() {
         assertFalse(
-                "setCount() with a too-large oldCount should return false",
-                getMultiset().setCount(e0(), 2, 3));
+                getMultiset().setCount(e0(), 2, 3),
+                "setCount() with a too-large oldCount should return false");
         expectUnchanged();
     }
 
@@ -86,8 +89,8 @@ public class MultisetSetCountConditionallyTester<E> extends AbstractMultisetSetC
     @CollectionFeature.Require(SUPPORTS_ADD)
     public void testSetCountConditional_oldCountTooSmallZero() {
         assertFalse(
-                "setCount() with a too-small oldCount should return false",
-                getMultiset().setCount(e0(), 0, 2));
+                getMultiset().setCount(e0(), 0, 2),
+                "setCount() with a too-small oldCount should return false");
         expectUnchanged();
     }
 
@@ -96,8 +99,8 @@ public class MultisetSetCountConditionallyTester<E> extends AbstractMultisetSetC
     public void testSetCountConditional_oldCountTooSmallNonzero() {
         initThreeCopies();
         assertFalse(
-                "setCount() with a too-small oldCount should return false",
-                getMultiset().setCount(e0(), 1, 5));
+                getMultiset().setCount(e0(), 1, 5),
+                "setCount() with a too-small oldCount should return false");
         expectContents(nCopies(3, e0()));
     }
 

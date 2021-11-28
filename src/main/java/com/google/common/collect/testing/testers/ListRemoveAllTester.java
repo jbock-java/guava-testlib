@@ -24,6 +24,8 @@ import org.junit.Ignore;
 import static com.google.common.collect.testing.features.CollectionFeature.SUPPORTS_REMOVE;
 import static com.google.common.collect.testing.features.CollectionSize.ONE;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * A generic JUnit test which tests removeAll operations on a list. Can't be invoked directly;
@@ -42,12 +44,12 @@ public class ListRemoveAllTester<E> extends AbstractListTester<E> {
         E duplicate = arrayAndDuplicate.duplicate;
 
         assertTrue(
-                "removeAll(intersectingCollection) should return true",
-                getList().removeAll(MinimalCollection.of(duplicate)));
+                getList().removeAll(MinimalCollection.of(duplicate)),
+                "removeAll(intersectingCollection) should return true");
         assertFalse(
+                getList().contains(duplicate),
                 "after removeAll(e), a collection should not contain e even "
-                        + "if it initially contained e more than once.",
-                getList().contains(duplicate));
+                        + "if it initially contained e more than once.");
     }
 
     // All other cases are covered by CollectionRemoveAllTester.

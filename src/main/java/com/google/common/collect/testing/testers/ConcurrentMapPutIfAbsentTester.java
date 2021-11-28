@@ -28,6 +28,9 @@ import static com.google.common.collect.testing.features.CollectionSize.ZERO;
 import static com.google.common.collect.testing.features.MapFeature.ALLOWS_NULL_KEYS;
 import static com.google.common.collect.testing.features.MapFeature.ALLOWS_NULL_VALUES;
 import static com.google.common.collect.testing.features.MapFeature.SUPPORTS_PUT;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * A generic JUnit test which tests {@code putIfAbsent} operations on a concurrent map. Can't be
@@ -45,7 +48,9 @@ public class ConcurrentMapPutIfAbsentTester<K, V> extends AbstractMapTester<K, V
 
     @MapFeature.Require(SUPPORTS_PUT)
     public void testPutIfAbsent_supportedAbsent() {
-        assertNull("putIfAbsent(notPresent, value) should return null", putIfAbsent(e3()));
+        assertNull(
+                putIfAbsent(e3()),
+                "putIfAbsent(notPresent, value) should return null");
         expectAdded(e3());
     }
 
@@ -53,9 +58,9 @@ public class ConcurrentMapPutIfAbsentTester<K, V> extends AbstractMapTester<K, V
     @CollectionSize.Require(absent = ZERO)
     public void testPutIfAbsent_supportedPresent() {
         assertEquals(
-                "putIfAbsent(present, value) should return existing value",
                 v0(),
-                getMap().putIfAbsent(k0(), v3()));
+                getMap().putIfAbsent(k0(), v3()),
+                "putIfAbsent(present, value) should return existing value");
         expectUnchanged();
     }
 
@@ -75,9 +80,9 @@ public class ConcurrentMapPutIfAbsentTester<K, V> extends AbstractMapTester<K, V
     public void testPutIfAbsent_unsupportedPresentExistingValue() {
         try {
             assertEquals(
-                    "putIfAbsent(present, existingValue) should return present or throw",
                     v0(),
-                    putIfAbsent(e0()));
+                    putIfAbsent(e0()),
+                    "putIfAbsent(present, existingValue) should return present or throw");
         } catch (UnsupportedOperationException tolerated) {
         }
         expectUnchanged();

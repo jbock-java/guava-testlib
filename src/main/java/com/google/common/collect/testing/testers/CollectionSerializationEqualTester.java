@@ -22,6 +22,7 @@ import com.google.common.testing.SerializableTester;
 import org.junit.Ignore;
 
 import static com.google.common.collect.testing.features.CollectionFeature.SERIALIZABLE;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Basic reserialization test for collection types that must preserve {@code equals()} behavior when

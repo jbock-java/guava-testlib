@@ -19,7 +19,6 @@ package com.google.common.collect.testing.testers;
 import com.google.common.collect.testing.AbstractMapTester;
 import com.google.common.collect.testing.features.CollectionSize;
 import com.google.common.collect.testing.features.MapFeature;
-import junit.framework.AssertionFailedError;
 import org.junit.Ignore;
 
 import java.util.Map;
@@ -28,6 +27,9 @@ import static com.google.common.collect.testing.features.CollectionSize.ZERO;
 import static com.google.common.collect.testing.features.MapFeature.ALLOWS_NULL_KEYS;
 import static com.google.common.collect.testing.features.MapFeature.ALLOWS_NULL_VALUES;
 import static com.google.common.collect.testing.features.MapFeature.SUPPORTS_PUT;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * A generic JUnit test which tests {@link Map#computeIfAbsent}. Can't be invoked directly; please
@@ -41,7 +43,6 @@ public class MapComputeIfAbsentTester<K, V> extends AbstractMapTester<K, V> {
     @MapFeature.Require(SUPPORTS_PUT)
     public void testComputeIfAbsent_supportedAbsent() {
         assertEquals(
-                "computeIfAbsent(notPresent, function) should return new value",
                 v3(),
                 getMap()
                         .computeIfAbsent(
@@ -49,7 +50,8 @@ public class MapComputeIfAbsentTester<K, V> extends AbstractMapTester<K, V> {
                                 k -> {
                                     assertEquals(k3(), k);
                                     return v3();
-                                }));
+                                }),
+                "computeIfAbsent(notPresent, function) should return new value");
         expectAdded(e3());
     }
 
@@ -57,28 +59,28 @@ public class MapComputeIfAbsentTester<K, V> extends AbstractMapTester<K, V> {
     @CollectionSize.Require(absent = ZERO)
     public void testComputeIfAbsent_supportedPresent() {
         assertEquals(
-                "computeIfAbsent(present, function) should return existing value",
                 v0(),
                 getMap()
                         .computeIfAbsent(
                                 k0(),
                                 k -> {
-                                    throw new AssertionFailedError();
-                                }));
+                                    throw new AssertionError();
+                                }),
+                "computeIfAbsent(present, function) should return existing value");
         expectUnchanged();
     }
 
     @MapFeature.Require(SUPPORTS_PUT)
     public void testComputeIfAbsent_functionReturnsNullNotInserted() {
         assertNull(
-                "computeIfAbsent(absent, returnsNull) should return null",
                 getMap()
                         .computeIfAbsent(
                                 k3(),
                                 k -> {
                                     assertEquals(k3(), k);
                                     return null;
-                                }));
+                                }),
+                "computeIfAbsent(absent, returnsNull) should return null");
         expectUnchanged();
     }
 
@@ -87,7 +89,6 @@ public class MapComputeIfAbsentTester<K, V> extends AbstractMapTester<K, V> {
     public void testComputeIfAbsent_nullTreatedAsAbsent() {
         initMapWithNullValue();
         assertEquals(
-                "computeIfAbsent(presentAssignedToNull, function) should return newValue",
                 getValueForNullKey(),
                 getMap()
                         .computeIfAbsent(
@@ -95,7 +96,8 @@ public class MapComputeIfAbsentTester<K, V> extends AbstractMapTester<K, V> {
                                 k -> {
                                     assertEquals(getKeyForNullValue(), k);
                                     return getValueForNullKey();
-                                }));
+                                }),
+                "computeIfAbsent(presentAssignedToNull, function) should return newValue");
         expectReplacement(entry(getKeyForNullValue(), getValueForNullKey()));
     }
 
@@ -152,7 +154,6 @@ public class MapComputeIfAbsentTester<K, V> extends AbstractMapTester<K, V> {
     public void testComputeIfAbsent_unsupportedPresentExistingValue() {
         try {
             assertEquals(
-                    "computeIfAbsent(present, returnsCurrentValue) should return present or throw",
                     v0(),
                     getMap()
                             .computeIfAbsent(
@@ -160,7 +161,8 @@ public class MapComputeIfAbsentTester<K, V> extends AbstractMapTester<K, V> {
                                     k -> {
                                         assertEquals(k0(), k);
                                         return v0();
-                                    }));
+                                    }),
+                    "computeIfAbsent(present, returnsCurrentValue) should return present or throw");
         } catch (UnsupportedOperationException tolerated) {
         }
         expectUnchanged();
@@ -171,7 +173,6 @@ public class MapComputeIfAbsentTester<K, V> extends AbstractMapTester<K, V> {
     public void testComputeIfAbsent_unsupportedPresentDifferentValue() {
         try {
             assertEquals(
-                    "computeIfAbsent(present, returnsDifferentValue) should return present or throw",
                     v0(),
                     getMap()
                             .computeIfAbsent(
@@ -179,7 +180,8 @@ public class MapComputeIfAbsentTester<K, V> extends AbstractMapTester<K, V> {
                                     k -> {
                                         assertEquals(k0(), k);
                                         return v3();
-                                    }));
+                                    }),
+                    "computeIfAbsent(present, returnsDifferentValue) should return present or throw");
         } catch (UnsupportedOperationException tolerated) {
         }
         expectUnchanged();

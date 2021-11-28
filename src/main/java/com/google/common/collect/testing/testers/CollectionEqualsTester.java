@@ -19,6 +19,9 @@ package com.google.common.collect.testing.testers;
 import com.google.common.collect.testing.AbstractCollectionTester;
 import org.junit.Ignore;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 /**
  * Tests {@link java.util.Collection#equals}.
  *
@@ -30,18 +33,22 @@ public class CollectionEqualsTester<E> extends AbstractCollectionTester<E> {
     // TODO(cpovirk): Consider using EqualsTester from Guava.
     @SuppressWarnings("SelfEquals")
     public void testEquals_self() {
-        assertTrue("An Object should be equal to itself.", collection.equals(collection));
+        assertTrue(
+                collection.equals(collection),
+                "An Object should be equal to itself.");
     }
 
     public void testEquals_null() {
         // noinspection ObjectEqualsNull
-        assertFalse("An object should not be equal to null.", collection.equals(null));
+        assertFalse(
+                collection.equals(null),
+                "An object should not be equal to null.");
     }
 
     public void testEquals_notACollection() {
         // noinspection EqualsBetweenInconvertibleTypes
         assertFalse(
-                "A Collection should never equal an object that is not a Collection.",
-                collection.equals("huh?"));
+                collection.equals("huh?"),
+                "A Collection should never equal an object that is not a Collection.");
     }
 }

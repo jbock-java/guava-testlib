@@ -23,6 +23,8 @@ import org.junit.Ignore;
 
 import static com.google.common.collect.testing.features.CollectionFeature.SUPPORTS_ADD;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * A generic JUnit test which tests addAll operations on a set. Can't be invoked directly; please
@@ -37,21 +39,26 @@ public class SetAddAllTester<E> extends AbstractSetTester<E> {
     @CollectionSize.Require(absent = ZERO)
     public void testAddAll_supportedSomePresent() {
         assertTrue(
-                "add(somePresent) should return true", getSet().addAll(MinimalCollection.of(e3(), e0())));
+                getSet().addAll(MinimalCollection.of(e3(), e0())),
+                "add(somePresent) should return true");
         expectAdded(e3());
     }
 
     @CollectionFeature.Require(SUPPORTS_ADD)
     public void testAddAll_withDuplicates() {
         MinimalCollection<E> elementsToAdd = MinimalCollection.of(e3(), e4(), e3(), e4());
-        assertTrue("add(hasDuplicates) should return true", getSet().addAll(elementsToAdd));
+        assertTrue(
+                getSet().addAll(elementsToAdd),
+                "add(hasDuplicates) should return true");
         expectAdded(e3(), e4());
     }
 
     @CollectionFeature.Require(SUPPORTS_ADD)
     @CollectionSize.Require(absent = ZERO)
     public void testAddAll_supportedAllPresent() {
-        assertFalse("add(allPresent) should return false", getSet().addAll(MinimalCollection.of(e0())));
+        assertFalse(
+                getSet().addAll(MinimalCollection.of(e0())),
+                "add(allPresent) should return false");
         expectUnchanged();
     }
 }

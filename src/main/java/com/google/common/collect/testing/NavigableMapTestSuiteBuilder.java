@@ -21,7 +21,7 @@ import com.google.common.collect.testing.DerivedCollectionGenerators.ForwardingT
 import com.google.common.collect.testing.DerivedCollectionGenerators.SortedMapSubmapTestMapGenerator;
 import com.google.common.collect.testing.features.Feature;
 import com.google.common.collect.testing.testers.NavigableMapNavigationTester;
-import junit.framework.TestSuite;
+import com.google.common.testing.junit.TestSuite;
 
 import java.util.ArrayList;
 import java.util.List;

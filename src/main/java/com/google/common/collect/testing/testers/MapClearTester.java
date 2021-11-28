@@ -29,6 +29,10 @@ import static com.google.common.collect.testing.features.CollectionSize.SEVERAL;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
 import static com.google.common.collect.testing.features.MapFeature.FAILS_FAST_ON_CONCURRENT_MODIFICATION;
 import static com.google.common.collect.testing.features.MapFeature.SUPPORTS_REMOVE;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * A generic JUnit test which tests {@code clear()} operations on a map. Can't be invoked directly;
@@ -42,7 +46,9 @@ public class MapClearTester<K, V> extends AbstractMapTester<K, V> {
     @MapFeature.Require(SUPPORTS_REMOVE)
     public void testClear() {
         getMap().clear();
-        assertTrue("After clear(), a map should be empty.", getMap().isEmpty());
+        assertTrue(
+                getMap().isEmpty(),
+                "After clear(), a map should be empty.");
         assertEquals(0, getMap().size());
         assertFalse(getMap().entrySet().iterator().hasNext());
     }

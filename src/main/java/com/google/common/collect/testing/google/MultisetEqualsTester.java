@@ -21,6 +21,7 @@ import org.junit.Ignore;
 
 import static com.google.common.collect.testing.features.CollectionFeature.ALLOWS_NULL_VALUES;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Tests for {@code Multiset.equals} and {@code Multiset.hashCode}.

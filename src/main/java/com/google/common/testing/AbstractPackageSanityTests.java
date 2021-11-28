@@ -30,7 +30,7 @@ import com.google.common.collect.Sets;
 import com.google.common.reflect.ClassPath;
 import com.google.common.testing.NullPointerTester.Visibility;
 import junit.framework.AssertionFailedError;
-import junit.framework.TestCase;
+import com.google.common.testing.junit.TestCase;
 import org.junit.Test;
 
 import java.io.IOException;

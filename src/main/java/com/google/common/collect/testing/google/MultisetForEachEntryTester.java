@@ -31,6 +31,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.google.common.collect.testing.features.CollectionFeature.KNOWN_ORDER;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Tests for {@code Multiset#forEachEntry}.

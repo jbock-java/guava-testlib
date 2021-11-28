@@ -32,6 +32,9 @@ import static com.google.common.collect.testing.features.MapFeature.ALLOWS_NULL_
 import static com.google.common.collect.testing.features.MapFeature.ALLOWS_NULL_KEY_QUERIES;
 import static com.google.common.collect.testing.features.MapFeature.FAILS_FAST_ON_CONCURRENT_MODIFICATION;
 import static com.google.common.collect.testing.features.MapFeature.SUPPORTS_REMOVE;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * A generic JUnit test which tests {@code remove} operations on a map. Can't be invoked directly;
@@ -47,9 +50,14 @@ public class MapRemoveTester<K, V> extends AbstractMapTester<K, V> {
     @CollectionSize.Require(absent = ZERO)
     public void testRemove_present() {
         int initialSize = getMap().size();
-        assertEquals("remove(present) should return the associated value", v0(), getMap().remove(k0()));
         assertEquals(
-                "remove(present) should decrease a map's size by one.", initialSize - 1, getMap().size());
+                v0(),
+                getMap().remove(k0()),
+                "remove(present) should return the associated value");
+        assertEquals(
+                initialSize - 1,
+                getMap().size(),
+                "remove(present) should decrease a map's size by one.");
         expectMissing(e0());
     }
 
@@ -94,7 +102,9 @@ public class MapRemoveTester<K, V> extends AbstractMapTester<K, V> {
 
     @MapFeature.Require(SUPPORTS_REMOVE)
     public void testRemove_notPresent() {
-        assertNull("remove(notPresent) should return null", getMap().remove(k3()));
+        assertNull(
+                getMap().remove(k3()),
+                "remove(notPresent) should return null");
         expectUnchanged();
     }
 
@@ -105,11 +115,13 @@ public class MapRemoveTester<K, V> extends AbstractMapTester<K, V> {
 
         int initialSize = getMap().size();
         assertEquals(
-                "remove(null) should return the associated value",
                 getValueForNullKey(),
-                getMap().remove(null));
+                getMap().remove(null),
+                "remove(null) should return the associated value");
         assertEquals(
-                "remove(present) should decrease a map's size by one.", initialSize - 1, getMap().size());
+                initialSize - 1,
+                getMap().size(),
+                "remove(present) should decrease a map's size by one.");
         expectMissing(entry(null, getValueForNullKey()));
     }
 
@@ -122,15 +134,18 @@ public class MapRemoveTester<K, V> extends AbstractMapTester<K, V> {
         } catch (UnsupportedOperationException expected) {
         }
         expectUnchanged();
-        assertEquals("remove(present) should not remove the element", v0(), get(k0()));
+        assertEquals(
+                v0(),
+                get(k0()),
+                "remove(present) should not remove the element");
     }
 
     @MapFeature.Require(absent = SUPPORTS_REMOVE)
     public void testRemove_unsupportedNotPresent() {
         try {
             assertNull(
-                    "remove(notPresent) should return null or throw UnsupportedOperationException",
-                    getMap().remove(k3()));
+                    getMap().remove(k3()),
+                    "remove(notPresent) should return null or throw UnsupportedOperationException");
         } catch (UnsupportedOperationException tolerated) {
         }
         expectUnchanged();
@@ -141,7 +156,8 @@ public class MapRemoveTester<K, V> extends AbstractMapTester<K, V> {
     public void testRemove_nullQueriesNotSupported() {
         try {
             assertNull(
-                    "remove(null) should return null or throw NullPointerException", getMap().remove(null));
+                    getMap().remove(null),
+                    "remove(null) should return null or throw NullPointerException");
         } catch (NullPointerException tolerated) {
         }
         expectUnchanged();
@@ -149,7 +165,9 @@ public class MapRemoveTester<K, V> extends AbstractMapTester<K, V> {
 
     @MapFeature.Require({SUPPORTS_REMOVE, ALLOWS_NULL_KEY_QUERIES})
     public void testRemove_nullSupportedMissing() {
-        assertNull("remove(null) should return null", getMap().remove(null));
+        assertNull(
+                getMap().remove(null),
+                "remove(null) should return null");
         expectUnchanged();
     }
 

@@ -29,6 +29,8 @@ import java.util.List;
 import static com.google.common.collect.testing.features.CollectionFeature.ALLOWS_NULL_VALUES;
 import static com.google.common.collect.testing.features.CollectionFeature.SUPPORTS_ADD;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * A generic JUnit test which tests {@code add(Object)} operations on a list. Can't be invoked
@@ -43,7 +45,9 @@ public class ListAddTester<E> extends AbstractListTester<E> {
     @CollectionFeature.Require(SUPPORTS_ADD)
     @CollectionSize.Require(absent = ZERO)
     public void testAdd_supportedPresent() {
-        assertTrue("add(present) should return true", getList().add(e0()));
+        assertTrue(
+                getList().add(e0()),
+                "add(present) should return true");
         expectAdded(e0());
     }
 
@@ -66,7 +70,9 @@ public class ListAddTester<E> extends AbstractListTester<E> {
     public void testAdd_supportedNullPresent() {
         E[] array = createArrayWithNullElement();
         collection = getSubjectGenerator().create(array);
-        assertTrue("add(nullPresent) should return true", getList().add(null));
+        assertTrue(
+                getList().add(null),
+                "add(nullPresent) should return true");
 
         List<E> expected = Helpers.copyToList(array);
         expected.add(null);

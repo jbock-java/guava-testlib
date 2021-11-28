@@ -32,6 +32,8 @@ import static com.google.common.collect.testing.features.CollectionFeature.ALLOW
 import static com.google.common.collect.testing.features.CollectionFeature.ALLOWS_NULL_VALUES;
 import static com.google.common.collect.testing.features.CollectionSize.SEVERAL;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Tests for {@code Multiset#count}.
@@ -43,23 +45,35 @@ import static com.google.common.collect.testing.features.CollectionSize.ZERO;
 public class MultisetCountTester<E> extends AbstractMultisetTester<E> {
 
     public void testCount_0() {
-        assertEquals("multiset.count(missing) didn't return 0", 0, getMultiset().count(e3()));
+        assertEquals(
+                0,
+                getMultiset().count(e3()),
+                "multiset.count(missing) didn't return 0");
     }
 
     @CollectionSize.Require(absent = ZERO)
     public void testCount_1() {
-        assertEquals("multiset.count(present) didn't return 1", 1, getMultiset().count(e0()));
+        assertEquals(
+                1,
+                getMultiset().count(e0()),
+                "multiset.count(present) didn't return 1");
     }
 
     @CollectionSize.Require(SEVERAL)
     public void testCount_3() {
         initThreeCopies();
-        assertEquals("multiset.count(thriceContained) didn't return 3", 3, getMultiset().count(e0()));
+        assertEquals(
+                3,
+                getMultiset().count(e0()),
+                "multiset.count(thriceContained) didn't return 3");
     }
 
     @CollectionFeature.Require(ALLOWS_NULL_QUERIES)
     public void testCount_nullAbsent() {
-        assertEquals("multiset.count(null) didn't return 0", 0, getMultiset().count(null));
+        assertEquals(
+                0,
+                getMultiset().count(null),
+                "multiset.count(null) didn't return 0");
     }
 
     @CollectionFeature.Require(absent = ALLOWS_NULL_QUERIES)
@@ -80,7 +94,9 @@ public class MultisetCountTester<E> extends AbstractMultisetTester<E> {
 
     public void testCount_wrongType() {
         assertEquals(
-                "multiset.count(wrongType) didn't return 0", 0, getMultiset().count(WrongType.VALUE));
+                0,
+                getMultiset().count(WrongType.VALUE),
+                "multiset.count(wrongType) didn't return 0");
     }
 
     /**

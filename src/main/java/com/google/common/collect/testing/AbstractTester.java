@@ -16,7 +16,7 @@
 
 package com.google.common.collect.testing;
 
-import junit.framework.TestCase;
+import com.google.common.testing.junit.TestCase;
 
 /**
  * This abstract base class for testers allows the framework to inject needed information after

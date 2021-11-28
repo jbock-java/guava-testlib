@@ -28,6 +28,7 @@ import java.util.Map.Entry;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
 import static com.google.common.collect.testing.features.MapFeature.ALLOWS_NULL_KEYS;
 import static com.google.common.collect.testing.features.MapFeature.ALLOWS_NULL_VALUES;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Tester for {@code Multimap.equals}.

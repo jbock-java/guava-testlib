@@ -23,6 +23,8 @@ import org.junit.Ignore;
 
 import java.lang.reflect.Method;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 /**
  * Tests {@link java.util.List#hashCode}.
  *
@@ -37,9 +39,9 @@ public class ListHashCodeTester<E> extends AbstractListTester<E> {
             expectedHashCode = 31 * expectedHashCode + ((element == null) ? 0 : element.hashCode());
         }
         assertEquals(
-                "A List's hashCode() should be computed from those of its elements.",
                 expectedHashCode,
-                getList().hashCode());
+                getList().hashCode(),
+                "A List's hashCode() should be computed from those of its elements.");
     }
 
     /**

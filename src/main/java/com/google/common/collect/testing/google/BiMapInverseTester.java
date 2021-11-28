@@ -30,6 +30,8 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.google.common.collect.testing.features.CollectionFeature.SERIALIZABLE;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 /**
  * Tests for the {@code inverse} view of a BiMap.

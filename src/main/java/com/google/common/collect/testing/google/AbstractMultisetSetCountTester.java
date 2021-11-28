@@ -38,6 +38,8 @@ import static com.google.common.collect.testing.features.CollectionFeature.SUPPO
 import static com.google.common.collect.testing.features.CollectionFeature.SUPPORTS_REMOVE;
 import static com.google.common.collect.testing.features.CollectionSize.SEVERAL;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Common superclass for {@link MultisetSetCountUnconditionallyTester} and {@link
@@ -62,18 +64,18 @@ public abstract class AbstractMultisetSetCountTester<E> extends AbstractMultiset
         setCountCheckReturnValue(element, count);
 
         assertEquals(
-                "multiset.count() should return the value passed to setCount()",
                 count,
-                getMultiset().count(element));
+                getMultiset().count(element),
+                "multiset.count() should return the value passed to setCount()");
 
         int size = 0;
         for (Multiset.Entry<E> entry : getMultiset().entrySet()) {
             size += entry.getCount();
         }
         assertEquals(
-                "multiset.size() should be the sum of the counts of all entries",
                 size,
-                getMultiset().size());
+                getMultiset().size(),
+                "multiset.size() should be the sum of the counts of all entries");
     }
 
     /** Call the {@code setCount()} method under test, and check its return value. */

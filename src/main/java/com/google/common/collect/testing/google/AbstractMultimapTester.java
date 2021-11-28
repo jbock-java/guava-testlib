@@ -28,6 +28,9 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 
 import static com.google.common.collect.testing.Helpers.assertEqualIgnoringOrder;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * Superclass for all {@code Multimap} testers.

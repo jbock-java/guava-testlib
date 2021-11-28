@@ -26,6 +26,8 @@ import static com.google.common.collect.testing.features.CollectionSize.SEVERAL;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
 import static com.google.common.collect.testing.features.MapFeature.ALLOWS_NULL_VALUES;
 import static com.google.common.collect.testing.features.MapFeature.SUPPORTS_PUT;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /** Tester for {@code BiMap.entrySet} and methods on the entries in the set. */
 @Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
@@ -35,7 +37,10 @@ public class BiMapEntrySetTester<K, V> extends AbstractBiMapTester<K, V> {
     public void testSetValue_valueAbsent() {
         for (Entry<K, V> entry : getMap().entrySet()) {
             if (entry.getKey().equals(k0())) {
-                assertEquals("entry.setValue() should return the old value", v0(), entry.setValue(v3()));
+                assertEquals(
+                        v0(),
+                        entry.setValue(v3()),
+                        "entry.setValue() should return the old value");
             }
         }
         expectReplacement(entry(k0(), v3()));

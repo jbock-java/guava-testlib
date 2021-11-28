@@ -16,7 +16,7 @@
 
 package com.google.common.collect.testing;
 
-import junit.framework.TestCase;
+import com.google.common.testing.junit.TestCase;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -28,6 +28,12 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import static java.util.Collections.singleton;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Tests representing the contract of {@link Map}. Concrete subclasses of this base class test

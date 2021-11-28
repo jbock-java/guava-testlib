@@ -19,8 +19,8 @@ package com.google.common.collect.testing;
 import com.google.common.collect.testing.features.CollectionFeature;
 import com.google.common.collect.testing.features.CollectionSize;
 import com.google.common.collect.testing.features.SetFeature;
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import com.google.common.testing.junit.Test;
+import com.google.common.testing.junit.TestSuite;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;

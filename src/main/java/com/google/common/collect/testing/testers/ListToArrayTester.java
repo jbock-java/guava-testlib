@@ -22,6 +22,7 @@ import org.junit.Ignore;
 import java.util.Arrays;
 
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * A generic JUnit test which tests {@code toArray()} operations on a list. Can't be invoked
@@ -50,6 +51,9 @@ public class ListToArrayTester<E> extends AbstractListTester<E> {
     }
 
     private static void assertArrayEquals(String message, Object[] expected, Object[] actual) {
-        assertEquals(message, Arrays.asList(expected), Arrays.asList(actual));
+        assertEquals(
+                Arrays.asList(expected),
+                Arrays.asList(actual),
+                message);
     }
 }

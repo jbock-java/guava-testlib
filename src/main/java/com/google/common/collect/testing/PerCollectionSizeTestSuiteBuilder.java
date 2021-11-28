@@ -19,7 +19,7 @@ package com.google.common.collect.testing;
 import com.google.common.collect.testing.features.CollectionSize;
 import com.google.common.collect.testing.features.Feature;
 import com.google.common.collect.testing.features.FeatureUtil;
-import junit.framework.TestSuite;
+import com.google.common.testing.junit.TestSuite;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;

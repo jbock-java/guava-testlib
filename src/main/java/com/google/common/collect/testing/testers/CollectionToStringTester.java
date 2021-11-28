@@ -28,6 +28,8 @@ import static com.google.common.collect.testing.features.CollectionFeature.NON_S
 import static com.google.common.collect.testing.features.CollectionSize.ONE;
 import static com.google.common.collect.testing.features.CollectionSize.SEVERAL;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * A generic JUnit test which tests {@code toString()} operations on a collection. Can't be invoked
@@ -38,29 +40,37 @@ import static com.google.common.collect.testing.features.CollectionSize.ZERO;
 @Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class CollectionToStringTester<E> extends AbstractCollectionTester<E> {
     public void testToString_minimal() {
-        assertNotNull("toString() should not return null", collection.toString());
+        assertNotNull(
+                collection.toString(),
+                "toString() should not return null");
     }
 
     @CollectionSize.Require(ZERO)
     @CollectionFeature.Require(absent = NON_STANDARD_TOSTRING)
     public void testToString_size0() {
-        assertEquals("emptyCollection.toString should return []", "[]", collection.toString());
+        assertEquals(
+                "[]",
+                collection.toString(),
+                "emptyCollection.toString should return []");
     }
 
     @CollectionSize.Require(ONE)
     @CollectionFeature.Require(absent = NON_STANDARD_TOSTRING)
     public void testToString_size1() {
         assertEquals(
-                "size1Collection.toString should return [{element}]",
                 "[" + e0() + "]",
-                collection.toString());
+                collection.toString(),
+                "size1Collection.toString should return [{element}]");
     }
 
     @CollectionSize.Require(SEVERAL)
     @CollectionFeature.Require(value = KNOWN_ORDER, absent = NON_STANDARD_TOSTRING)
     public void testToString_sizeSeveral() {
         String expected = Helpers.copyToList(getOrderedElements()).toString();
-        assertEquals("collection.toString() incorrect", expected, collection.toString());
+        assertEquals(
+                expected,
+                collection.toString(),
+                "collection.toString() incorrect");
     }
 
     @CollectionSize.Require(absent = ZERO)

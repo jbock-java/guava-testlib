@@ -24,7 +24,7 @@ import com.google.common.collect.testing.OneSizeTestContainerGenerator;
 import com.google.common.collect.testing.SortedSetTestSuiteBuilder;
 import com.google.common.collect.testing.features.CollectionSize;
 import com.google.common.collect.testing.features.Feature;
-import junit.framework.TestSuite;
+import com.google.common.testing.junit.TestSuite;
 
 import java.util.Collections;
 import java.util.EnumSet;

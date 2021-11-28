@@ -20,9 +20,9 @@ import com.google.common.collect.testing.features.ConflictingRequirementsExcepti
 import com.google.common.collect.testing.features.Feature;
 import com.google.common.collect.testing.features.FeatureUtil;
 import com.google.common.collect.testing.features.TesterRequirements;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import com.google.common.testing.junit.Test;
+import com.google.common.testing.junit.TestCase;
+import com.google.common.testing.junit.TestSuite;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;

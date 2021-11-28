@@ -33,6 +33,9 @@ import static com.google.common.collect.testing.features.CollectionFeature.FAILS
 import static com.google.common.collect.testing.features.CollectionFeature.RESTRICTS_ELEMENTS;
 import static com.google.common.collect.testing.features.CollectionFeature.SUPPORTS_ADD;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * A generic JUnit test which tests {@code add} operations on a collection. Can't be invoked
@@ -47,7 +50,9 @@ import static com.google.common.collect.testing.features.CollectionSize.ZERO;
 public class CollectionAddTester<E> extends AbstractCollectionTester<E> {
     @CollectionFeature.Require(SUPPORTS_ADD)
     public void testAdd_supportedNotPresent() {
-        assertTrue("add(notPresent) should return true", collection.add(e3()));
+        assertTrue(
+                collection.add(e3()),
+                "add(notPresent) should return true");
         expectAdded(e3());
     }
 
@@ -66,7 +71,9 @@ public class CollectionAddTester<E> extends AbstractCollectionTester<E> {
     @CollectionSize.Require(absent = ZERO)
     public void testAdd_unsupportedPresent() {
         try {
-            assertFalse("add(present) should return false or throw", collection.add(e0()));
+            assertFalse(
+                    collection.add(e0()),
+                    "add(present) should return false or throw");
         } catch (UnsupportedOperationException tolerated) {
         }
         expectUnchanged();
@@ -76,7 +83,9 @@ public class CollectionAddTester<E> extends AbstractCollectionTester<E> {
             value = {SUPPORTS_ADD, ALLOWS_NULL_VALUES},
             absent = RESTRICTS_ELEMENTS)
     public void testAdd_nullSupported() {
-        assertTrue("add(null) should return true", collection.add(null));
+        assertTrue(
+                collection.add(null),
+                "add(null) should return true");
         expectAdded((E) null);
     }
 

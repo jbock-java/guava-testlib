@@ -17,6 +17,7 @@
 package com.google.common.collect.testing;
 
 import org.junit.Ignore;
+import org.junit.jupiter.api.Assertions;
 
 import java.util.Collection;
 
@@ -70,7 +71,7 @@ public abstract class AbstractCollectionTester<E>
      */
     protected void expectNullMissingWhenNullUnsupported(String message) {
         try {
-            assertFalse(message, actualContents().contains(null));
+            Assertions.assertFalse(actualContents().contains(null), message);
         } catch (NullPointerException tolerated) {
             // Tolerated
         }

@@ -23,6 +23,8 @@ import org.junit.Ignore;
 import java.util.Collection;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 /**
  * Base class for list testers.
  *

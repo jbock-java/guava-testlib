@@ -19,6 +19,8 @@ package com.google.common.collect.testing.google;
 import com.google.common.collect.SortedSetMultimap;
 import org.junit.Ignore;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 /**
  * Tester for {@link SortedSetMultimap#get(Object)}.
  *

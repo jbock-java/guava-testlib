@@ -25,10 +25,11 @@ import org.junit.Ignore;
 import java.util.Set;
 
 import static com.google.common.collect.testing.features.CollectionFeature.SERIALIZABLE_INCLUDING_VIEWS;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * A generic JUnit test which tests multiset-specific serialization. Can't be invoked directly;
- * please see {@link com.google.common.collect.testing.MultisetTestSuiteBuilder}.
+ * please see {@code com.google.common.collect.testing.MultisetTestSuiteBuilder}.
  *
  * @author Louis Wasserman
  */

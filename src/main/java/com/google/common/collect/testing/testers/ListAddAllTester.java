@@ -23,6 +23,8 @@ import org.junit.Ignore;
 
 import static com.google.common.collect.testing.features.CollectionFeature.SUPPORTS_ADD;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * A generic JUnit test which tests {@code addAll(Collection)} operations on a list. Can't be
@@ -37,7 +39,8 @@ public class ListAddAllTester<E> extends AbstractListTester<E> {
     @CollectionSize.Require(absent = ZERO)
     public void testAddAll_supportedAllPresent() {
         assertTrue(
-                "addAll(allPresent) should return true", getList().addAll(MinimalCollection.of(e0())));
+                getList().addAll(MinimalCollection.of(e0())),
+                "addAll(allPresent) should return true");
         expectAdded(e0());
     }
 
@@ -55,7 +58,9 @@ public class ListAddAllTester<E> extends AbstractListTester<E> {
     @CollectionFeature.Require(SUPPORTS_ADD)
     public void testAddAll_withDuplicates() {
         MinimalCollection<E> elementsToAdd = MinimalCollection.of(e0(), e1(), e0(), e1());
-        assertTrue("addAll(hasDuplicates) should return true", getList().addAll(elementsToAdd));
+        assertTrue(
+                getList().addAll(elementsToAdd),
+                "addAll(hasDuplicates) should return true");
         expectAdded(e0(), e1(), e0(), e1());
     }
 }

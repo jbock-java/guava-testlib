@@ -21,6 +21,9 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import static com.google.common.collect.testing.Helpers.assertEqualInOrder;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * Superclass for all {@code ListMultimap} testers.

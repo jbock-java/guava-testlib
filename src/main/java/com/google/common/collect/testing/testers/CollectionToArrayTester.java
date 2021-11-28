@@ -32,6 +32,11 @@ import java.util.List;
 
 import static com.google.common.collect.testing.features.CollectionFeature.KNOWN_ORDER;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * A generic JUnit test which tests {@code toArray()} operations on a collection. Can't be invoked
@@ -64,8 +69,13 @@ public class CollectionToArrayTester<E> extends AbstractCollectionTester<E> {
         E[] empty = getSubjectGenerator().createArray(0);
         E[] array = collection.toArray(empty);
         assertEquals(
-                "toArray(emptyT[]) should return an array of type T", empty.getClass(), array.getClass());
-        assertEquals("toArray(emptyT[]).length:", getNumElements(), array.length);
+                empty.getClass(),
+                array.getClass(),
+                "toArray(emptyT[]) should return an array of type T");
+        assertEquals(
+                getNumElements(),
+                array.length,
+                "toArray(emptyT[]).length:");
         expectArrayContentsAnyOrder(createSamplesArray(), array);
     }
 
@@ -74,8 +84,13 @@ public class CollectionToArrayTester<E> extends AbstractCollectionTester<E> {
         E[] empty = getSubjectGenerator().createArray(0);
         E[] array = collection.toArray(empty);
         assertEquals(
-                "toArray(emptyT[]) should return an array of type T", empty.getClass(), array.getClass());
-        assertEquals("toArray(emptyT[]).length:", getNumElements(), array.length);
+                empty.getClass(),
+                array.getClass(),
+                "toArray(emptyT[]) should return an array of type T");
+        assertEquals(
+                getNumElements(),
+                array.length,
+                "toArray(emptyT[]).length:");
         expectArrayContentsInOrder(getOrderedElements(), array);
     }
 
@@ -83,17 +98,22 @@ public class CollectionToArrayTester<E> extends AbstractCollectionTester<E> {
         Object[] in = new Object[0];
         Object[] array = collection.toArray(in);
         assertEquals(
-                "toArray(emptyObject[]) should return an array of type Object",
                 Object[].class,
-                array.getClass());
-        assertEquals("toArray(emptyObject[]).length", getNumElements(), array.length);
+                array.getClass(),
+                "toArray(emptyObject[]) should return an array of type Object");
+        assertEquals(
+                getNumElements(),
+                array.length,
+                "toArray(emptyObject[]).length");
         expectArrayContentsAnyOrder(createSamplesArray(), array);
     }
 
     public void testToArray_rightSizedArray() {
         E[] array = getSubjectGenerator().createArray(getNumElements());
         assertSame(
-                "toArray(sameSizeE[]) should return the given array", array, collection.toArray(array));
+                array,
+                collection.toArray(array),
+                "toArray(sameSizeE[]) should return the given array");
         expectArrayContentsAnyOrder(createSamplesArray(), array);
     }
 
@@ -101,16 +121,18 @@ public class CollectionToArrayTester<E> extends AbstractCollectionTester<E> {
     public void testToArray_rightSizedArray_ordered() {
         E[] array = getSubjectGenerator().createArray(getNumElements());
         assertSame(
-                "toArray(sameSizeE[]) should return the given array", array, collection.toArray(array));
+                array,
+                collection.toArray(array),
+                "toArray(sameSizeE[]) should return the given array");
         expectArrayContentsInOrder(getOrderedElements(), array);
     }
 
     public void testToArray_rightSizedArrayOfObject() {
         Object[] array = new Object[getNumElements()];
         assertSame(
-                "toArray(sameSizeObject[]) should return the given array",
                 array,
-                collection.toArray(array));
+                collection.toArray(array),
+                "toArray(sameSizeObject[]) should return the given array");
         expectArrayContentsAnyOrder(createSamplesArray(), array);
     }
 
@@ -118,9 +140,9 @@ public class CollectionToArrayTester<E> extends AbstractCollectionTester<E> {
     public void testToArray_rightSizedArrayOfObject_ordered() {
         Object[] array = new Object[getNumElements()];
         assertSame(
-                "toArray(sameSizeObject[]) should return the given array",
                 array,
-                collection.toArray(array));
+                collection.toArray(array),
+                "toArray(sameSizeObject[]) should return the given array");
         expectArrayContentsInOrder(getOrderedElements(), array);
     }
 
@@ -129,18 +151,20 @@ public class CollectionToArrayTester<E> extends AbstractCollectionTester<E> {
         array[getNumElements()] = e3();
         array[getNumElements() + 1] = e3();
         assertSame(
-                "toArray(overSizedE[]) should return the given array", array, collection.toArray(array));
+                array,
+                collection.toArray(array),
+                "toArray(overSizedE[]) should return the given array");
 
         List<E> subArray = Arrays.asList(array).subList(0, getNumElements());
         E[] expectedSubArray = createSamplesArray();
         for (int i = 0; i < getNumElements(); i++) {
             assertTrue(
-                    "toArray(overSizedE[]) should contain element " + expectedSubArray[i],
-                    subArray.contains(expectedSubArray[i]));
+                    subArray.contains(expectedSubArray[i]),
+                    "toArray(overSizedE[]) should contain element " + expectedSubArray[i]);
         }
         assertNull(
-                "The array element immediately following the end of the collection should be nulled",
-                array[getNumElements()]);
+                array[getNumElements()],
+                "The array element immediately following the end of the collection should be nulled");
         // array[getNumElements() + 1] might or might not have been nulled
     }
 
@@ -150,15 +174,17 @@ public class CollectionToArrayTester<E> extends AbstractCollectionTester<E> {
         array[getNumElements()] = e3();
         array[getNumElements() + 1] = e3();
         assertSame(
-                "toArray(overSizedE[]) should return the given array", array, collection.toArray(array));
+                array,
+                collection.toArray(array),
+                "toArray(overSizedE[]) should return the given array");
 
         List<E> expected = getOrderedElements();
         for (int i = 0; i < getNumElements(); i++) {
             assertEquals(expected.get(i), array[i]);
         }
         assertNull(
-                "The array element immediately following the end of the collection should be nulled",
-                array[getNumElements()]);
+                array[getNumElements()],
+                "The array element immediately following the end of the collection should be nulled");
         // array[getNumElements() + 1] might or might not have been nulled
     }
 
@@ -176,9 +202,9 @@ public class CollectionToArrayTester<E> extends AbstractCollectionTester<E> {
     public void testToArray_emptyArrayOfWrongTypeForEmptyCollection() {
         WrongType[] array = new WrongType[0];
         assertSame(
-                "toArray(sameSizeNotAssignableTo[]) should return the given array",
                 array,
-                collection.toArray(array));
+                collection.toArray(array),
+                "toArray(sameSizeNotAssignableTo[]) should return the given array");
     }
 
     private void expectArrayContentsAnyOrder(Object[] expected, Object[] actual) {
@@ -186,7 +212,10 @@ public class CollectionToArrayTester<E> extends AbstractCollectionTester<E> {
     }
 
     private void expectArrayContentsInOrder(List<E> expected, Object[] actual) {
-        assertEquals("toArray() ordered contents: ", expected, Arrays.asList(actual));
+        assertEquals(
+                expected,
+                Arrays.asList(actual),
+                "toArray() ordered contents: ");
     }
 
     /**

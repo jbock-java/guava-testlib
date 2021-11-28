@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.SortedSet;
 
 import static com.google.common.collect.testing.features.MapFeature.SUPPORTS_REMOVE;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Testers for {@link SortedSetMultimap#asMap}.

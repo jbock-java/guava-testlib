@@ -27,6 +27,7 @@ import java.lang.reflect.Method;
 import java.util.Collection;
 
 import static com.google.common.collect.testing.features.CollectionFeature.ALLOWS_NULL_VALUES;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Tests {@link java.util.Set#hashCode}.
@@ -42,9 +43,9 @@ public class SetHashCodeTester<E> extends AbstractSetTester<E> {
             expectedHashCode += ((element == null) ? 0 : element.hashCode());
         }
         assertEquals(
-                "A Set's hashCode() should be the sum of those of its elements.",
                 expectedHashCode,
-                getSet().hashCode());
+                getSet().hashCode(),
+                "A Set's hashCode() should be the sum of those of its elements.");
     }
 
     @CollectionSize.Require(absent = CollectionSize.ZERO)
@@ -59,10 +60,10 @@ public class SetHashCodeTester<E> extends AbstractSetTester<E> {
         elements.add(null);
         collection = getSubjectGenerator().create(elements.toArray());
         assertEquals(
-                "A Set's hashCode() should be the sum of those of its elements (with "
-                        + "a null element counting as having a hash of zero).",
                 expectedHashCode,
-                getSet().hashCode());
+                getSet().hashCode(),
+                "A Set's hashCode() should be the sum of those of its elements (with "
+                        + "a null element counting as having a hash of zero).");
     }
 
     /**

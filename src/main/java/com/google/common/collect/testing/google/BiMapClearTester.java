@@ -21,6 +21,7 @@ import com.google.common.collect.testing.features.MapFeature;
 import org.junit.Ignore;
 
 import static com.google.common.collect.testing.features.MapFeature.SUPPORTS_REMOVE;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Tester for {@code BiMap.clear}.

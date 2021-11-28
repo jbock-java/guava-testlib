@@ -34,6 +34,9 @@ import static com.google.common.collect.testing.features.MapFeature.ALLOWS_NULL_
 import static com.google.common.collect.testing.features.MapFeature.ALLOWS_NULL_VALUES;
 import static com.google.common.collect.testing.features.MapFeature.FAILS_FAST_ON_CONCURRENT_MODIFICATION;
 import static com.google.common.collect.testing.features.MapFeature.SUPPORTS_PUT;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * A generic JUnit test which tests {@code put} operations on a map. Can't be invoked directly;
@@ -63,13 +66,18 @@ public class MapPutTester<K, V> extends AbstractMapTester<K, V> {
     @MapFeature.Require(SUPPORTS_PUT)
     @CollectionSize.Require(absent = ZERO)
     public void testPut_supportedPresent() {
-        assertEquals("put(present, value) should return the old value", v0(), getMap().put(k0(), v3()));
+        assertEquals(
+                v0(),
+                getMap().put(k0(), v3()),
+                "put(present, value) should return the old value");
         expectReplacement(entry(k0(), v3()));
     }
 
     @MapFeature.Require(SUPPORTS_PUT)
     public void testPut_supportedNotPresent() {
-        assertNull("put(notPresent, value) should return null", put(e3()));
+        assertNull(
+                put(e3()),
+                "put(notPresent, value) should return null");
         expectAdded(e3());
     }
 
@@ -127,7 +135,10 @@ public class MapPutTester<K, V> extends AbstractMapTester<K, V> {
     @CollectionSize.Require(absent = ZERO)
     public void testPut_unsupportedPresentExistingValue() {
         try {
-            assertEquals("put(present, existingValue) should return present or throw", v0(), put(e0()));
+            assertEquals(
+                    v0(),
+                    put(e0()),
+                    "put(present, existingValue) should return present or throw");
         } catch (UnsupportedOperationException tolerated) {
         }
         expectUnchanged();
@@ -146,7 +157,9 @@ public class MapPutTester<K, V> extends AbstractMapTester<K, V> {
 
     @MapFeature.Require({SUPPORTS_PUT, ALLOWS_NULL_KEYS})
     public void testPut_nullKeySupportedNotPresent() {
-        assertNull("put(null, value) should return null", put(nullKeyEntry));
+        assertNull(
+                put(nullKeyEntry),
+                "put(null, value) should return null");
         expectAdded(nullKeyEntry);
     }
 
@@ -156,9 +169,9 @@ public class MapPutTester<K, V> extends AbstractMapTester<K, V> {
         Entry<K, V> newEntry = entry(null, v3());
         initMapWithNullKey();
         assertEquals(
-                "put(present, value) should return the associated value",
                 getValueForNullKey(),
-                put(newEntry));
+                put(newEntry),
+                "put(present, value) should return the associated value");
 
         Entry<K, V>[] expected = createArrayWithNullKey();
         expected[getNullLocation()] = newEntry;
@@ -179,7 +192,9 @@ public class MapPutTester<K, V> extends AbstractMapTester<K, V> {
 
     @MapFeature.Require({SUPPORTS_PUT, ALLOWS_NULL_VALUES})
     public void testPut_nullValueSupported() {
-        assertNull("put(key, null) should return null", put(nullValueEntry));
+        assertNull(
+                put(nullValueEntry),
+                "put(key, null) should return null");
         expectAdded(nullValueEntry);
     }
 
@@ -199,9 +214,9 @@ public class MapPutTester<K, V> extends AbstractMapTester<K, V> {
     @CollectionSize.Require(absent = ZERO)
     public void testPut_replaceWithNullValueSupported() {
         assertEquals(
-                "put(present, null) should return the associated value",
                 v0(),
-                put(presentKeyNullValueEntry));
+                put(presentKeyNullValueEntry),
+                "put(present, null) should return the associated value");
         expectReplacement(presentKeyNullValueEntry);
     }
 
@@ -223,8 +238,8 @@ public class MapPutTester<K, V> extends AbstractMapTester<K, V> {
     public void testPut_replaceNullValueWithNullSupported() {
         initMapWithNullValue();
         assertNull(
-                "put(present, null) should return the associated value (null)",
-                getMap().put(getKeyForNullValue(), null));
+                getMap().put(getKeyForNullValue(), null),
+                "put(present, null) should return the associated value (null)");
         expectContents(createArrayWithNullValue());
     }
 
@@ -233,7 +248,9 @@ public class MapPutTester<K, V> extends AbstractMapTester<K, V> {
     public void testPut_replaceNullValueWithNonNullSupported() {
         Entry<K, V> newEntry = entry(getKeyForNullValue(), v3());
         initMapWithNullValue();
-        assertNull("put(present, value) should return the associated value (null)", put(newEntry));
+        assertNull(
+                put(newEntry),
+                "put(present, value) should return the associated value (null)");
 
         Entry<K, V>[] expected = createArrayWithNullValue();
         expected[getNullLocation()] = newEntry;
@@ -242,7 +259,9 @@ public class MapPutTester<K, V> extends AbstractMapTester<K, V> {
 
     @MapFeature.Require({SUPPORTS_PUT, ALLOWS_NULL_KEYS, ALLOWS_NULL_VALUES})
     public void testPut_nullKeyAndValueSupported() {
-        assertNull("put(null, null) should return null", put(nullKeyValueEntry));
+        assertNull(
+                put(nullKeyValueEntry),
+                "put(null, null) should return null");
         expectAdded(nullKeyValueEntry);
     }
 
