@@ -23,9 +23,8 @@ import com.google.common.collect.testing.features.CollectionSize;
 import com.google.common.collect.testing.features.Feature;
 import com.google.common.collect.testing.features.MapFeature;
 import com.google.common.reflect.Reflection;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import com.google.common.testing.junit.TestSuite;
+import org.junit.jupiter.api.Test;
 
 import java.io.Serializable;
 import java.lang.reflect.InvocationHandler;
@@ -47,23 +46,15 @@ import java.util.function.Predicate;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.collect.testing.features.MapFeature.ALLOWS_NULL_KEYS;
 import static com.google.common.collect.testing.features.MapFeature.ALLOWS_NULL_VALUES;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Tests {@link MapTestSuiteBuilder} by using it against maps that have various negative behaviors.
  *
  * @author George van den Driessche
  */
-public final class MapTestSuiteBuilderTests extends TestCase {
-    private MapTestSuiteBuilderTests() {
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(MapTestSuiteBuilderTests.class.getSimpleName());
-        suite.addTest(testsForHashMapNullKeysForbidden());
-        suite.addTest(testsForHashMapNullValuesForbidden());
-        suite.addTest(testsForSetUpTearDown());
-        return suite;
-    }
+class MapTestSuiteBuilderTests {
 
     private abstract static class WrappedHashMapGenerator extends TestStringMapGenerator {
         @Override
@@ -94,8 +85,9 @@ public final class MapTestSuiteBuilderTests extends TestCase {
 
     // TODO: consider being null-hostile in these tests
 
-    private static Test testsForHashMapNullKeysForbidden() {
-        return wrappedHashMapTests(
+    @Test
+    void testsForHashMapNullKeysForbidden() throws Throwable {
+        wrappedHashMapTests(
                 new WrappedHashMapGenerator() {
                     @Override
                     Map<String, String> wrap(final HashMap<String, String> map) {
@@ -117,11 +109,13 @@ public final class MapTestSuiteBuilderTests extends TestCase {
                     }
                 },
                 "HashMap w/out null keys",
-                ALLOWS_NULL_VALUES);
+                ALLOWS_NULL_VALUES)
+                .run();
     }
 
-    private static Test testsForHashMapNullValuesForbidden() {
-        return wrappedHashMapTests(
+    @Test
+    void testsForHashMapNullValuesForbidden() throws Throwable {
+        wrappedHashMapTests(
                 new WrappedHashMapGenerator() {
                     @Override
                     Map<String, String> wrap(final HashMap<String, String> map) {
@@ -129,7 +123,7 @@ public final class MapTestSuiteBuilderTests extends TestCase {
                             throw new NullPointerException();
                         }
 
-                        return new AbstractMap<String, String>() {
+                        return new AbstractMap<>() {
                             @Override
                             public Set<Entry<String, String>> entrySet() {
                                 return new EntrySet();
@@ -270,7 +264,8 @@ public final class MapTestSuiteBuilderTests extends TestCase {
                     }
                 },
                 "HashMap w/out null values",
-                ALLOWS_NULL_KEYS);
+                ALLOWS_NULL_KEYS)
+                .run();
     }
 
     /**
@@ -310,7 +305,7 @@ public final class MapTestSuiteBuilderTests extends TestCase {
 
         @Override
         public Object invoke(Object target, Method method, Object[] args) throws Throwable {
-            assertTrue("setUp should have run", setUpRan.get());
+            assertTrue(setUpRan.get(), "setUp should have run");
             try {
                 return method.invoke(map, args);
             } catch (InvocationTargetException e) {
@@ -322,23 +317,24 @@ public final class MapTestSuiteBuilderTests extends TestCase {
     }
 
     /** Verifies that {@code setUp} and {@code tearDown} are called in all map test cases. */
-    private static Test testsForSetUpTearDown() {
+    @Test
+    void testsForSetUpTearDown() throws Throwable {
         final AtomicBoolean setUpRan = new AtomicBoolean();
         Runnable setUp =
                 new Runnable() {
                     @Override
                     public void run() {
-                        assertFalse("previous tearDown should have run before setUp", setUpRan.getAndSet(true));
+                        assertFalse(setUpRan.getAndSet(true), "previous tearDown should have run before setUp");
                     }
                 };
         Runnable tearDown =
                 new Runnable() {
                     @Override
                     public void run() {
-                        assertTrue("setUp should have run", setUpRan.getAndSet(false));
+                        assertTrue(setUpRan.getAndSet(false), "setUp should have run");
                     }
                 };
-        return MapTestSuiteBuilder.using(new CheckSetUpHashMapGenerator(setUpRan))
+        MapTestSuiteBuilder.using(new CheckSetUpHashMapGenerator(setUpRan))
                 .named("setUpTearDown")
                 .withFeatures(
                         MapFeature.GENERAL_PURPOSE,
@@ -349,7 +345,8 @@ public final class MapTestSuiteBuilderTests extends TestCase {
                         CollectionSize.ANY)
                 .withSetUp(setUp)
                 .withTearDown(tearDown)
-                .createTestSuite();
+                .createTestSuite()
+                .run();
     }
 
     private static LinkageError newLinkageError(Throwable cause) {

@@ -226,6 +226,17 @@ public class TestSuite implements Test {
         return fName;
     }
 
+    public void run() throws Throwable {
+        TestResult result = new TestResult();
+        run(result);
+        if (!result.fErrors.isEmpty()) {
+            throw result.fErrors.get(0).thrownException();
+        }
+        if (!result.fFailures.isEmpty()) {
+            throw result.fFailures.get(0).thrownException();
+        }
+    }
+
     /**
      * Runs the tests and collects their result in a TestResult.
      */
