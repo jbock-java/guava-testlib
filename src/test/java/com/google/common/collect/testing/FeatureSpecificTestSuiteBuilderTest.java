@@ -17,26 +17,24 @@
 package com.google.common.collect.testing;
 
 import com.google.common.collect.testing.features.CollectionFeature;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestResult;
-import org.junit.Ignore;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 /** @author Max Ross */
-public class FeatureSpecificTestSuiteBuilderTest extends TestCase {
+class FeatureSpecificTestSuiteBuilderTest {
 
-    static boolean testWasRun;
+    private static boolean testWasRun;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @BeforeEach
+    void setUp() {
         testWasRun = false;
     }
 
-    @Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
     public static final class MyAbstractTester extends AbstractTester<Void> {
         public void testNothing() {
             testWasRun = true;
@@ -52,36 +50,21 @@ public class FeatureSpecificTestSuiteBuilderTest extends TestCase {
         }
     }
 
-    public void testLifecycle() {
-        final boolean setUp[] = {false};
-        Runnable setUpRunnable =
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        setUp[0] = true;
-                    }
-                };
-
-        final boolean tearDown[] = {false};
-        Runnable tearDownRunnable =
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        tearDown[0] = true;
-                    }
-                };
-
+    @Test
+    void testLifecycle() throws Throwable {
+        boolean[] setUp = {false};
+        Runnable setUpRunnable = () -> setUp[0] = true;
+        boolean[] tearDown = {false};
+        Runnable tearDownRunnable = () -> tearDown[0] = true;
+        new MyAbstractTester().run();
         MyTestSuiteBuilder builder = new MyTestSuiteBuilder();
-        Test test =
-                builder
-                        .usingGenerator("yam")
-                        .named("yam")
-                        .withFeatures(CollectionFeature.NONE)
-                        .withSetUp(setUpRunnable)
-                        .withTearDown(tearDownRunnable)
-                        .createTestSuite();
-        TestResult result = new TestResult();
-        test.run(result);
+        builder.usingGenerator("yam")
+                .named("yam")
+                .withFeatures(CollectionFeature.NONE)
+                .withSetUp(setUpRunnable)
+                .withTearDown(tearDownRunnable)
+                .createTestSuite()
+                .run();
         assertTrue(testWasRun);
         assertTrue(setUp[0]);
         assertTrue(tearDown[0]);
