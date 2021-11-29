@@ -59,6 +59,12 @@ public abstract class SortedMapInterfaceTest<K, V> extends MapInterfaceTest<K, V
         }
     }
 
+    public void runAllTests() {
+        testTailMapWriteThrough();
+        testTailMapRemoveThrough();
+        testTailMapClearThrough();
+    }
+
     public void testTailMapWriteThrough() {
         SortedMap<K, V> map;
         try {

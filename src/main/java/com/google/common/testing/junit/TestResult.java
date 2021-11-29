@@ -182,4 +182,13 @@ public class TestResult {
     public synchronized boolean wasSuccessful() {
         return failureCount() == 0 && errorCount() == 0;
     }
+
+    public void throwIfFailed() throws Throwable {
+        if (!fErrors.isEmpty()) {
+            throw fErrors.get(0).thrownException();
+        }
+        if (!fFailures.isEmpty()) {
+            throw fFailures.get(0).thrownException();
+        }
+    }
 }

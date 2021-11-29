@@ -60,6 +60,8 @@ public class TestSuite implements Test {
                 test = constructor.newInstance(new Object[0]);
                 if (test instanceof TestCase) {
                     ((TestCase) test).setName(name);
+                } else {
+                    System.out.println("hi");
                 }
             } else {
                 test = constructor.newInstance(new Object[]{name});
@@ -229,12 +231,7 @@ public class TestSuite implements Test {
     public void run() throws Throwable {
         TestResult result = new TestResult();
         run(result);
-        if (!result.fErrors.isEmpty()) {
-            throw result.fErrors.get(0).thrownException();
-        }
-        if (!result.fFailures.isEmpty()) {
-            throw result.fFailures.get(0).thrownException();
-        }
+        result.throwIfFailed();
     }
 
     /**

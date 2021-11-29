@@ -3,6 +3,7 @@ package com.google.common.testing.junit;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -94,7 +95,7 @@ public abstract class TestCase implements Test {
      * Constructs a test case with the given name.
      */
     public TestCase(String name) {
-        fName = name;
+        fName = Objects.requireNonNull(name);
     }
 
     /**
@@ -119,9 +120,10 @@ public abstract class TestCase implements Test {
      *
      * @see TestResult
      */
-    public TestResult run() {
+    public TestResult run() throws Throwable {
         TestResult result = createResult();
         run(result);
+        result.throwIfFailed();
         return result;
     }
 
@@ -224,6 +226,6 @@ public abstract class TestCase implements Test {
      * @param name the name to set
      */
     public void setName(String name) {
-        fName = name;
+        fName = Objects.requireNonNull(name);
     }
 }
