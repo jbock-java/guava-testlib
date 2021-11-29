@@ -88,7 +88,7 @@ public class ClassSanityTesterTest extends TestCase {
     } catch (AssertionError expected) {
       assertThat(expected)
           .hasMessageThat()
-          .isEqualTo(
+          .contains(
               "No public static methods that return java.lang.Object or subtype are found in "
                   + NoPublicStaticMethods.class
                   + ".");
@@ -143,7 +143,7 @@ public class ClassSanityTesterTest extends TestCase {
     } catch (AssertionError expected) {
       assertThat(expected)
           .hasMessageThat()
-          .isEqualTo(
+          .contains(
               "No public static methods that return java.lang.Iterable or subtype are found in "
                   + BadNullsFactory.class
                   + ".");
