@@ -367,7 +367,7 @@ abstract class AbstractIteratorTester<E, I extends Iterator<E>> {
             try {
                 stimuli[i].executeAndCompare(reference, target);
                 verify(reference.getElements());
-            } catch (AssertionFailedError cause) {
+            } catch (AssertionError cause) {
                 Helpers.fail(cause, "failed with stimuli " + subListCopy(stimuli, i + 1));
             }
         }

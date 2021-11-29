@@ -527,7 +527,7 @@ public final class ClassSanityTester {
                                 new AssertionFailedError("Serialization failed on return value of " + factory);
                         error.initCause(e.getCause());
                         throw error;
-                    } catch (AssertionFailedError e) {
+                    } catch (AssertionError e) {
                         AssertionError error =
                                 new AssertionFailedError(
                                         "Return value of " + factory + " reserialized to an unequal value");

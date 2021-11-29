@@ -148,7 +148,7 @@ public class IteratorTesterTest extends TestCase {
                     return new IteratorWithSunJavaBug6529795<>(iterator);
                 }
             }.test();
-        } catch (AssertionFailedError e) {
+        } catch (AssertionError e) {
             return;
         }
         fail("Should have caught jdk6 bug in target iterator");
@@ -203,10 +203,10 @@ public class IteratorTesterTest extends TestCase {
                         throw new AssertionFailedError(message);
                     }
                 };
-        AssertionFailedError actual = null;
+        AssertionError actual = null;
         try {
             tester.test();
-        } catch (AssertionFailedError e) {
+        } catch (AssertionError e) {
             actual = e;
         }
         assertNotNull("verify() should be able to cause test failure", actual);
@@ -322,7 +322,7 @@ public class IteratorTesterTest extends TestCase {
     private static void assertFailure(IteratorTester<?> tester) {
         try {
             tester.test();
-        } catch (AssertionFailedError expected) {
+        } catch (AssertionError expected) {
             return;
         }
         fail();

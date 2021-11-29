@@ -82,7 +82,7 @@ public class EqualsTesterTest extends TestCase {
         equalsTester.addEqualityGroup(equalObject1, notEqualObject1);
         try {
             equalsTester.testEquals();
-        } catch (AssertionFailedError e) {
+        } catch (AssertionError e) {
             assertErrorMessage(
                     e,
                     equalObject1
@@ -118,7 +118,7 @@ public class EqualsTesterTest extends TestCase {
         equalsTester.addEqualityGroup(obj);
         try {
             equalsTester.testEquals();
-        } catch (AssertionFailedError e) {
+        } catch (AssertionError e) {
             assertErrorMessage(e, obj + " must be Object#equals to itself");
             return;
         }
@@ -131,7 +131,7 @@ public class EqualsTesterTest extends TestCase {
         equalsTester.addEqualityGroup(obj);
         try {
             equalsTester.testEquals();
-        } catch (AssertionFailedError e) {
+        } catch (AssertionError e) {
             assertErrorMessage(e, obj + " must not be Object#equals to null");
             return;
         }
@@ -144,7 +144,7 @@ public class EqualsTesterTest extends TestCase {
         equalsTester.addEqualityGroup(obj);
         try {
             equalsTester.testEquals();
-        } catch (AssertionFailedError e) {
+        } catch (AssertionError e) {
             assertErrorMessage(
                     e, obj + " must not be Object#equals to an arbitrary object of another class");
             return;
@@ -157,7 +157,7 @@ public class EqualsTesterTest extends TestCase {
         equalsTester.addEqualityGroup(reference, notEqualObject1);
         try {
             equalsTester.testEquals();
-        } catch (AssertionFailedError e) {
+        } catch (AssertionError e) {
             assertErrorMessage(e, reference + " [group 1, item 1]");
             assertErrorMessage(e, notEqualObject1 + " [group 1, item 2]");
             return;
@@ -175,7 +175,7 @@ public class EqualsTesterTest extends TestCase {
         equalsTester.addEqualityGroup(a, b);
         try {
             equalsTester.testEquals();
-        } catch (AssertionFailedError e) {
+        } catch (AssertionError e) {
             assertErrorMessage(
                     e,
                     "the Object#hashCode ("
@@ -215,7 +215,7 @@ public class EqualsTesterTest extends TestCase {
                 new EqualsTester().addEqualityGroup(named("foo").addPeers("bar"), named("bar"));
         try {
             tester.testEquals();
-        } catch (AssertionFailedError e) {
+        } catch (AssertionError e) {
             assertErrorMessage(e, "bar [group 1, item 2] must be Object#equals to foo [group 1, item 1]");
             return;
         }
@@ -231,7 +231,7 @@ public class EqualsTesterTest extends TestCase {
                                 named("baz").addPeers("foo"));
         try {
             tester.testEquals();
-        } catch (AssertionFailedError e) {
+        } catch (AssertionError e) {
             assertErrorMessage(e, "bar [group 1, item 2] must be Object#equals to baz [group 1, item 3]");
             return;
         }
@@ -242,7 +242,7 @@ public class EqualsTesterTest extends TestCase {
         EqualsTester tester = new EqualsTester().addEqualityGroup(named("foo"), named("bar"));
         try {
             tester.testEquals();
-        } catch (AssertionFailedError e) {
+        } catch (AssertionError e) {
             assertErrorMessage(e, "foo [group 1, item 1] must be Object#equals to bar [group 1, item 2]");
             return;
         }
@@ -256,7 +256,7 @@ public class EqualsTesterTest extends TestCase {
                         .addEqualityGroup(named("baz").addPeers("x"), named("x").addPeers("baz", "bar"));
         try {
             tester.testEquals();
-        } catch (AssertionFailedError e) {
+        } catch (AssertionError e) {
             assertErrorMessage(
                     e, "bar [group 1, item 2] must not be Object#equals to x [group 2, item 2]");
             return;
@@ -275,7 +275,7 @@ public class EqualsTesterTest extends TestCase {
         try {
             new EqualsTester().addEqualityGroup(new EqualsBasedOnToString("foo")).testEquals();
             fail();
-        } catch (AssertionFailedError e) {
+        } catch (AssertionError e) {
             assertTrue(e.getMessage().contains("toString representation"));
         }
     }
