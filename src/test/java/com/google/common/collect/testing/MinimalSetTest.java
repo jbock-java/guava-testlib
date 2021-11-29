@@ -18,8 +18,7 @@ package com.google.common.collect.testing;
 
 import com.google.common.collect.testing.features.CollectionFeature;
 import com.google.common.collect.testing.features.CollectionSize;
-import junit.framework.Test;
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
@@ -28,9 +27,11 @@ import java.util.Set;
  *
  * @author Regina O'Dell
  */
-public class MinimalSetTest extends TestCase {
-    public static Test suite() {
-        return SetTestSuiteBuilder.using(
+public class MinimalSetTest {
+
+    @Test
+    void suite() throws Throwable {
+        SetTestSuiteBuilder.using(
                         new TestStringSetGenerator() {
                             @Override
                             protected Set<String> create(String[] elements) {
@@ -40,6 +41,7 @@ public class MinimalSetTest extends TestCase {
                 .named("MinimalSet")
                 .withFeatures(
                         CollectionFeature.ALLOWS_NULL_VALUES, CollectionFeature.NONE, CollectionSize.ANY)
-                .createTestSuite();
+                .createTestSuite()
+                .run();
     }
 }
