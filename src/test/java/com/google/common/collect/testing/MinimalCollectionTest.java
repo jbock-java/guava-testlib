@@ -18,8 +18,7 @@ package com.google.common.collect.testing;
 
 import com.google.common.collect.testing.features.CollectionFeature;
 import com.google.common.collect.testing.features.CollectionSize;
-import junit.framework.Test;
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collection;
 
@@ -28,9 +27,10 @@ import java.util.Collection;
  *
  * @author Kevin Bourrillion
  */
-public class MinimalCollectionTest extends TestCase {
-    public static Test suite() {
-        return CollectionTestSuiteBuilder.using(
+class MinimalCollectionTest {
+    @Test
+    void suite() throws Throwable {
+        CollectionTestSuiteBuilder.using(
                         new TestStringCollectionGenerator() {
                             @Override
                             public Collection<String> create(String[] elements) {
@@ -45,6 +45,7 @@ public class MinimalCollectionTest extends TestCase {
                         })
                 .named("MinimalCollection")
                 .withFeatures(CollectionFeature.NONE, CollectionSize.ANY)
-                .createTestSuite();
+                .createTestSuite()
+                .run();
     }
 }
