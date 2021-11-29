@@ -17,6 +17,7 @@
 package com.google.common.testing;
 
 import com.google.common.annotations.Beta;
+import com.google.common.testing.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -138,7 +139,9 @@ public final class CollectorTester<T, A, R> {
      * inputs, regardless of how the elements are divided.
      */
     @SafeVarargs
-    public final CollectorTester<T, A, R> expectCollects(R expectedResult, T... inputs) {
+    public final CollectorTester<T, A, R> expectCollects(
+            @Nullable R expectedResult,
+            T... inputs) {
         List<T> list = Arrays.asList(inputs);
         doExpectCollects(expectedResult, list);
         if (collector.characteristics().contains(Collector.Characteristics.UNORDERED)) {
