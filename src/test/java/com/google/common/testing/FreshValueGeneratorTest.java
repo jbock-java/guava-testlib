@@ -119,7 +119,6 @@ import java.util.regex.Pattern;
  */
 public class FreshValueGeneratorTest extends TestCase {
 
-    @AndroidIncompatible // problem with equality of Type objects?
     public void testFreshInstance() {
         assertFreshInstances(
                 String.class,

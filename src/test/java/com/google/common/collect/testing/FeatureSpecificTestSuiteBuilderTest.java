@@ -46,7 +46,7 @@ class FeatureSpecificTestSuiteBuilderTest {
 
         @Override
         protected List<Class<? extends AbstractTester>> getTesters() {
-            return Collections.<Class<? extends AbstractTester>>singletonList(MyAbstractTester.class);
+            return Collections.singletonList(MyAbstractTester.class);
         }
     }
 
@@ -56,7 +56,6 @@ class FeatureSpecificTestSuiteBuilderTest {
         Runnable setUpRunnable = () -> setUp[0] = true;
         boolean[] tearDown = {false};
         Runnable tearDownRunnable = () -> tearDown[0] = true;
-        new MyAbstractTester().run();
         MyTestSuiteBuilder builder = new MyTestSuiteBuilder();
         builder.usingGenerator("yam")
                 .named("yam")
