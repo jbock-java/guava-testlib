@@ -16,7 +16,7 @@
 
 package com.google.common.collect.testing;
 
-import junit.framework.Test;
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -35,21 +35,24 @@ import static com.google.common.collect.testing.testers.SetAddTester.getAddSuppo
  *
  * @author Kevin Bourrillion
  */
-public class OpenJdk6SetTests extends TestsForSetsInJavaUtil {
-    public static Test suite() {
-        return new OpenJdk6SetTests().allTests();
-    }
+class OpenJdk6SetTests {
 
-    @Override
-    protected Collection<Method> suppressForTreeSetNatural() {
-        return Arrays.asList(
-                getAddNullUnsupportedMethod(),
-                getAddAllNullUnsupportedMethod(),
-                getCreateWithNullUnsupportedMethod());
-    }
+    @Test
+    void test() throws Throwable {
+        new TestsForSetsInJavaUtil(){
+            @Override
+            protected Collection<Method> suppressForTreeSetNatural() {
+                return Arrays.asList(
+                        getAddNullUnsupportedMethod(),
+                        getAddAllNullUnsupportedMethod(),
+                        getCreateWithNullUnsupportedMethod());
+            }
 
-    @Override
-    protected Collection<Method> suppressForCheckedSet() {
-        return Arrays.asList(getAddNullSupportedMethod(), getAddSupportedNullPresentMethod());
+            @Override
+            protected Collection<Method> suppressForCheckedSet() {
+                return Arrays.asList(getAddNullSupportedMethod(), getAddSupportedNullPresentMethod());
+            }
+
+        }.allTests().run();
     }
 }

@@ -54,7 +54,7 @@ public class TestsForListsInJavaUtil {
         return new TestsForListsInJavaUtil().allTests();
     }
 
-    public Test allTests() {
+    public TestSuite allTests() {
         TestSuite suite = new TestSuite("java.util Lists");
         suite.addTest(testsForEmptyList());
         suite.addTest(testsForSingletonList());

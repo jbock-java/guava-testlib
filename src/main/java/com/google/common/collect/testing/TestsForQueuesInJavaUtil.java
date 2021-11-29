@@ -46,7 +46,7 @@ public class TestsForQueuesInJavaUtil {
         return new TestsForQueuesInJavaUtil().allTests();
     }
 
-    public Test allTests() {
+    public TestSuite allTests() {
         TestSuite suite = new TestSuite();
         suite.addTest(testsForArrayDeque());
         suite.addTest(testsForLinkedList());

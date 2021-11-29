@@ -16,7 +16,7 @@
 
 package com.google.common.collect.testing;
 
-import junit.framework.Test;
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -42,56 +42,54 @@ import static com.google.common.collect.testing.testers.MapPutTester.getPutNullK
  *
  * @author Kevin Bourrillion
  */
-/*
- * TODO(cpovirk): consider renaming this class in light of our now running it
- * under JDK7
- */
-public class OpenJdk6MapTests extends TestsForMapsInJavaUtil {
-    public static Test suite() {
-        return new OpenJdk6MapTests().allTests();
-    }
+class OpenJdk6MapTests {
 
-    @Override
-    protected Collection<Method> suppressForTreeMapNatural() {
-        return Arrays.asList(
-                getPutNullKeyUnsupportedMethod(),
-                getPutAllNullKeyUnsupportedMethod(),
-                getCreateWithNullKeyUnsupportedMethod(),
-                getCreateWithNullUnsupportedMethod(), // for keySet
-                getContainsEntryWithIncomparableKeyMethod(),
-                getContainsEntryWithIncomparableValueMethod());
-    }
+    @Test
+    void test() throws Throwable {
+        new TestsForMapsInJavaUtil(){
+            @Override
+            protected Collection<Method> suppressForTreeMapNatural() {
+                return Arrays.asList(
+                        getPutNullKeyUnsupportedMethod(),
+                        getPutAllNullKeyUnsupportedMethod(),
+                        getCreateWithNullKeyUnsupportedMethod(),
+                        getCreateWithNullUnsupportedMethod(), // for keySet
+                        getContainsEntryWithIncomparableKeyMethod(),
+                        getContainsEntryWithIncomparableValueMethod());
+            }
 
-    @Override
-    protected Collection<Method> suppressForConcurrentHashMap() {
-        /*
-         * The entrySet() of ConcurrentHashMap, unlike that of other Map
-         * implementations, supports add() under JDK8. This seems problematic, but I
-         * didn't see that discussed in the review, which included many other
-         * changes: http://goo.gl/okTTdr
-         *
-         * TODO(cpovirk): decide what the best long-term action here is: force users
-         * to suppress (as we do now), stop testing entrySet().add() at all, make
-         * entrySet().add() tests tolerant of either behavior, introduce a map
-         * feature for entrySet() that supports add(), or something else
-         */
-        return Arrays.asList(
-                getAddUnsupportedNotPresentMethod(),
-                getAddAllUnsupportedNonePresentMethod(),
-                getAddAllUnsupportedSomePresentMethod());
-    }
+            @Override
+            protected Collection<Method> suppressForConcurrentHashMap() {
+                /*
+                 * The entrySet() of ConcurrentHashMap, unlike that of other Map
+                 * implementations, supports add() under JDK8. This seems problematic, but I
+                 * didn't see that discussed in the review, which included many other
+                 * changes: http://goo.gl/okTTdr
+                 *
+                 * TODO(cpovirk): decide what the best long-term action here is: force users
+                 * to suppress (as we do now), stop testing entrySet().add() at all, make
+                 * entrySet().add() tests tolerant of either behavior, introduce a map
+                 * feature for entrySet() that supports add(), or something else
+                 */
+                return Arrays.asList(
+                        getAddUnsupportedNotPresentMethod(),
+                        getAddAllUnsupportedNonePresentMethod(),
+                        getAddAllUnsupportedSomePresentMethod());
+            }
 
-    @Override
-    protected Collection<Method> suppressForConcurrentSkipListMap() {
-        List<Method> methods = newArrayList();
-        methods.addAll(super.suppressForConcurrentSkipListMap());
-        methods.add(getContainsEntryWithIncomparableKeyMethod());
-        methods.add(getContainsEntryWithIncomparableValueMethod());
-        return methods;
-    }
+            @Override
+            protected Collection<Method> suppressForConcurrentSkipListMap() {
+                List<Method> methods = newArrayList();
+                methods.addAll(super.suppressForConcurrentSkipListMap());
+                methods.add(getContainsEntryWithIncomparableKeyMethod());
+                methods.add(getContainsEntryWithIncomparableValueMethod());
+                return methods;
+            }
 
-    @Override
-    protected Collection<Method> suppressForHashtable() {
-        return Arrays.asList(getMergeNullValueMethod());
+            @Override
+            protected Collection<Method> suppressForHashtable() {
+                return List.of(getMergeNullValueMethod());
+            }
+        }.allTests().run();
     }
 }

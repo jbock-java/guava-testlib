@@ -18,7 +18,7 @@ package com.google.common.collect.testing;
 
 import com.google.common.collect.testing.testers.CollectionAddTester;
 import com.google.common.collect.testing.testers.ListAddAtIndexTester;
-import junit.framework.Test;
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -35,22 +35,24 @@ import static com.google.common.collect.testing.testers.ListSetTester.getSetNull
  *
  * @author Kevin Bourrillion
  */
-public class OpenJdk6ListTests extends TestsForListsInJavaUtil {
-    public static Test suite() {
-        return new OpenJdk6ListTests().allTests();
-    }
+class OpenJdk6ListTests {
 
-    @Override
-    protected Collection<Method> suppressForArraysAsList() {
-        return Arrays.asList(getToArrayIsPlainObjectArrayMethod());
-    }
+    @Test
+    void test() throws Throwable {
+        new TestsForListsInJavaUtil() {
+            @Override
+            protected Collection<Method> suppressForArraysAsList() {
+                return Arrays.asList(getToArrayIsPlainObjectArrayMethod());
+            }
 
-    @Override
-    protected Collection<Method> suppressForCheckedList() {
-        return Arrays.asList(
-                CollectionAddTester.getAddNullSupportedMethod(),
-                getAddSupportedNullPresentMethod(),
-                ListAddAtIndexTester.getAddNullSupportedMethod(),
-                getSetNullSupportedMethod());
+            @Override
+            protected Collection<Method> suppressForCheckedList() {
+                return Arrays.asList(
+                        CollectionAddTester.getAddNullSupportedMethod(),
+                        getAddSupportedNullPresentMethod(),
+                        ListAddAtIndexTester.getAddNullSupportedMethod(),
+                        getSetNullSupportedMethod());
+            }
+        }.allTests().run();
     }
 }

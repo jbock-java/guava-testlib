@@ -54,7 +54,7 @@ public class TestsForMapsInJavaUtil {
         return new TestsForMapsInJavaUtil().allTests();
     }
 
-    public Test allTests() {
+    public TestSuite allTests() {
         TestSuite suite = new TestSuite("java.util Maps");
         suite.addTest(testsForCheckedMap());
         suite.addTest(testsForCheckedNavigableMap());

@@ -54,7 +54,7 @@ public class TestsForSetsInJavaUtil {
         return new TestsForSetsInJavaUtil().allTests();
     }
 
-    public Test allTests() {
+    public TestSuite allTests() {
         TestSuite suite = new TestSuite("java.util Sets");
         suite.addTest(testsForCheckedNavigableSet());
         suite.addTest(testsForEmptySet());

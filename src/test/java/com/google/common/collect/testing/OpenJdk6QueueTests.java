@@ -16,10 +16,9 @@
 
 package com.google.common.collect.testing;
 
-import junit.framework.Test;
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Method;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Queue;
@@ -32,21 +31,24 @@ import static com.google.common.collect.testing.testers.CollectionCreationTester
  *
  * @author Kevin Bourrillion
  */
-public class OpenJdk6QueueTests extends TestsForQueuesInJavaUtil {
-    public static Test suite() {
-        return new OpenJdk6QueueTests().allTests();
+class OpenJdk6QueueTests {
+
+    @Test
+    void test() throws Throwable {
+        new TestsForQueuesInJavaUtil(){
+            @Override
+            protected Collection<Method> suppressForPriorityBlockingQueue() {
+                return PQ_SUPPRESS;
+            }
+
+            @Override
+            protected Collection<Method> suppressForPriorityQueue() {
+                return PQ_SUPPRESS;
+            }
+
+        }.allTests().run();
     }
 
     private static final List<Method> PQ_SUPPRESS =
-            Arrays.asList(getCreateWithNullUnsupportedMethod());
-
-    @Override
-    protected Collection<Method> suppressForPriorityBlockingQueue() {
-        return PQ_SUPPRESS;
-    }
-
-    @Override
-    protected Collection<Method> suppressForPriorityQueue() {
-        return PQ_SUPPRESS;
-    }
+            List.of(getCreateWithNullUnsupportedMethod());
 }
