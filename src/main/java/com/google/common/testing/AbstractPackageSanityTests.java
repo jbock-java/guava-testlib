@@ -30,8 +30,6 @@ import com.google.common.collect.Sets;
 import com.google.common.reflect.ClassPath;
 import com.google.common.testing.NullPointerTester.Visibility;
 import junit.framework.AssertionFailedError;
-import com.google.common.testing.junit.TestCase;
-import org.junit.Test;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -103,7 +101,7 @@ import static com.google.common.testing.AbstractPackageSanityTests.Chopper.suffi
 @Beta
 // TODO: Switch to JUnit 4 and use @Parameterized and @BeforeClass
 // Note: @Test annotations are deliberate, as some subclasses specify @RunWith(JUnit4).
-public abstract class AbstractPackageSanityTests extends TestCase {
+public final class AbstractPackageSanityTests {
 
     /**
      * A predicate that matches classes with an underscore in the class name. This can be used with
@@ -154,6 +152,12 @@ public abstract class AbstractPackageSanityTests extends TestCase {
         visibility = Visibility.PUBLIC;
     }
 
+    public void runTests() throws Exception {
+        testSerializable();
+        testNulls();
+        testEquals();
+    }
+
     /**
      * Tests all top-level {@link Serializable} classes in the package. For a serializable Class
      * {@code C}:
@@ -182,7 +186,6 @@ public abstract class AbstractPackageSanityTests extends TestCase {
      * explicit {@code testSerializable()} test in the corresponding {@code CTest} class, and {@code
      * C} will be excluded from automated serialization test performed by this method.
      */
-    @Test
     public void testSerializable() throws Exception {
         // TODO: when we use @BeforeClass, we can pay the cost of class path scanning only once.
         for (Class<?> classToTest :
@@ -227,7 +230,6 @@ public abstract class AbstractPackageSanityTests extends TestCase {
      * {@code testNulls()} test in the corresponding {@code CTest} class, and {@code C} will be
      * excluded from the automated null tests performed by this method.
      */
-    @Test
     public void testNulls() throws Exception {
         for (Class<?> classToTest : findClassesToTest(loadClassesInPackage(), NULL_TEST_METHOD_NAMES)) {
             try {
@@ -265,7 +267,6 @@ public abstract class AbstractPackageSanityTests extends TestCase {
      * explicit {@code testEquals()} test in the corresponding {@code CTest} class, and {@code C} will
      * be excluded from the automated {@code equals} test performed by this method.
      */
-    @Test
     public void testEquals() throws Exception {
         for (Class<?> classToTest :
                 findClassesToTest(loadClassesInPackage(), EQUALS_TEST_METHOD_NAMES)) {

@@ -17,7 +17,14 @@
 package com.google.common.testing;
 
 
+import org.junit.jupiter.api.Test;
+
 /** Test nulls for the entire package. */
 
-public class PackageSanityTests extends AbstractPackageSanityTests {
+class PackageSanityTest {
+
+    @Test
+    void testSanity() throws Exception {
+        new AbstractPackageSanityTests().runTests();
+    }
 }
