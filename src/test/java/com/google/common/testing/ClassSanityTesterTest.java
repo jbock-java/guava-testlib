@@ -23,6 +23,7 @@ import com.google.common.testing.ClassSanityTester.FactoryMethodReturnsNullExcep
 import com.google.common.testing.ClassSanityTester.ParameterHasNoDistinctValueException;
 import com.google.common.testing.ClassSanityTester.ParameterNotInstantiableException;
 import com.google.common.testing.NullPointerTester.Visibility;
+import com.google.common.testing.annotations.CheckForNull;
 import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
 
@@ -762,6 +763,7 @@ public class ClassSanityTesterTest extends TestCase {
 
         // keep trying
         @SuppressWarnings("unused")
+        @CheckForNull
         public static GoodEquals createMayReturnNull(int a, int b) {
             return null;
         }

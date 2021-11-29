@@ -37,6 +37,7 @@ import com.google.common.testing.RelationshipTester.Item;
 import com.google.common.testing.RelationshipTester.ItemReporter;
 import junit.framework.Assert;
 import junit.framework.AssertionFailedError;
+import org.junit.jupiter.api.Assertions;
 
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
@@ -760,8 +761,9 @@ public final class ClassSanityTester {
             throws InvocationTargetException, IllegalAccessException {
         T returnValue = factory.invoke(null, args.toArray());
         if (returnValue == null) {
-            Assert.assertTrue(
-                    factory + " returns null but it's not annotated with @Nullable", isNullable(factory));
+            Assertions.assertTrue(
+                    isNullable(factory),
+                    factory + " returns null but it's not annotated with @Nullable");
         }
         return returnValue;
     }
