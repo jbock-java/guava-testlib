@@ -16,14 +16,11 @@
 
 package com.google.common.collect.testing.testers;
 
-import com.google.common.annotations.GwtCompatible;
-import com.google.common.annotations.GwtIncompatible;
 import com.google.common.collect.testing.AbstractCollectionTester;
 import com.google.common.collect.testing.Helpers;
 import com.google.common.collect.testing.SpliteratorTester;
 import com.google.common.collect.testing.features.CollectionFeature;
 import com.google.common.collect.testing.features.CollectionSize;
-import org.junit.Ignore;
 
 import java.lang.reflect.Method;
 import java.util.Spliterator;
@@ -41,8 +38,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
  *
  * @author Louis Wasserman
  */
-@GwtCompatible(emulated = true)
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class CollectionSpliteratorTester<E> extends AbstractCollectionTester<E> {
 
     @CollectionFeature.Require(absent = KNOWN_ORDER)
@@ -84,13 +79,11 @@ public class CollectionSpliteratorTester<E> extends AbstractCollectionTester<E> 
         }
     }
 
-    @GwtIncompatible // reflection
     public static Method getSpliteratorNotImmutableCollectionAllowsAddMethod() {
         return Helpers.getMethod(
                 CollectionSpliteratorTester.class, "testSpliteratorNotImmutable_CollectionAllowsAdd");
     }
 
-    @GwtIncompatible // reflection
     public static Method getSpliteratorNotImmutableCollectionAllowsRemoveMethod() {
         return Helpers.getMethod(
                 CollectionSpliteratorTester.class, "testSpliteratorNotImmutable_CollectionAllowsRemove");

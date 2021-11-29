@@ -200,7 +200,7 @@ public class IteratorTesterTest extends TestCase {
 
                     @Override
                     protected void verify(List<Integer> elements) {
-                        throw new AssertionFailedError(message);
+                        throw new AssertionError(message);
                     }
                 };
         AssertionError actual = null;

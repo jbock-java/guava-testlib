@@ -16,13 +16,11 @@
 
 package com.google.common.collect.testing.testers;
 
-import com.google.common.annotations.GwtCompatible;
 import com.google.common.annotations.GwtIncompatible;
 import com.google.common.collect.testing.AbstractMapTester;
 import com.google.common.collect.testing.Helpers;
 import com.google.common.collect.testing.features.CollectionSize;
 import com.google.common.collect.testing.features.MapFeature;
-import org.junit.Ignore;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -44,8 +42,6 @@ import static org.junit.jupiter.api.Assertions.fail;
  * @author Chris Povirk
  * @author Kevin Bourrillion
  */
-@GwtCompatible(emulated = true)
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class MapCreationTester<K, V> extends AbstractMapTester<K, V> {
     @MapFeature.Require(ALLOWS_NULL_KEYS)
     @CollectionSize.Require(absent = ZERO)

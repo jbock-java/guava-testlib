@@ -18,7 +18,6 @@ package com.google.common.testing;
 
 import com.google.common.annotations.Beta;
 import com.google.common.annotations.GwtCompatible;
-import junit.framework.AssertionFailedError;
 import org.junit.jupiter.api.Assertions;
 
 /**
@@ -81,7 +80,7 @@ public final class SerializableTester {
      * @return the re-serialized object
      * @throws RuntimeException if the specified object was not successfully serialized or
      *     deserialized
-     * @throws AssertionFailedError if the re-serialized object is not equal to the original object,
+     * @throws AssertionError if the re-serialized object is not equal to the original object,
      *     or if the hashcodes are different.
      */
     public static <T> T reserializeAndAssert(T object) {

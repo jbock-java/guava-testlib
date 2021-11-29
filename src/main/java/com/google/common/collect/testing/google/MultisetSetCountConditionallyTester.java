@@ -18,7 +18,6 @@ package com.google.common.collect.testing.google;
 
 import com.google.common.collect.testing.features.CollectionFeature;
 import com.google.common.collect.testing.features.CollectionSize;
-import org.junit.Ignore;
 
 import static com.google.common.collect.testing.features.CollectionFeature.SUPPORTS_ADD;
 import static com.google.common.collect.testing.features.CollectionSize.SEVERAL;
@@ -34,7 +33,6 @@ import static org.junit.jupiter.api.Assertions.fail;
  *
  * @author Chris Povirk
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class MultisetSetCountConditionallyTester<E> extends AbstractMultisetSetCountTester<E> {
     @Override
     void setCountCheckReturnValue(E element, int count) {

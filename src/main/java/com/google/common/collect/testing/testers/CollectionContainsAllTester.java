@@ -21,7 +21,6 @@ import com.google.common.collect.testing.MinimalCollection;
 import com.google.common.collect.testing.WrongType;
 import com.google.common.collect.testing.features.CollectionFeature;
 import com.google.common.collect.testing.features.CollectionSize;
-import org.junit.Ignore;
 
 import java.util.Collection;
 
@@ -39,8 +38,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * @author Kevin Bourrillion
  * @author Chris Povirk
  */
-@SuppressWarnings("unchecked") // too many "unchecked generic array creations"
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class CollectionContainsAllTester<E> extends AbstractCollectionTester<E> {
     public void testContainsAll_empty() {
         assertTrue(

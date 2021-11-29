@@ -19,7 +19,6 @@ package com.google.common.collect.testing.testers;
 import com.google.common.collect.testing.MinimalCollection;
 import com.google.common.collect.testing.features.CollectionFeature;
 import com.google.common.collect.testing.features.CollectionSize;
-import org.junit.Ignore;
 
 import static com.google.common.collect.testing.features.CollectionFeature.SUPPORTS_ADD;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
@@ -33,7 +32,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * @author Kevin Bourrillion
  */
 @SuppressWarnings("unchecked") // too many "unchecked generic array creations"
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class SetAddAllTester<E> extends AbstractSetTester<E> {
     @CollectionFeature.Require(SUPPORTS_ADD)
     @CollectionSize.Require(absent = ZERO)

@@ -22,7 +22,6 @@ import com.google.common.collect.Multiset.Entry;
 import com.google.common.collect.Multisets;
 import com.google.common.collect.testing.Helpers;
 import com.google.common.collect.testing.features.CollectionFeature;
-import org.junit.Ignore;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -39,7 +38,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author Louis Wasserman
  */
 @GwtCompatible(emulated = true)
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class MultisetForEachEntryTester<E> extends AbstractMultisetTester<E> {
     public void testForEachEntry() {
         List<Entry<E>> expected = new ArrayList<>(getMultiset().entrySet());

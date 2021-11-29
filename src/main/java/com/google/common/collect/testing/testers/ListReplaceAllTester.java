@@ -18,7 +18,6 @@ package com.google.common.collect.testing.testers;
 
 import com.google.common.collect.testing.features.CollectionSize;
 import com.google.common.collect.testing.features.ListFeature;
-import org.junit.Ignore;
 
 import java.util.Collections;
 import java.util.List;
@@ -33,7 +32,6 @@ import static org.junit.jupiter.api.Assertions.fail;
  *
  * @author Louis Wasserman
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class ListReplaceAllTester<E> extends AbstractListTester<E> {
     @ListFeature.Require(SUPPORTS_SET)
     public void testReplaceAll() {

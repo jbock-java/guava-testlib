@@ -16,10 +16,7 @@
 
 package com.google.common.collect.testing;
 
-import com.google.common.annotations.GwtCompatible;
-import com.google.common.annotations.GwtIncompatible;
-import junit.framework.Assert;
-import junit.framework.AssertionFailedError;
+import org.junit.jupiter.api.Assertions;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;
@@ -37,11 +34,10 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import static java.util.Collections.sort;
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@GwtCompatible(emulated = true)
 public class Helpers {
     // Clone of Objects.equal
     static boolean equal(Object a, Object b) {
@@ -83,13 +79,13 @@ public class Helpers {
 
     public static void assertEmpty(Iterable<?> iterable) {
         if (!isEmpty(iterable)) {
-            Assert.fail("Not true that " + iterable + " is empty");
+            Assertions.fail("Not true that " + iterable + " is empty");
         }
     }
 
     public static void assertEmpty(Map<?, ?> map) {
         if (!map.isEmpty()) {
-            Assert.fail("Not true that " + map + " is empty");
+            Assertions.fail("Not true that " + map + " is empty");
         }
     }
 
@@ -99,7 +95,7 @@ public class Helpers {
 
         while (expectedIter.hasNext() && actualIter.hasNext()) {
             if (!equal(expectedIter.next(), actualIter.next())) {
-                Assert.fail(
+                Assertions.fail(
                         "contents were not equal and in the same order: "
                                 + "expected = "
                                 + expected
@@ -110,7 +106,7 @@ public class Helpers {
 
         if (expectedIter.hasNext() || actualIter.hasNext()) {
             // actual either had too few or too many elements
-            Assert.fail(
+            Assertions.fail(
                     "contents were not equal and in the same order: "
                             + "expected = "
                             + expected
@@ -134,7 +130,7 @@ public class Helpers {
         // Yeah it's n^2.
         for (Object object : exp) {
             if (!act.remove(object)) {
-                Assert.fail(
+                Assertions.fail(
                         "did not contain expected element "
                                 + object
                                 + ", "
@@ -144,7 +140,7 @@ public class Helpers {
                                 + actString);
             }
         }
-        assertTrue("unexpected elements: " + act, act.isEmpty());
+        assertTrue(act.isEmpty(), "unexpected elements: " + act);
     }
 
     public static void assertContentsAnyOrder(Iterable<?> actual, Object... expected) {
@@ -165,7 +161,7 @@ public class Helpers {
         }
 
         if (!contained) {
-            Assert.fail("Not true that " + actual + " contains " + expected);
+            Assertions.fail("Not true that " + actual + " contains " + expected);
         }
     }
 
@@ -177,7 +173,7 @@ public class Helpers {
         }
 
         if (!expectedList.isEmpty()) {
-            Assert.fail("Not true that " + actual + " contains all of " + Arrays.asList(expected));
+            Assertions.fail("Not true that " + actual + " contains all of " + Arrays.asList(expected));
         }
     }
 
@@ -246,7 +242,7 @@ public class Helpers {
     }
 
     static void fail(Throwable cause, Object message) {
-        AssertionFailedError assertionFailedError = new AssertionFailedError(String.valueOf(message));
+        AssertionError assertionFailedError = new AssertionError(String.valueOf(message));
         assertionFailedError.initCause(cause);
         throw assertionFailedError;
     }
@@ -300,16 +296,20 @@ public class Helpers {
             for (int j = 0; j < i; j++) {
                 T lesser = valuesInExpectedOrder.get(j);
                 assertTrue(
-                        comparator + ".compare(" + lesser + ", " + t + ")", comparator.compare(lesser, t) < 0);
+                        comparator.compare(lesser, t) < 0,
+                        comparator + ".compare(" + lesser + ", " + t + ")");
             }
 
-            assertEquals(comparator + ".compare(" + t + ", " + t + ")", 0, comparator.compare(t, t));
+            assertEquals(
+                    0,
+                    comparator.compare(t, t),
+                    comparator + ".compare(" + t + ", " + t + ")");
 
             for (int j = i + 1; j < valuesInExpectedOrder.size(); j++) {
                 T greater = valuesInExpectedOrder.get(j);
                 assertTrue(
-                        comparator + ".compare(" + greater + ", " + t + ")",
-                        comparator.compare(greater, t) > 0);
+                        comparator.compare(greater, t) > 0,
+                        comparator + ".compare(" + greater + ", " + t + ")");
             }
         }
     }
@@ -323,16 +323,23 @@ public class Helpers {
 
             for (int j = 0; j < i; j++) {
                 T lesser = valuesInExpectedOrder.get(j);
-                assertTrue(lesser + ".compareTo(" + t + ')', lesser.compareTo(t) < 0);
+                assertTrue(
+                        lesser.compareTo(t) < 0,
+                        lesser + ".compareTo(" + t + ')');
                 assertFalse(lesser.equals(t));
             }
 
-            assertEquals(t + ".compareTo(" + t + ')', 0, t.compareTo(t));
+            assertEquals(
+                    0,
+                    t.compareTo(t),
+                    t + ".compareTo(" + t + ')');
             assertTrue(t.equals(t));
 
             for (int j = i + 1; j < valuesInExpectedOrder.size(); j++) {
                 T greater = valuesInExpectedOrder.get(j);
-                assertTrue(greater + ".compareTo(" + t + ')', greater.compareTo(t) > 0);
+                assertTrue(
+                        greater.compareTo(t) > 0,
+                        greater + ".compareTo(" + t + ')');
                 assertFalse(greater.equals(t));
             }
         }
@@ -434,13 +441,6 @@ public class Helpers {
     }
 
     /**
-     * Private replacement for {@link com.google.gwt.user.client.rpc.GwtTransient} to work around
-     * build-system quirks.
-     */
-    private @interface GwtTransient {
-    }
-
-    /**
      * Compares strings in natural order except that null comes immediately before a given value. This
      * works better than Ordering.natural().nullsFirst() because, if null comes before all other
      * values, it lies outside the submap/submultiset ranges we test, and the variety of tests that
@@ -451,7 +451,6 @@ public class Helpers {
          * We don't serialize this class in GWT, so we don't care about whether GWT will serialize this
          * field.
          */
-        @GwtTransient
         private final String justAfterNull;
 
         protected NullsBefore(String justAfterNull) {

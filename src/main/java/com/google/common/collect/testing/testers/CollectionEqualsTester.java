@@ -17,7 +17,6 @@
 package com.google.common.collect.testing.testers;
 
 import com.google.common.collect.testing.AbstractCollectionTester;
-import org.junit.Ignore;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -27,7 +26,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  *
  * @author George van den Driessche
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class CollectionEqualsTester<E> extends AbstractCollectionTester<E> {
 
     // TODO(cpovirk): Consider using EqualsTester from Guava.

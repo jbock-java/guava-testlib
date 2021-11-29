@@ -15,7 +15,6 @@
 package com.google.common.collect.testing.google;
 
 import com.google.common.collect.ListMultimap;
-import org.junit.Ignore;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -30,7 +29,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
  *
  * @author Louis Wasserman
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class AbstractListMultimapTester<K, V>
         extends AbstractMultimapTester<K, V, ListMultimap<K, V>> {
 

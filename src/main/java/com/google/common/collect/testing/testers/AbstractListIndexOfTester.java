@@ -19,7 +19,6 @@ package com.google.common.collect.testing.testers;
 import com.google.common.collect.testing.WrongType;
 import com.google.common.collect.testing.features.CollectionFeature;
 import com.google.common.collect.testing.features.CollectionSize;
-import org.junit.Ignore;
 
 import static com.google.common.collect.testing.features.CollectionFeature.ALLOWS_NULL_VALUES;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
@@ -30,7 +29,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  *
  * @author Chris Povirk
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public abstract class AbstractListIndexOfTester<E> extends AbstractListTester<E> {
     /** Override to call {@code indexOf()} or {@code lastIndexOf()}. */
     protected abstract int find(Object o);

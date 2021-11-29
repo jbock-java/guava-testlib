@@ -19,7 +19,6 @@ package com.google.common.testing;
 import com.google.common.base.Equivalence;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-import junit.framework.AssertionFailedError;
 
 import java.util.List;
 
@@ -136,7 +135,7 @@ final class RelationshipTester<T> {
 
     private void assertWithTemplate(String template, Item<T> item, Item<T> other, boolean condition) {
         if (!condition) {
-            throw new AssertionFailedError(
+            throw new AssertionError(
                     template
                             .replace("$RELATIONSHIP", relationshipName)
                             .replace("$HASH", hashName)

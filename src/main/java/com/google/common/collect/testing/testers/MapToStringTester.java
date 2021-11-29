@@ -18,7 +18,6 @@ import com.google.common.collect.testing.AbstractMapTester;
 import com.google.common.collect.testing.features.CollectionFeature;
 import com.google.common.collect.testing.features.CollectionSize;
 import com.google.common.collect.testing.features.MapFeature;
-import org.junit.Ignore;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -40,7 +39,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  * @author Kevin Bourrillion
  * @author Louis Wasserman
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class MapToStringTester<K, V> extends AbstractMapTester<K, V> {
     public void testToString_minimal() {
         assertNotNull(

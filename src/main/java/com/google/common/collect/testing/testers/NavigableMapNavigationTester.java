@@ -20,7 +20,6 @@ import com.google.common.collect.testing.AbstractMapTester;
 import com.google.common.collect.testing.Helpers;
 import com.google.common.collect.testing.features.CollectionSize;
 import com.google.common.collect.testing.features.MapFeature;
-import org.junit.Ignore;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,7 +44,6 @@ import static org.junit.jupiter.api.Assertions.fail;
  * @author Jesse Wilson
  * @author Louis Wasserman
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class NavigableMapNavigationTester<K, V> extends AbstractMapTester<K, V> {
 
     private NavigableMap<K, V> navigableMap;

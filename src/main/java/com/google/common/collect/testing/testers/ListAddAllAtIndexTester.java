@@ -20,7 +20,6 @@ import com.google.common.collect.testing.MinimalCollection;
 import com.google.common.collect.testing.features.CollectionFeature;
 import com.google.common.collect.testing.features.CollectionSize;
 import com.google.common.collect.testing.features.ListFeature;
-import org.junit.Ignore;
 
 import java.util.List;
 
@@ -39,8 +38,6 @@ import static org.junit.jupiter.api.Assertions.fail;
  *
  * @author Chris Povirk
  */
-@SuppressWarnings("unchecked") // too many "unchecked generic array creations"
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class ListAddAllAtIndexTester<E> extends AbstractListTester<E> {
     @ListFeature.Require(SUPPORTS_ADD_WITH_INDEX)
     @CollectionSize.Require(absent = ZERO)

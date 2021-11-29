@@ -1,7 +1,5 @@
 package com.google.common.testing.junit;
 
-import org.junit.internal.MethodSorter;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

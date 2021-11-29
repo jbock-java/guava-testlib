@@ -20,7 +20,6 @@ import com.google.common.collect.testing.AbstractCollectionTester;
 import com.google.common.collect.testing.Helpers;
 import com.google.common.collect.testing.features.CollectionFeature;
 import com.google.common.collect.testing.features.CollectionSize;
-import org.junit.Ignore;
 
 import static com.google.common.collect.testing.features.CollectionFeature.ALLOWS_NULL_VALUES;
 import static com.google.common.collect.testing.features.CollectionFeature.KNOWN_ORDER;
@@ -37,7 +36,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  *
  * @author Kevin Bourrillion
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class CollectionToStringTester<E> extends AbstractCollectionTester<E> {
     public void testToString_minimal() {
         assertNotNull(

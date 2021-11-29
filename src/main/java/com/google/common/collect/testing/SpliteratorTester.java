@@ -34,10 +34,10 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.collect.testing.Helpers.assertEqualIgnoringOrder;
 import static com.google.common.collect.testing.Helpers.assertEqualInOrder;
 import static com.google.common.collect.testing.Platform.format;
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertTrue;
-import static junit.framework.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /** Tester for {@code Spliterator} implementations. */
 public final class SpliteratorTester<E> {
@@ -219,14 +219,14 @@ public final class SpliteratorTester<E> {
         if (subsized) {
             if (trySplit != null) {
                 assertEquals(
-                        "sum of estimated sizes of trySplit and original spliterator after trySplit",
                         originalSize,
-                        trySplit.estimateSize() + spliterator.estimateSize());
+                        trySplit.estimateSize() + spliterator.estimateSize(),
+                        "sum of estimated sizes of trySplit and original spliterator after trySplit");
             } else {
                 assertEquals(
-                        "estimated size of spliterator after failed trySplit",
                         originalSize,
-                        spliterator.estimateSize());
+                        spliterator.estimateSize(),
+                        "estimated size of spliterator after failed trySplit");
             }
         }
         return trySplit;

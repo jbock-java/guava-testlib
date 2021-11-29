@@ -15,7 +15,6 @@
 package com.google.common.collect.testing.google;
 
 import com.google.common.collect.testing.features.CollectionSize;
-import org.junit.Ignore;
 
 import java.util.Arrays;
 
@@ -27,7 +26,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  *
  * @author Louis Wasserman
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class MultisetContainsTester<E> extends AbstractMultisetTester<E> {
     @CollectionSize.Require(absent = ZERO)
     public void testContainsAllMultisetIgnoresFrequency() {

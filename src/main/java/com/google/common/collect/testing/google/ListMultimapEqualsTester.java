@@ -18,7 +18,6 @@ import com.google.common.collect.ListMultimap;
 import com.google.common.collect.testing.Helpers;
 import com.google.common.collect.testing.features.CollectionSize;
 import com.google.common.testing.EqualsTester;
-import org.junit.Ignore;
 
 import static com.google.common.collect.testing.features.CollectionSize.SEVERAL;
 
@@ -27,7 +26,6 @@ import static com.google.common.collect.testing.features.CollectionSize.SEVERAL;
  *
  * @author Louis Wasserman
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class ListMultimapEqualsTester<K, V> extends AbstractListMultimapTester<K, V> {
     @CollectionSize.Require(SEVERAL)
     public void testOrderingAffectsEqualsComparisons() {

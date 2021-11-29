@@ -19,7 +19,6 @@ package com.google.common.collect.testing.testers;
 import com.google.common.collect.testing.AbstractMapTester;
 import com.google.common.collect.testing.features.CollectionSize;
 import com.google.common.collect.testing.features.MapFeature;
-import org.junit.Ignore;
 
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
@@ -41,7 +40,6 @@ import static org.junit.jupiter.api.Assertions.fail;
  * @author George van den Driessche
  * @author Chris Povirk
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class MapClearTester<K, V> extends AbstractMapTester<K, V> {
     @MapFeature.Require(SUPPORTS_REMOVE)
     public void testClear() {

@@ -16,8 +16,6 @@
 
 package com.google.common.collect.testing.google;
 
-import org.junit.Ignore;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -26,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  *
  * @author Chris Povirk
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class MultisetSetCountUnconditionallyTester<E> extends AbstractMultisetSetCountTester<E> {
     @Override
     void setCountCheckReturnValue(E element, int count) {

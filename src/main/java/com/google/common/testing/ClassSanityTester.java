@@ -35,8 +35,6 @@ import com.google.common.reflect.TypeToken;
 import com.google.common.testing.NullPointerTester.Visibility;
 import com.google.common.testing.RelationshipTester.Item;
 import com.google.common.testing.RelationshipTester.ItemReporter;
-import junit.framework.Assert;
-import junit.framework.AssertionFailedError;
 import org.junit.jupiter.api.Assertions;
 
 import java.io.Serializable;
@@ -448,7 +446,7 @@ public final class ClassSanityTester {
                         nullPointerTester.testAllPublicInstanceMethods(instance);
                     } catch (AssertionError e) {
                         AssertionError error =
-                                new AssertionFailedError("Null check failed on return value of " + factory);
+                                new AssertionError("Null check failed on return value of " + factory);
                         error.initCause(e);
                         throw error;
                     }
@@ -494,7 +492,7 @@ public final class ClassSanityTester {
                         SerializableTester.reserialize(instance);
                     } catch (RuntimeException e) {
                         AssertionError error =
-                                new AssertionFailedError("Serialization failed on return value of " + factory);
+                                new AssertionError("Serialization failed on return value of " + factory);
                         error.initCause(e.getCause());
                         throw error;
                     }
@@ -524,12 +522,12 @@ public final class ClassSanityTester {
                         SerializableTester.reserializeAndAssert(instance);
                     } catch (RuntimeException e) {
                         AssertionError error =
-                                new AssertionFailedError("Serialization failed on return value of " + factory);
+                                new AssertionError("Serialization failed on return value of " + factory);
                         error.initCause(e.getCause());
                         throw error;
                     } catch (AssertionError e) {
                         AssertionError error =
-                                new AssertionFailedError(
+                                new AssertionError(
                                         "Return value of " + factory + " reserialized to an unequal value");
                         error.initCause(e);
                         throw error;
@@ -547,15 +545,15 @@ public final class ClassSanityTester {
                 }
             }
             ImmutableList<Invokable<?, ?>> factoriesToTest = builder.build();
-            Assert.assertFalse(
+            Assertions.assertFalse(
+                    factoriesToTest.isEmpty(),
                     "No "
                             + factoryMethodsDescription
                             + " that return "
                             + returnTypeToTest.getName()
                             + " or subtype are found in "
                             + declaringClass
-                            + ".",
-                    factoriesToTest.isEmpty());
+                            + ".");
             return factoriesToTest;
         }
     }

@@ -20,11 +20,14 @@ import com.google.common.annotations.Beta;
 import com.google.common.escape.CharEscaper;
 import com.google.common.escape.Escaper;
 import com.google.common.escape.UnicodeEscaper;
-import junit.framework.Assert;
 
 import java.io.IOException;
 
 import static com.google.common.escape.Escapers.computeReplacement;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Extra assert methods for testing Escaper implementations.
@@ -44,11 +47,11 @@ public final class EscaperAsserts {
      */
     public static void assertBasic(Escaper escaper) throws IOException {
         // Escapers operate on characters: no characters, no escaping.
-        Assert.assertEquals("", escaper.escape(""));
+        assertEquals("", escaper.escape(""));
         // Assert that escapers throw null pointer exceptions.
         try {
             escaper.escape((String) null);
-            Assert.fail("exception not thrown when escaping a null string");
+            fail("exception not thrown when escaping a null string");
         } catch (NullPointerException e) {
             // pass
         }
@@ -64,8 +67,8 @@ public final class EscaperAsserts {
     public static void assertEscaping(CharEscaper escaper, String expected, char c) {
 
         String escaped = computeReplacement(escaper, c);
-        Assert.assertNotNull(escaped);
-        Assert.assertEquals(expected, escaped);
+        assertNotNull(escaped);
+        assertEquals(expected, escaped);
     }
 
     /**
@@ -78,8 +81,8 @@ public final class EscaperAsserts {
     public static void assertEscaping(UnicodeEscaper escaper, String expected, int cp) {
 
         String escaped = computeReplacement(escaper, cp);
-        Assert.assertNotNull(escaped);
-        Assert.assertEquals(expected, escaped);
+        assertNotNull(escaped);
+        assertEquals(expected, escaped);
     }
 
     /**
@@ -89,7 +92,7 @@ public final class EscaperAsserts {
      * @param c the character to test
      */
     public static void assertUnescaped(CharEscaper escaper, char c) {
-        Assert.assertNull(computeReplacement(escaper, c));
+        assertNull(computeReplacement(escaper, c));
     }
 
     /**
@@ -99,7 +102,7 @@ public final class EscaperAsserts {
      * @param cp the Unicode code point to test
      */
     public static void assertUnescaped(UnicodeEscaper escaper, int cp) {
-        Assert.assertNull(computeReplacement(escaper, cp));
+        assertNull(computeReplacement(escaper, cp));
     }
 
     /**
@@ -115,7 +118,7 @@ public final class EscaperAsserts {
 
         int cp = Character.toCodePoint(hi, lo);
         String escaped = computeReplacement(escaper, cp);
-        Assert.assertNotNull(escaped);
-        Assert.assertEquals(expected, escaped);
+        assertNotNull(escaped);
+        assertEquals(expected, escaped);
     }
 }

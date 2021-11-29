@@ -19,7 +19,6 @@ package com.google.common.collect.testing.google;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.testing.AbstractMapTester;
 import com.google.common.collect.testing.Helpers;
-import org.junit.Ignore;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,7 +30,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 /** Skeleton for a tester of a {@code BiMap}. */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public abstract class AbstractBiMapTester<K, V> extends AbstractMapTester<K, V> {
 
     @Override

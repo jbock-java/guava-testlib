@@ -16,7 +16,6 @@
 
 package com.google.common.collect.testing;
 
-import org.junit.Ignore;
 import org.junit.jupiter.api.Assertions;
 
 import java.util.Collection;
@@ -27,7 +26,6 @@ import java.util.Collection;
  * @param <E> the element type of the collection to be tested.
  * @author Kevin Bourrillion
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public abstract class AbstractCollectionTester<E>
         extends AbstractContainerTester<Collection<E>, E> {
 

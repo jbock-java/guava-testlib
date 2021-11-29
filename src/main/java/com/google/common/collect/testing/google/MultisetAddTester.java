@@ -17,7 +17,6 @@
 package com.google.common.collect.testing.google;
 
 import com.google.common.collect.testing.features.CollectionFeature;
-import org.junit.Ignore;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -33,7 +32,6 @@ import static org.junit.jupiter.api.Assertions.fail;
  *
  * @author Jared Levy
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class MultisetAddTester<E> extends AbstractMultisetTester<E> {
     @CollectionFeature.Require(absent = SUPPORTS_ADD)
     public void testAddUnsupported() {

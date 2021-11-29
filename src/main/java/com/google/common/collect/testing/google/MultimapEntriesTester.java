@@ -19,7 +19,6 @@ import com.google.common.collect.testing.Helpers;
 import com.google.common.collect.testing.features.CollectionFeature;
 import com.google.common.collect.testing.features.CollectionSize;
 import com.google.common.collect.testing.features.MapFeature;
-import org.junit.Ignore;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -44,7 +43,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  *
  * @author Louis Wasserman
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class MultimapEntriesTester<K, V> extends AbstractMultimapTester<K, V, Multimap<K, V>> {
     public void testEntries() {
         assertEqualIgnoringOrder(getSampleElements(), multimap().entries());

@@ -19,7 +19,6 @@ package com.google.common.collect.testing.google;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.testing.features.CollectionSize;
 import com.google.common.collect.testing.features.MapFeature;
-import org.junit.Ignore;
 
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
 import static com.google.common.collect.testing.features.MapFeature.ALLOWS_NULL_KEYS;
@@ -36,7 +35,6 @@ import static org.junit.jupiter.api.Assertions.fail;
  *
  * @author Louis Wasserman
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class MultimapContainsEntryTester<K, V>
         extends AbstractMultimapTester<K, V, Multimap<K, V>> {
     @CollectionSize.Require(absent = ZERO)

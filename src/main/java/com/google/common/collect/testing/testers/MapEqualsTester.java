@@ -20,7 +20,6 @@ import com.google.common.collect.testing.AbstractMapTester;
 import com.google.common.collect.testing.Helpers;
 import com.google.common.collect.testing.features.CollectionSize;
 import com.google.common.collect.testing.features.MapFeature;
-import org.junit.Ignore;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -38,7 +37,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * @author George van den Driessche
  * @author Chris Povirk
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class MapEqualsTester<K, V> extends AbstractMapTester<K, V> {
     public void testEquals_otherMapWithSameEntries() {
         assertTrue(

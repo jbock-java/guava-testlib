@@ -22,7 +22,6 @@ import com.google.common.collect.testing.Helpers;
 import com.google.common.collect.testing.WrongType;
 import com.google.common.collect.testing.features.CollectionFeature;
 import com.google.common.collect.testing.features.CollectionSize;
-import org.junit.Ignore;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -47,7 +46,6 @@ import static org.junit.jupiter.api.Assertions.fail;
  * @author Jared Levy
  */
 @GwtCompatible(emulated = true)
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class MultisetRemoveTester<E> extends AbstractMultisetTester<E> {
     @CollectionFeature.Require(SUPPORTS_REMOVE)
     public void testRemoveNegative() {

@@ -20,7 +20,6 @@ import com.google.common.annotations.GwtIncompatible;
 import com.google.common.collect.testing.Helpers;
 import com.google.common.collect.testing.features.CollectionFeature;
 import com.google.common.collect.testing.features.CollectionSize;
-import org.junit.Ignore;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -42,7 +41,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  *
  * @author Louis Wasserman
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class MultisetElementSetTester<E> extends AbstractMultisetTester<E> {
     @CollectionFeature.Require(SUPPORTS_ADD)
     public void testElementSetReflectsAddAbsent() {

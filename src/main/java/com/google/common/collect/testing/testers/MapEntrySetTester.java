@@ -22,7 +22,6 @@ import com.google.common.collect.testing.Helpers;
 import com.google.common.collect.testing.features.CollectionFeature;
 import com.google.common.collect.testing.features.CollectionSize;
 import com.google.common.collect.testing.features.MapFeature;
-import org.junit.Ignore;
 
 import java.lang.reflect.Method;
 import java.util.Iterator;
@@ -49,7 +48,6 @@ import static org.junit.jupiter.api.Assertions.fail;
  * @param <K> The key type of the map implementation under test.
  * @param <V> The value type of the map implementation under test.
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class MapEntrySetTester<K, V> extends AbstractMapTester<K, V> {
     private enum IncomparableType {
         INSTANCE;

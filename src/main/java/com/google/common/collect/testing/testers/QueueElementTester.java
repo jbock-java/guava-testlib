@@ -18,7 +18,6 @@ package com.google.common.collect.testing.testers;
 
 import com.google.common.collect.testing.features.CollectionFeature;
 import com.google.common.collect.testing.features.CollectionSize;
-import org.junit.Ignore;
 
 import java.util.NoSuchElementException;
 
@@ -35,7 +34,6 @@ import static org.junit.jupiter.api.Assertions.fail;
  *
  * @author Jared Levy
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class QueueElementTester<E> extends AbstractQueueTester<E> {
     @CollectionSize.Require(ZERO)
     public void testElement_empty() {

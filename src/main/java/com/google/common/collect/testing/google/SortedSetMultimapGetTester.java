@@ -17,7 +17,6 @@
 package com.google.common.collect.testing.google;
 
 import com.google.common.collect.SortedSetMultimap;
-import org.junit.Ignore;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -26,7 +25,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  *
  * @author Louis Wasserman
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class SortedSetMultimapGetTester<K, V>
         extends AbstractMultimapTester<K, V, SortedSetMultimap<K, V>> {
     public void testValueComparator() {

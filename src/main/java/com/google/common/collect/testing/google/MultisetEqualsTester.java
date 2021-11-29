@@ -17,7 +17,6 @@ package com.google.common.collect.testing.google;
 import com.google.common.collect.testing.features.CollectionFeature;
 import com.google.common.collect.testing.features.CollectionSize;
 import com.google.common.testing.EqualsTester;
-import org.junit.Ignore;
 
 import static com.google.common.collect.testing.features.CollectionFeature.ALLOWS_NULL_VALUES;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
@@ -28,7 +27,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  *
  * @author Louis Wasserman
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class MultisetEqualsTester<E> extends AbstractMultisetTester<E> {
     public void testEqualsSameContents() {
         new EqualsTester()

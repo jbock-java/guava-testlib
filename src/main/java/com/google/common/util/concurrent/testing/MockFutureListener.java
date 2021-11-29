@@ -18,7 +18,7 @@ package com.google.common.util.concurrent.testing;
 
 import com.google.common.annotations.Beta;
 import com.google.common.util.concurrent.ListenableFuture;
-import junit.framework.Assert;
+import org.junit.jupiter.api.Assertions;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
@@ -58,10 +58,10 @@ public class MockFutureListener implements Runnable {
      */
     public void assertSuccess(Object expectedData) throws Throwable {
         // Verify that the listener executed in a reasonable amount of time.
-        Assert.assertTrue(countDownLatch.await(1L, TimeUnit.SECONDS));
+        Assertions.assertTrue(countDownLatch.await(1L, TimeUnit.SECONDS));
 
         try {
-            Assert.assertEquals(expectedData, future.get());
+            Assertions.assertEquals(expectedData, future.get());
         } catch (ExecutionException e) {
             throw e.getCause();
         }
@@ -74,19 +74,19 @@ public class MockFutureListener implements Runnable {
      */
     public void assertException(Throwable expectedCause) throws Exception {
         // Verify that the listener executed in a reasonable amount of time.
-        Assert.assertTrue(countDownLatch.await(1L, TimeUnit.SECONDS));
+        Assertions.assertTrue(countDownLatch.await(1L, TimeUnit.SECONDS));
 
         try {
             future.get();
-            Assert.fail("This call was supposed to throw an ExecutionException");
+            Assertions.fail("This call was supposed to throw an ExecutionException");
         } catch (ExecutionException expected) {
-            Assert.assertSame(expectedCause, expected.getCause());
+            Assertions.assertSame(expectedCause, expected.getCause());
         }
     }
 
     public void assertTimeout() throws Exception {
         // Verify that the listener does not get called in a reasonable amount of
         // time.
-        Assert.assertFalse(countDownLatch.await(1L, TimeUnit.SECONDS));
+        Assertions.assertFalse(countDownLatch.await(1L, TimeUnit.SECONDS));
     }
 }

@@ -22,7 +22,6 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.testing.Helpers;
 import com.google.common.collect.testing.features.CollectionFeature;
 import com.google.common.testing.SerializableTester;
-import org.junit.Ignore;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;
@@ -42,7 +41,6 @@ import static org.junit.jupiter.api.Assertions.assertSame;
  * @author Louis Wasserman
  */
 @GwtCompatible(emulated = true)
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class BiMapInverseTester<K, V> extends AbstractBiMapTester<K, V> {
 
     public void testInverseSame() {

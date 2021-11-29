@@ -16,13 +16,11 @@
 
 package com.google.common.collect.testing.testers;
 
-import com.google.common.annotations.GwtCompatible;
 import com.google.common.annotations.GwtIncompatible;
 import com.google.common.collect.testing.AbstractCollectionTester;
 import com.google.common.collect.testing.Helpers;
 import com.google.common.collect.testing.features.CollectionFeature;
 import com.google.common.collect.testing.features.CollectionSize;
-import org.junit.Ignore;
 
 import java.lang.reflect.Method;
 
@@ -37,8 +35,6 @@ import static org.junit.jupiter.api.Assertions.fail;
  *
  * @author Chris Povirk
  */
-@GwtCompatible(emulated = true)
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class CollectionCreationTester<E> extends AbstractCollectionTester<E> {
     @CollectionFeature.Require(ALLOWS_NULL_VALUES)
     @CollectionSize.Require(absent = ZERO)

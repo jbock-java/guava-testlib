@@ -32,9 +32,9 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertTrue;
-import static junit.framework.TestCase.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * A series of tests that support asserting that collections cannot be modified, either through
@@ -80,11 +80,11 @@ public class UnmodifiableCollectionTests {
             Object expected = expectedIterator.next();
 
             assertTrue(
-                    "index " + i + " expected <" + expected + "., actual is exhausted",
-                    actualIterator.hasNext());
+                    actualIterator.hasNext(),
+                    "index " + i + " expected <" + expected + "., actual is exhausted");
 
             Object actual = actualIterator.next();
-            assertEquals("index " + i, expected, actual);
+            assertEquals(expected, actual, "index " + i);
             i++;
         }
         if (actualIterator.hasNext()) {

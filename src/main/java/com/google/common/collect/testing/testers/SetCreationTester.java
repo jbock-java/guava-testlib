@@ -18,7 +18,6 @@ package com.google.common.collect.testing.testers;
 
 import com.google.common.collect.testing.features.CollectionFeature;
 import com.google.common.collect.testing.features.CollectionSize;
-import org.junit.Ignore;
 
 import java.util.Arrays;
 import java.util.List;
@@ -36,7 +35,6 @@ import static org.junit.jupiter.api.Assertions.fail;
  *
  * @author Chris Povirk
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class SetCreationTester<E> extends AbstractSetTester<E> {
     @CollectionFeature.Require(value = ALLOWS_NULL_VALUES, absent = REJECTS_DUPLICATES_AT_CREATION)
     @CollectionSize.Require(absent = {ZERO, ONE})

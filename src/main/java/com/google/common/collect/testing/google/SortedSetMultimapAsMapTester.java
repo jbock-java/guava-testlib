@@ -16,7 +16,6 @@ package com.google.common.collect.testing.google;
 
 import com.google.common.collect.SortedSetMultimap;
 import com.google.common.collect.testing.features.MapFeature;
-import org.junit.Ignore;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -33,7 +32,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @param <K> The key type of the tested multimap.
  * @param <V> The value type of the tested multimap.
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class SortedSetMultimapAsMapTester<K, V>
         extends AbstractMultimapTester<K, V, SortedSetMultimap<K, V>> {
     public void testAsMapValuesImplementSortedSet() {

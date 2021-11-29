@@ -19,7 +19,6 @@ import com.google.common.annotations.GwtIncompatible;
 import com.google.common.collect.testing.Helpers;
 import com.google.common.collect.testing.IteratorTester;
 import com.google.common.collect.testing.features.CollectionFeature;
-import org.junit.Ignore;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -38,7 +37,6 @@ import static com.google.common.collect.testing.features.CollectionFeature.SUPPO
  * @author Louis Wasserman
  */
 @GwtCompatible(emulated = true)
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class MultisetIteratorTester<E> extends AbstractMultisetTester<E> {
     @SuppressWarnings("unchecked")
     @CollectionFeature.Require({SUPPORTS_ITERATOR_REMOVE, KNOWN_ORDER})

@@ -16,7 +16,6 @@ package com.google.common.collect.testing.google;
 
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.testing.features.MapFeature;
-import org.junit.Ignore;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,7 +29,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  *
  * @author Louis Wasserman
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class ListMultimapPutAllTester<K, V> extends AbstractListMultimapTester<K, V> {
     @MapFeature.Require(SUPPORTS_PUT)
     public void testPutAllAddsAtEndInOrder() {

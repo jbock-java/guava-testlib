@@ -20,7 +20,6 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.testing.AbstractContainerTester;
 import com.google.common.collect.testing.Helpers;
 import com.google.common.collect.testing.SampleElements;
-import org.junit.Ignore;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -37,7 +36,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
  *
  * @author Louis Wasserman
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public abstract class AbstractMultimapTester<K, V, M extends Multimap<K, V>>
         extends AbstractContainerTester<M, Entry<K, V>> {
 

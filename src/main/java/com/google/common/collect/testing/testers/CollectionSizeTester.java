@@ -17,7 +17,6 @@
 package com.google.common.collect.testing.testers;
 
 import com.google.common.collect.testing.AbstractCollectionTester;
-import org.junit.Ignore;
 import org.junit.jupiter.api.Assertions;
 
 /**
@@ -26,7 +25,6 @@ import org.junit.jupiter.api.Assertions;
  *
  * @author Kevin Bourrillion
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class CollectionSizeTester<E> extends AbstractCollectionTester<E> {
     public void testSize() {
         Assertions.assertEquals(

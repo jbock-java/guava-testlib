@@ -23,7 +23,6 @@ import com.google.common.collect.testing.IteratorFeature;
 import com.google.common.collect.testing.ListIteratorTester;
 import com.google.common.collect.testing.features.CollectionFeature;
 import com.google.common.collect.testing.features.ListFeature;
-import org.junit.Ignore;
 
 import java.lang.reflect.Method;
 import java.util.List;
@@ -48,7 +47,6 @@ import static org.junit.jupiter.api.Assertions.fail;
  * @author Kevin Bourrillion
  */
 @GwtCompatible(emulated = true)
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class ListListIteratorTester<E> extends AbstractListTester<E> {
     @CollectionFeature.Require(absent = SUPPORTS_REMOVE)
     @ListFeature.Require(absent = {SUPPORTS_SET, SUPPORTS_ADD_WITH_INDEX})

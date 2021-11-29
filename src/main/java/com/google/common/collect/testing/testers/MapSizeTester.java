@@ -17,7 +17,6 @@
 package com.google.common.collect.testing.testers;
 
 import com.google.common.collect.testing.AbstractMapTester;
-import org.junit.Ignore;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -27,7 +26,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  *
  * @author George van den Driessche
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class MapSizeTester<K, V> extends AbstractMapTester<K, V> {
     public void testSize() {
         assertEquals(

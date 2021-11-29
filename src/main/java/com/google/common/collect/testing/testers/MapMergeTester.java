@@ -16,14 +16,11 @@
 
 package com.google.common.collect.testing.testers;
 
-import com.google.common.annotations.GwtCompatible;
 import com.google.common.annotations.GwtIncompatible;
 import com.google.common.collect.testing.AbstractMapTester;
 import com.google.common.collect.testing.Helpers;
 import com.google.common.collect.testing.features.CollectionSize;
 import com.google.common.collect.testing.features.MapFeature;
-import junit.framework.AssertionFailedError;
-import org.junit.Ignore;
 
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -43,8 +40,6 @@ import static org.junit.jupiter.api.Assertions.fail;
  *
  * @author Louis Wasserman
  */
-@GwtCompatible(emulated = true)
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class MapMergeTester<K, V> extends AbstractMapTester<K, V> {
     @MapFeature.Require(SUPPORTS_PUT)
     public void testAbsent() {
@@ -55,7 +50,7 @@ public class MapMergeTester<K, V> extends AbstractMapTester<K, V> {
                                 k3(),
                                 v3(),
                                 (oldV, newV) -> {
-                                    throw new AssertionFailedError(
+                                    throw new AssertionError(
                                             "Should not call merge function if key was absent");
                                 }),
                 "Map.merge(absent, value, function) should return value");
@@ -73,7 +68,7 @@ public class MapMergeTester<K, V> extends AbstractMapTester<K, V> {
                                 getKeyForNullValue(),
                                 v3(),
                                 (oldV, newV) -> {
-                                    throw new AssertionFailedError(
+                                    throw new AssertionError(
                                             "Should not call merge function if key was mapped to null");
                                 }),
                 "Map.merge(keyMappedToNull, value, function) should return value");
@@ -89,7 +84,7 @@ public class MapMergeTester<K, V> extends AbstractMapTester<K, V> {
                                 null,
                                 v3(),
                                 (oldV, newV) -> {
-                                    throw new AssertionFailedError(
+                                    throw new AssertionError(
                                             "Should not call merge function if key was absent");
                                 }),
                 "Map.merge(null, value, function) should return value");
@@ -160,7 +155,7 @@ public class MapMergeTester<K, V> extends AbstractMapTester<K, V> {
                             k0(),
                             null,
                             (oldV, newV) -> {
-                                throw new AssertionFailedError("Should not call merge function if value was null");
+                                throw new AssertionError("Should not call merge function if value was null");
                             });
             fail("Expected NullPointerException or UnsupportedOperationException");
         } catch (NullPointerException | UnsupportedOperationException expected) {
@@ -183,7 +178,7 @@ public class MapMergeTester<K, V> extends AbstractMapTester<K, V> {
                             k3(),
                             v3(),
                             (oldV, newV) -> {
-                                throw new AssertionFailedError();
+                                throw new AssertionError();
                             });
             fail("Expected UnsupportedOperationException");
         } catch (UnsupportedOperationException expected) {

@@ -21,7 +21,6 @@ import com.google.common.collect.testing.Helpers;
 import com.google.common.collect.testing.features.CollectionFeature;
 import com.google.common.collect.testing.features.CollectionSize;
 import com.google.common.collect.testing.features.MapFeature;
-import org.junit.Ignore;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,7 +40,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  *
  * @author Louis Wasserman
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class MapForEachTester<K, V> extends AbstractMapTester<K, V> {
     @CollectionFeature.Require(KNOWN_ORDER)
     public void testForEachKnownOrder() {

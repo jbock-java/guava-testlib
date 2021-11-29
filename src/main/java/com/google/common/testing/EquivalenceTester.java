@@ -25,8 +25,8 @@ import com.google.common.testing.RelationshipTester.ItemReporter;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Tester for {@link Equivalence} relationships between groups of objects.
@@ -96,13 +96,19 @@ public final class EquivalenceTester<T> {
              * TODO(cpovirk): consider no longer running these equivalent() tests on every Equivalence,
              * since the Equivalence base type now implements this logic itself
              */
-            assertTrue(item + " must be inequivalent to null", !equivalence.equivalent(item, null));
-            assertTrue("null must be inequivalent to " + item, !equivalence.equivalent(null, item));
-            assertTrue(item + " must be equivalent to itself", equivalence.equivalent(item, item));
+            assertTrue(
+                    !equivalence.equivalent(item, null),
+                    item + " must be inequivalent to null");
+            assertTrue(
+                    !equivalence.equivalent(null, item),
+                    "null must be inequivalent to " + item);
+            assertTrue(
+                    equivalence.equivalent(item, item),
+                    item + " must be equivalent to itself");
             assertEquals(
-                    "the hash of " + item + " must be consistent",
                     equivalence.hash(item),
-                    equivalence.hash(item));
+                    equivalence.hash(item),
+                    "the hash of " + item + " must be consistent");
         }
     }
 }

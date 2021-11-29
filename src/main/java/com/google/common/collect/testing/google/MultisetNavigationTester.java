@@ -22,7 +22,6 @@ import com.google.common.collect.Multisets;
 import com.google.common.collect.SortedMultiset;
 import com.google.common.collect.testing.features.CollectionFeature;
 import com.google.common.collect.testing.features.CollectionSize;
-import org.junit.Ignore;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,7 +48,6 @@ import static org.junit.jupiter.api.Assertions.fail;
  *
  * @author Louis Wasserman
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class MultisetNavigationTester<E> extends AbstractMultisetTester<E> {
     private SortedMultiset<E> sortedMultiset;
     private List<E> entries;

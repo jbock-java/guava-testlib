@@ -16,8 +16,6 @@
 
 package com.google.common.collect.testing;
 
-import org.junit.Ignore;
-
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -38,7 +36,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
  * @param <V> the value type of the map to be tested.
  * @author George van den Driessche
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public abstract class AbstractMapTester<K, V>
         extends AbstractContainerTester<Map<K, V>, Entry<K, V>> {
     protected Map<K, V> getMap() {

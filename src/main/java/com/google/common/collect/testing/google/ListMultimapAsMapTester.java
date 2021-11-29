@@ -21,7 +21,6 @@ import com.google.common.collect.testing.Helpers;
 import com.google.common.collect.testing.features.CollectionSize;
 import com.google.common.collect.testing.features.MapFeature;
 import com.google.common.testing.EqualsTester;
-import org.junit.Ignore;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -43,7 +42,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * @param <K> The key type of the tested multimap.
  * @param <V> The value type of the tested multimap.
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class ListMultimapAsMapTester<K, V> extends AbstractListMultimapTester<K, V> {
     public void testAsMapValuesImplementList() {
         for (Collection<V> valueCollection : multimap().asMap().values()) {

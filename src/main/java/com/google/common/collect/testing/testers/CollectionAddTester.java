@@ -16,13 +16,11 @@
 
 package com.google.common.collect.testing.testers;
 
-import com.google.common.annotations.GwtCompatible;
 import com.google.common.annotations.GwtIncompatible;
 import com.google.common.collect.testing.AbstractCollectionTester;
 import com.google.common.collect.testing.Helpers;
 import com.google.common.collect.testing.features.CollectionFeature;
 import com.google.common.collect.testing.features.CollectionSize;
-import org.junit.Ignore;
 
 import java.lang.reflect.Method;
 import java.util.ConcurrentModificationException;
@@ -45,8 +43,6 @@ import static org.junit.jupiter.api.Assertions.fail;
  * @author Kevin Bourrillion
  */
 @SuppressWarnings("unchecked") // too many "unchecked generic array creations"
-@GwtCompatible(emulated = true)
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class CollectionAddTester<E> extends AbstractCollectionTester<E> {
     @CollectionFeature.Require(SUPPORTS_ADD)
     public void testAdd_supportedNotPresent() {

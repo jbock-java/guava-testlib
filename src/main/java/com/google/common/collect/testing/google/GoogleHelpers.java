@@ -18,7 +18,7 @@ package com.google.common.collect.testing.google;
 
 import com.google.common.collect.Multimap;
 
-import static junit.framework.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Helper methods/assertions for use with {@code com.google.common.collect} types.

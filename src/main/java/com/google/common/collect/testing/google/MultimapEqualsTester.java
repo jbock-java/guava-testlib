@@ -19,7 +19,6 @@ import com.google.common.collect.testing.Helpers;
 import com.google.common.collect.testing.features.CollectionSize;
 import com.google.common.collect.testing.features.MapFeature;
 import com.google.common.testing.EqualsTester;
-import org.junit.Ignore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +34,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  *
  * @author Louis Wasserman
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class MultimapEqualsTester<K, V> extends AbstractMultimapTester<K, V, Multimap<K, V>> {
     public void testEqualsTrue() {
         new EqualsTester()

@@ -18,7 +18,6 @@ package com.google.common.collect.testing.google;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.testing.features.MapFeature;
-import org.junit.Ignore;
 
 import static com.google.common.collect.testing.features.MapFeature.SUPPORTS_REMOVE;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -28,7 +27,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  *
  * @author Louis Wasserman
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class BiMapClearTester<K, V> extends AbstractBiMapTester<K, V> {
     @MapFeature.Require(SUPPORTS_REMOVE)
     public void testClearClearsInverse() {

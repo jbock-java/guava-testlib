@@ -21,7 +21,6 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.testing.Helpers;
 import com.google.common.collect.testing.features.CollectionSize;
 import com.google.common.collect.testing.features.MapFeature;
-import org.junit.Ignore;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -46,7 +45,6 @@ import static org.junit.jupiter.api.Assertions.fail;
  *
  * @author Louis Wasserman
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class MultimapRemoveEntryTester<K, V> extends AbstractMultimapTester<K, V, Multimap<K, V>> {
     @MapFeature.Require(SUPPORTS_REMOVE)
     public void testRemoveAbsent() {

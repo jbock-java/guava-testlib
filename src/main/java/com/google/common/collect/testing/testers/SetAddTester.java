@@ -16,12 +16,9 @@
 
 package com.google.common.collect.testing.testers;
 
-import com.google.common.annotations.GwtCompatible;
-import com.google.common.annotations.GwtIncompatible;
 import com.google.common.collect.testing.Helpers;
 import com.google.common.collect.testing.features.CollectionFeature;
 import com.google.common.collect.testing.features.CollectionSize;
-import org.junit.Ignore;
 
 import java.lang.reflect.Method;
 
@@ -36,8 +33,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
  *
  * @author Kevin Bourrillion
  */
-@GwtCompatible(emulated = true)
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class SetAddTester<E> extends AbstractSetTester<E> {
     @CollectionFeature.Require(SUPPORTS_ADD)
     @CollectionSize.Require(absent = ZERO)
@@ -63,7 +58,6 @@ public class SetAddTester<E> extends AbstractSetTester<E> {
      * Returns the {@link Method} instance for {@link #testAdd_supportedNullPresent()} so that tests
      * can suppress it. See {@link CollectionAddTester#getAddNullSupportedMethod()} for details.
      */
-    @GwtIncompatible // reflection
     public static Method getAddSupportedNullPresentMethod() {
         return Helpers.getMethod(SetAddTester.class, "testAdd_supportedNullPresent");
     }

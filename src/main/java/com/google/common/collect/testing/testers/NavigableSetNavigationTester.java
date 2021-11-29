@@ -19,7 +19,6 @@ package com.google.common.collect.testing.testers;
 import com.google.common.collect.testing.Helpers;
 import com.google.common.collect.testing.features.CollectionFeature;
 import com.google.common.collect.testing.features.CollectionSize;
-import org.junit.Ignore;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -45,7 +44,6 @@ import static org.junit.jupiter.api.Assertions.fail;
  * @author Jesse Wilson
  * @author Louis Wasserman
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class NavigableSetNavigationTester<E> extends AbstractSetTester<E> {
 
     private NavigableSet<E> navigableSet;

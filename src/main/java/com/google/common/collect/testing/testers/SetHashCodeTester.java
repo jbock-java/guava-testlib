@@ -16,12 +16,10 @@
 
 package com.google.common.collect.testing.testers;
 
-import com.google.common.annotations.GwtCompatible;
 import com.google.common.annotations.GwtIncompatible;
 import com.google.common.collect.testing.Helpers;
 import com.google.common.collect.testing.features.CollectionFeature;
 import com.google.common.collect.testing.features.CollectionSize;
-import org.junit.Ignore;
 
 import java.lang.reflect.Method;
 import java.util.Collection;
@@ -34,8 +32,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  *
  * @author George van den Driessche
  */
-@GwtCompatible(emulated = true)
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class SetHashCodeTester<E> extends AbstractSetTester<E> {
     public void testHashCode() {
         int expectedHashCode = 0;

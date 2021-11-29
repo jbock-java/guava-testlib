@@ -29,7 +29,7 @@ import java.util.function.BiPredicate;
 import java.util.stream.Collector;
 
 import static com.google.common.base.Preconditions.checkNotNull;
-import static junit.framework.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Tester for {@code Collector} implementations.
@@ -163,7 +163,7 @@ public final class CollectorTester<T, A, R> {
 
     private void assertEquivalent(R expected, R actual) {
         assertTrue(
-                "Expected " + expected + " got " + actual + " modulo equivalence " + equivalence,
-                equivalence.test(expected, actual));
+                equivalence.test(expected, actual),
+                "Expected " + expected + " got " + actual + " modulo equivalence " + equivalence);
     }
 }

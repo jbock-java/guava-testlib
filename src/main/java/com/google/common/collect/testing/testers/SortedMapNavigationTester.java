@@ -19,7 +19,6 @@ package com.google.common.collect.testing.testers;
 import com.google.common.collect.testing.AbstractMapTester;
 import com.google.common.collect.testing.Helpers;
 import com.google.common.collect.testing.features.CollectionSize;
-import org.junit.Ignore;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -46,7 +45,6 @@ import static org.junit.jupiter.api.Assertions.fail;
  * @author Jesse Wilson
  * @author Louis Wasserman
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class SortedMapNavigationTester<K, V> extends AbstractMapTester<K, V> {
 
     private SortedMap<K, V> navigableMap;

@@ -16,9 +16,6 @@
 
 package com.google.common.collect.testing;
 
-import org.junit.Ignore;
-import org.junit.jupiter.api.Assertions;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -35,7 +32,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
  * @param <E> the type of the container's contents
  * @author George van den Driessche
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public abstract class AbstractContainerTester<C, E>
         extends AbstractTester<OneSizeTestContainerGenerator<C, E>> {
     protected SampleElements<E> samples;

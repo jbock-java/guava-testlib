@@ -17,12 +17,10 @@
 package com.google.common.collect.testing.testers;
 
 import com.google.common.collect.testing.AbstractCollectionTester;
-import org.junit.Ignore;
 
 import java.util.Set;
 
 /** @author George van den Driessche */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class AbstractSetTester<E> extends AbstractCollectionTester<E> {
     /*
      * Previously we had a field named set that was initialized to the value of

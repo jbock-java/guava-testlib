@@ -17,7 +17,6 @@ package com.google.common.collect.testing.google;
 import com.google.common.collect.SetMultimap;
 import com.google.common.collect.testing.features.CollectionSize;
 import com.google.common.collect.testing.features.MapFeature;
-import org.junit.Ignore;
 
 import java.util.List;
 import java.util.Map.Entry;
@@ -36,7 +35,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
  *
  * @author Louis Wasserman
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class SetMultimapPutTester<K, V> extends AbstractMultimapTester<K, V, SetMultimap<K, V>> {
     // Tests for non-duplicate values are in MultimapPutTester
 

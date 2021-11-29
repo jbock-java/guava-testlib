@@ -20,7 +20,6 @@ import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
 import com.google.common.collect.Multisets;
 import com.google.common.collect.testing.features.CollectionSize;
-import org.junit.Ignore;
 
 import static com.google.common.collect.testing.features.CollectionSize.ONE;
 import static com.google.common.collect.testing.features.CollectionSize.ZERO;
@@ -34,7 +33,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  *
  * @author Jared Levy
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class MultisetReadsTester<E> extends AbstractMultisetTester<E> {
 
     @CollectionSize.Require(absent = ZERO)

@@ -16,14 +16,11 @@
 
 package com.google.common.collect.testing.testers;
 
-import com.google.common.annotations.GwtCompatible;
-import com.google.common.annotations.GwtIncompatible;
 import com.google.common.collect.testing.Helpers;
 import com.google.common.collect.testing.features.CollectionFeature;
 import com.google.common.collect.testing.features.CollectionSize;
 import com.google.common.collect.testing.features.ListFeature;
 import com.google.common.testing.SerializableTester;
-import org.junit.Ignore;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -51,8 +48,6 @@ import static org.junit.jupiter.api.Assertions.fail;
  * @author Chris Povirk
  */
 @SuppressWarnings("unchecked") // too many "unchecked generic array creations"
-@GwtCompatible(emulated = true)
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class ListSubListTester<E> extends AbstractListTester<E> {
     public void testSubList_startNegative() {
         try {
@@ -330,7 +325,6 @@ public class ListSubListTester<E> extends AbstractListTester<E> {
      * FeatureSpecificTestSuiteBuilder.suppressing()} until <a
      * href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6570631">Sun bug 6570631</a> is fixed.
      */
-    @GwtIncompatible // reflection
     public static Method getSubListOriginalListSetAffectsSubListMethod() {
         return getMethod(ListSubListTester.class, "testSubList_originalListSetAffectsSubList");
     }
@@ -342,7 +336,6 @@ public class ListSubListTester<E> extends AbstractListTester<E> {
      * FeatureSpecificTestSuiteBuilder.suppressing()} until <a
      * href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6570631">Sun bug 6570631</a> is fixed.
      */
-    @GwtIncompatible // reflection
     public static Method getSubListOriginalListSetAffectsSubListLargeListMethod() {
         return getMethod(ListSubListTester.class, "testSubList_originalListSetAffectsSubListLargeList");
     }
@@ -354,7 +347,6 @@ public class ListSubListTester<E> extends AbstractListTester<E> {
      * FeatureSpecificTestSuiteBuilder.suppressing()} until <a
      * href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6570575">Sun bug 6570575</a> is fixed.
      */
-    @GwtIncompatible // reflection
     public static Method getSubListSubListRemoveAffectsOriginalLargeListMethod() {
         return getMethod(ListSubListTester.class, "testSubList_subListRemoveAffectsOriginalLargeList");
     }

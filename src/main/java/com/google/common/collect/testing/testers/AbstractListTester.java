@@ -18,7 +18,6 @@ package com.google.common.collect.testing.testers;
 
 import com.google.common.collect.testing.AbstractCollectionTester;
 import com.google.common.collect.testing.Helpers;
-import org.junit.Ignore;
 
 import java.util.Collection;
 import java.util.List;
@@ -30,7 +29,6 @@ import static org.junit.jupiter.api.Assertions.fail;
  *
  * @author George van den Driessche
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class AbstractListTester<E> extends AbstractCollectionTester<E> {
     /*
      * Previously we had a field named list that was initialized to the value of

@@ -17,7 +17,6 @@
 package com.google.common.collect.testing.testers;
 
 import com.google.common.collect.testing.features.CollectionFeature;
-import org.junit.Ignore;
 
 import static com.google.common.collect.testing.features.CollectionFeature.ALLOWS_NULL_VALUES;
 import static com.google.common.collect.testing.features.CollectionFeature.SUPPORTS_ADD;
@@ -30,8 +29,6 @@ import static org.junit.jupiter.api.Assertions.fail;
  *
  * @author Jared Levy
  */
-@SuppressWarnings("unchecked") // too many "unchecked generic array creations"
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class QueueOfferTester<E> extends AbstractQueueTester<E> {
     @CollectionFeature.Require(SUPPORTS_ADD)
     public void testOffer_supportedNotPresent() {

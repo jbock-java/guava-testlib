@@ -20,7 +20,6 @@ import com.google.common.collect.testing.Helpers;
 import com.google.common.collect.testing.features.CollectionFeature;
 import com.google.common.collect.testing.features.CollectionSize;
 import com.google.common.collect.testing.features.ListFeature;
-import org.junit.Ignore;
 
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
@@ -39,7 +38,6 @@ import static org.junit.jupiter.api.Assertions.fail;
  *
  * @author Chris Povirk
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class ListRemoveAtIndexTester<E> extends AbstractListTester<E> {
     @ListFeature.Require(absent = SUPPORTS_REMOVE_WITH_INDEX)
     @CollectionSize.Require(absent = ZERO)

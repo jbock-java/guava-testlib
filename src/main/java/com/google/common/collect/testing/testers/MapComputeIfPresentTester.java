@@ -19,8 +19,6 @@ package com.google.common.collect.testing.testers;
 import com.google.common.collect.testing.AbstractMapTester;
 import com.google.common.collect.testing.features.CollectionSize;
 import com.google.common.collect.testing.features.MapFeature;
-import junit.framework.AssertionFailedError;
-import org.junit.Ignore;
 
 import java.util.Map;
 import java.util.Map.Entry;
@@ -39,7 +37,6 @@ import static org.junit.jupiter.api.Assertions.fail;
  *
  * @author Louis Wasserman
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class MapComputeIfPresentTester<K, V> extends AbstractMapTester<K, V> {
 
     @MapFeature.Require(SUPPORTS_PUT)
@@ -49,7 +46,7 @@ public class MapComputeIfPresentTester<K, V> extends AbstractMapTester<K, V> {
                         .computeIfPresent(
                                 k3(),
                                 (k, v) -> {
-                                    throw new AssertionFailedError();
+                                    throw new AssertionError();
                                 }),
                 "computeIfPresent(notPresent, function) should return null");
         expectUnchanged();
@@ -152,7 +149,7 @@ public class MapComputeIfPresentTester<K, V> extends AbstractMapTester<K, V> {
                         .computeIfPresent(
                                 null,
                                 (k, v) -> {
-                                    throw new AssertionFailedError();
+                                    throw new AssertionError();
                                 }),
                 "computeIfPresent(null, function) should return null");
         expectUnchanged();
@@ -165,7 +162,7 @@ public class MapComputeIfPresentTester<K, V> extends AbstractMapTester<K, V> {
                     .computeIfPresent(
                             k3(),
                             (k, v) -> {
-                                throw new AssertionFailedError();
+                                throw new AssertionError();
                             });
         } catch (UnsupportedOperationException tolerated) {
         }

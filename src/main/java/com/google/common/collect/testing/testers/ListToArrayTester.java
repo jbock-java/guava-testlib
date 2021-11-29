@@ -17,7 +17,6 @@
 package com.google.common.collect.testing.testers;
 
 import com.google.common.collect.testing.features.CollectionSize;
-import org.junit.Ignore;
 
 import java.util.Arrays;
 
@@ -30,7 +29,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  *
  * @author Chris Povirk
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class ListToArrayTester<E> extends AbstractListTester<E> {
     // CollectionToArrayTester tests everything except ordering.
 

@@ -16,8 +16,6 @@
 
 package com.google.common.collect.testing.testers;
 
-import org.junit.Ignore;
-
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
@@ -26,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.fail;
  *
  * @author Chris Povirk
  */
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class ListGetTester<E> extends AbstractListTester<E> {
     public void testGet_valid() {
         // This calls get() on each index and checks the result:

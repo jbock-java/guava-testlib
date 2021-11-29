@@ -50,7 +50,7 @@ import static com.google.common.collect.testing.SampleElements.Strings.AFTER_LAS
 import static com.google.common.collect.testing.SampleElements.Strings.AFTER_LAST_2;
 import static com.google.common.collect.testing.SampleElements.Strings.BEFORE_FIRST;
 import static com.google.common.collect.testing.SampleElements.Strings.BEFORE_FIRST_2;
-import static junit.framework.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Generators of different types of sets and derived collections from sets.

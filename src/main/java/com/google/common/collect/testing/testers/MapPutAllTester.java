@@ -16,14 +16,12 @@
 
 package com.google.common.collect.testing.testers;
 
-import com.google.common.annotations.GwtCompatible;
 import com.google.common.annotations.GwtIncompatible;
 import com.google.common.collect.testing.AbstractMapTester;
 import com.google.common.collect.testing.Helpers;
 import com.google.common.collect.testing.MinimalCollection;
 import com.google.common.collect.testing.features.CollectionSize;
 import com.google.common.collect.testing.features.MapFeature;
-import org.junit.Ignore;
 
 import java.lang.reflect.Method;
 import java.util.Collections;
@@ -50,8 +48,6 @@ import static org.junit.jupiter.api.Assertions.fail;
  * @author Kevin Bourrillion
  */
 @SuppressWarnings("unchecked") // too many "unchecked generic array creations"
-@GwtCompatible(emulated = true)
-@Ignore // Affects only Android test runner, which respects JUnit 4 annotations on JUnit 3 tests.
 public class MapPutAllTester<K, V> extends AbstractMapTester<K, V> {
     private List<Entry<K, V>> containsNullKey;
     private List<Entry<K, V>> containsNullValue;
