@@ -16,31 +16,24 @@
 
 package com.google.common.testing;
 
-import com.google.common.annotations.Beta;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Optional;
-import com.google.common.base.Predicate;
 import com.google.common.collect.HashMultimap;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
-import com.google.common.collect.Sets;
 import com.google.common.reflect.ClassPath;
 import com.google.common.testing.NullPointerTester.Visibility;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.TreeMap;
+import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
-import static com.google.common.base.Predicates.and;
-import static com.google.common.base.Predicates.not;
 import static com.google.common.testing.AbstractPackageSanityTests.Chopper.suffix;
 
 /**
@@ -97,9 +90,6 @@ import static com.google.common.testing.AbstractPackageSanityTests.Chopper.suffi
  * @author Ben Yu
  * @since 14.0
  */
-@Beta
-// TODO: Switch to JUnit 4 and use @Parameterized and @BeforeClass
-// Note: @Test annotations are deliberate, as some subclasses specify @RunWith(JUnit4).
 public final class AbstractPackageSanityTests {
 
     /**
@@ -113,29 +103,31 @@ public final class AbstractPackageSanityTests {
             (Class<?> c) -> c.getSimpleName().contains("_");
 
     /* The names of the expected method that tests null checks. */
-    private static final ImmutableList<String> NULL_TEST_METHOD_NAMES =
-            ImmutableList.of(
+    private static final List<String> NULL_TEST_METHOD_NAMES =
+            List.of(
                     "testNulls", "testNull",
                     "testNullPointers", "testNullPointer",
                     "testNullPointerExceptions", "testNullPointerException");
 
     /* The names of the expected method that tests serializable. */
-    private static final ImmutableList<String> SERIALIZABLE_TEST_METHOD_NAMES =
-            ImmutableList.of(
+    private static final List<String> SERIALIZABLE_TEST_METHOD_NAMES =
+            List.of(
                     "testSerializable", "testSerialization",
                     "testEqualsAndSerializable", "testEqualsAndSerialization");
 
     /* The names of the expected method that tests equals. */
-    private static final ImmutableList<String> EQUALS_TEST_METHOD_NAMES =
-            ImmutableList.of(
+    private static final List<String> EQUALS_TEST_METHOD_NAMES =
+            List.of(
                     "testEquals",
                     "testEqualsAndHashCode",
                     "testEqualsAndSerializable",
                     "testEqualsAndSerialization",
                     "testEquality");
 
-    private static final Chopper TEST_SUFFIX =
-            suffix("Test").or(suffix("Tests")).or(suffix("TestCase")).or(suffix("TestSuite"));
+    private static final Chopper TEST_SUFFIX = suffix("Test")
+            .or(suffix("Tests"))
+            .or(suffix("TestCase"))
+            .or(suffix("TestSuite"));
 
     private final Logger logger = Logger.getLogger(getClass().getName());
     private final ClassSanityTester tester = new ClassSanityTester();
@@ -147,7 +139,7 @@ public final class AbstractPackageSanityTests {
      * Restricts the sanity tests for public API only. By default, package-private API are also
      * covered.
      */
-    protected final void publicApiOnly() {
+    public void publicApiOnly() {
         visibility = Visibility.PUBLIC;
     }
 
@@ -252,7 +244,7 @@ public final class AbstractPackageSanityTests {
      *       that when equal parameters are passed, the result instance should also be equal; and vice
      *       versa.
      *   <li>Inequality check is not performed against state mutation methods such as {@link
-     *       List#add}, or functional update methods such as {@link
+     *       List#add}, or functional update methods such as {@code
      *       com.google.common.base.Joiner#skipNulls}.
      *   <li>If the constructor or factory method used to construct instance takes a parameter that
      *       {@link AbstractPackageSanityTests} doesn't know how to construct, the test will fail.
@@ -285,7 +277,7 @@ public final class AbstractPackageSanityTests {
      * testing {@link Object#equals} because more than one sample instances are needed for testing
      * inequality.
      */
-    protected final <T> void setDefault(Class<T> type, T value) {
+    public <T> void setDefault(Class<T> type, T value) {
         tester.setDefault(type, value);
     }
 
@@ -295,13 +287,13 @@ public final class AbstractPackageSanityTests {
      *
      * @since 17.0
      */
-    protected final <T> void setDistinctValues(Class<T> type, T value1, T value2) {
+    public <T> void setDistinctValues(Class<T> type, T value1, T value2) {
         tester.setDistinctValues(type, value1, value2);
     }
 
     /** Specifies that classes that satisfy the given predicate aren't tested for sanity. */
-    protected final void ignoreClasses(Predicate<? super Class<?>> condition) {
-        this.classFilter = and(this.classFilter, not(condition));
+    public void ignoreClasses(Predicate<? super Class<?>> condition) {
+        this.classFilter = c -> this.classFilter.test(c) && !condition.test(c);
     }
 
     private static AssertionError sanityError(
@@ -324,17 +316,17 @@ public final class AbstractPackageSanityTests {
      * Finds the classes not ending with a test suffix and not covered by an explicit test whose name
      * is {@code explicitTestName}.
      */
-    @VisibleForTesting
+    // visible for testing
     List<Class<?>> findClassesToTest(
             Iterable<? extends Class<?>> classes, Iterable<String> explicitTestNames) {
         // "a.b.Foo" -> a.b.Foo.class
-        TreeMap<String, Class<?>> classMap = Maps.newTreeMap();
+        TreeMap<String, Class<?>> classMap = new TreeMap<>();
         for (Class<?> cls : classes) {
             classMap.put(cls.getName(), cls);
         }
         // Foo.class -> [FooTest.class, FooTests.class, FooTestSuite.class, ...]
         Multimap<Class<?>, Class<?>> testClasses = HashMultimap.create();
-        LinkedHashSet<Class<?>> candidateClasses = Sets.newLinkedHashSet();
+        LinkedHashSet<Class<?>> candidateClasses = new LinkedHashSet<>();
         for (Class<?> cls : classes) {
             Optional<String> testedClassName = TEST_SUFFIX.chop(cls.getName());
             if (testedClassName.isPresent()) {
@@ -346,9 +338,10 @@ public final class AbstractPackageSanityTests {
                 candidateClasses.add(cls);
             }
         }
-        List<Class<?>> result = Lists.newArrayList();
+        List<Class<?>> result = new ArrayList<>();
         NEXT_CANDIDATE:
-        for (Class<?> candidate : Iterables.filter(candidateClasses, classFilter)) {
+        for (Class<?> candidate : candidateClasses.stream()
+                .filter(classFilter).collect(Collectors.toList())) {
             for (Class<?> testClass : testClasses.get(candidate)) {
                 if (hasTest(testClass, explicitTestNames)) {
                     // covered by explicit test
@@ -361,7 +354,7 @@ public final class AbstractPackageSanityTests {
     }
 
     private List<Class<?>> loadClassesInPackage() throws IOException {
-        List<Class<?>> classes = Lists.newArrayList();
+        List<Class<?>> classes = new ArrayList<>();
         String packageName = getClass().getPackage().getName();
         for (ClassPath.ClassInfo classInfo :
                 ClassPath.from(getClass().getClassLoader()).getTopLevelClasses(packageName)) {
@@ -407,7 +400,7 @@ public final class AbstractPackageSanityTests {
             return new Chopper() {
                 @Override
                 Optional<String> chop(String str) {
-                    return i.chop(str).or(you.chop(str));
+                    return i.chop(str).or(() -> you.chop(str));
                 }
             };
         }
@@ -421,7 +414,7 @@ public final class AbstractPackageSanityTests {
                     if (str.endsWith(suffix)) {
                         return Optional.of(str.substring(0, str.length() - suffix.length()));
                     } else {
-                        return Optional.absent();
+                        return Optional.empty();
                     }
                 }
             };
