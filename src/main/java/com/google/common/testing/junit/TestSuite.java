@@ -166,7 +166,7 @@ public class TestSuite implements Test {
     /**
      * Constructs a TestSuite from the given array of classes.
      *
-     * @param classes {@link junit.framework.TestCase}s
+     * @param classes {@link TestCase}s
      */
     public TestSuite(Class<?>... classes) {
         for (Class<?> each : classes) {

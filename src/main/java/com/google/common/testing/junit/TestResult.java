@@ -11,8 +11,6 @@ import java.util.List;
  * The test framework distinguishes between <i>failures</i> and <i>errors</i>.
  * A failure is anticipated and checked for with assertions. Errors are
  * unanticipated problems like an {@link ArrayIndexOutOfBoundsException}.
- *
- * @see junit.framework.Test
  */
 public class TestResult {
     protected List<TestFailure> fFailures;
@@ -22,9 +20,9 @@ public class TestResult {
     private boolean fStop;
 
     public TestResult() {
-        fFailures = new ArrayList<TestFailure>();
-        fErrors = new ArrayList<TestFailure>();
-        fListeners = new ArrayList<TestListener>();
+        fFailures = new ArrayList<>();
+        fErrors = new ArrayList<>();
+        fListeners = new ArrayList<>();
         fRunTests = 0;
         fStop = false;
     }
