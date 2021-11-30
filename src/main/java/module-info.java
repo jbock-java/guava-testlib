@@ -1,5 +1,4 @@
 module com.google.common.testing {
-    requires junit;
     requires com.google.common;
     requires java.logging;
     requires org.junit.jupiter.api;

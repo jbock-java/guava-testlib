@@ -29,7 +29,6 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 import com.google.common.reflect.ClassPath;
 import com.google.common.testing.NullPointerTester.Visibility;
-import junit.framework.AssertionFailedError;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -305,7 +304,7 @@ public final class AbstractPackageSanityTests {
         this.classFilter = and(this.classFilter, not(condition));
     }
 
-    private static AssertionFailedError sanityError(
+    private static AssertionError sanityError(
             Class<?> cls, List<String> explicitTestNames, String description, Throwable e) {
         String message =
                 String.format(
@@ -316,7 +315,7 @@ public final class AbstractPackageSanityTests {
                         cls,
                         explicitTestNames.get(0),
                         cls.getName());
-        AssertionFailedError error = new AssertionFailedError(message);
+        AssertionError error = new AssertionError(message);
         error.initCause(e);
         return error;
     }
