@@ -16,6 +16,7 @@
 
 package com.google.common.testing;
 
+import com.google.common.base.Predicates;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.reflect.ClassPath;
@@ -34,6 +35,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import static com.google.common.base.Predicates.and;
+import static com.google.common.base.Predicates.not;
 import static com.google.common.testing.AbstractPackageSanityTests.Chopper.suffix;
 
 /**
@@ -293,7 +296,8 @@ public final class AbstractPackageSanityTests {
 
     /** Specifies that classes that satisfy the given predicate aren't tested for sanity. */
     public void ignoreClasses(Predicate<? super Class<?>> condition) {
-        this.classFilter = c -> this.classFilter.test(c) && !condition.test(c);
+        Predicate<Class<?>> classFilter = this.classFilter;
+        this.classFilter = Predicates.and(classFilter::test, not(condition::test));
     }
 
     private static AssertionError sanityError(

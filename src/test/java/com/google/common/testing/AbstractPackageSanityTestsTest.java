@@ -16,7 +16,6 @@
 
 package com.google.common.testing;
 
-import com.google.common.base.Predicates;
 import com.google.common.collect.ImmutableList;
 import org.junit.jupiter.api.Test;
 
@@ -30,7 +29,7 @@ import static com.google.common.truth.Truth.assertThat;
  *
  * @author Ben Yu
  */
-class AbstractPackageSanityTestTest {
+class AbstractPackageSanityTestsTest {
 
     private final AbstractPackageSanityTests sanityTests = new AbstractPackageSanityTests();
 
@@ -58,7 +57,7 @@ class AbstractPackageSanityTestTest {
 
     @Test
     void testFindClassesToTest_ignoreClasses() {
-        sanityTests.ignoreClasses(Predicates.<Object>equalTo(PublicFoo.class));
+        sanityTests.ignoreClasses(c -> c.equals(PublicFoo.class));
         assertThat(findClassesToTest(ImmutableList.of(PublicFoo.class))).isEmpty();
         assertThat(findClassesToTest(ImmutableList.of(Foo.class))).contains(Foo.class);
     }
